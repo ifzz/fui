@@ -25,4 +25,6 @@ fui.web
 =
 fui的静态资源文件和模板资源文件，包含js\css\img\ftl等等。
 
-FUI采用maven进行管理工程。
+FUI代码管理方式
+=
+FUI采用maven进行工程管理。
