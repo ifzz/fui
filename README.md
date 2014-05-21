@@ -11,6 +11,9 @@ FUI
   FUI目前已经提供了JSP的标签库和freemark的标签库<br>
 
 http://rdc.hundsun.com:9032/fui/
+FUI 工程构建方式
+=
+FUI采用maven进行管理工程。
 FUI 模块说明
 =
 fui.core
@@ -26,4 +29,4 @@ fui.web
 =
 fui的静态资源文件和模板资源文件，包含js\css\img\ftl等等。
 
-FUI采用maven进行管理工程。
+
