@@ -10,3 +10,17 @@ fui
   FUI组件支持的浏览器（IE6,IE7,IE8,Chrome）；<br>
 
 http://rdc.hundsun.com:9032/fui/
+fui 模块说明
+====
+fui.core
+=====
+fui的核心处理包，包含环境启动、请求处理相关的内容。
+fui.template
+=====
+fui的组件模板处理包，包含fui的组件渲染时所需的模板处理功能。
+fui.template.jsp
+=====
+fui的jsp tag方式使用支持包。
+fui.web
+=====
+fui的静态资源文件和模板资源文件，包含js\css\img\ftl等等。
