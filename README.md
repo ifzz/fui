@@ -8,6 +8,7 @@ FUI
   FUI组件对性能慢的组件进行了替换、封装，如grid，tree等；<br>
   FUI组件样式统一风格（EXT UI样式）；<br>
   FUI组件支持的浏览器（IE6,IE7,IE8,Chrome）；<br>
+  FUI目前已经提供了JSP的标签库和freemark的标签库<br>
 
 http://rdc.hundsun.com:9032/fui/
 FUI 模块说明
