@@ -24,3 +24,5 @@ fui的jsp tag方式使用支持包。
 fui.web
 =
 fui的静态资源文件和模板资源文件，包含js\css\img\ftl等等。
+
+FUI采用maven进行管理工程。
