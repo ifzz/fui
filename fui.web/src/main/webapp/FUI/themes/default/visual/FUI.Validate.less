@@ -1,0 +1,45 @@
+@charset "utf-8";
+/*FValidate*/
+/*默认错误显示标签的class样式*/
+
+/*输入框的错误样式  .f-validate-error */
+ input.f-validate-error{
+    background: none repeat-x scroll center bottom transparent;
+    border: 1px solid;
+    background-color: #FFFFFF;
+    background-image: url("@{base-url}/fvalidate/invalid_line.gif");
+    border-color: #CC3300;
+}
+
+textarea.f-validate-error {
+    background: none repeat-x scroll center bottom transparent;
+    border: 1px solid;
+    background-color: #FFFFFF;
+    background-image: url("@{base-url}/fvalidate/invalid_line.gif");
+    border-color: #CC3300;
+}
+
+div.f-validate-error {
+    background: none no-repeat scroll 0 2px transparent;
+    line-height: 16px;
+    padding: 2px 2px 2px 18px;
+    background-image: url("@{base-url}/fvalidate/warning.gif");
+    color: #C0272B;
+    font: 11px tahoma, arial, helvetica, sans-serif;
+}
+
+.f-validate-errorMsg {
+    background: url("@{base-url}/fvalidate/alert.gif") center no-repeat white;
+    background-position: 5px 50%;
+    text-align: left;
+    padding: 2px 10px 2px 25px;
+    border: 1px solid red;
+    display: none;
+    position: absolute;
+    border-radius: 4px;
+    z-index:20000;
+    color: #444444;
+    font: 11px tahoma, arial, helvetica, sans-serif;
+}
+
+

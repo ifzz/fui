@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.ButtonGroup.css 按钮组的css
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述：ButtonGroup的样式
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121204 hanyin 将f-tool-cell的vertical-align改为middle
+ */
+
+.f-toolGroup {
+	margin: 0;
+	overflow: hidden;
+	text-align: center;
+}
+
+.f-toolGroup .f-toolGroup-ct {
+	width: 100%;
+}
+
+.f-tool-cell {
+	vertical-align: top;
+	position: relative;
+}
+
+.f-toolGroup.f-tools-center .f-toolGroup-ct {
+	margin: 0 auto;
+}
+
+.f-toolGroup.f-tools-left .f-toolGroup-ct {
+	margin: 0 auto 0 0 ;
+}
+
+.f-toolGroup.f-tools-right .f-toolGroup-ct {
+	margin: 0 0 0 auto;
+}

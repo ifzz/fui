@@ -1,0 +1,83 @@
+
+<h3>Tree</h3>
+<p>支持动态数据（ajax异步树）加载和静态数据两种数据加载模式；支持单选和复选；可以绑定树节点点击事件
+</p>
+<img src="../resource/images/tree.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>适用于主页面的菜单树，也适用于需要类似于组织机构展现方式。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>不支持后台组装树的DOM，即dom结构是在浏览器端生成；</li>
+	<li>仅支持异步树，并且每次最多展开一级；</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于静态数据初始化树：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var staticData = [
+		{"id":"10012","text":"树节点1",checked:"true","pid":"0101","children":[
+		   {"id":"10012-1","text":"叶子节点1",leaf:"true","pid":"10012","desc":null}
+		]},
+		{"id":"10013","text":"树节点2","leaf":true,"pid":"0101"} ,
+		{"id":"10014","text":"树节点3","pid":"0101","children":[
+		   {"id":"10014-1","text":"树节点1","pid":"10014","leaf":true},
+		   {"id":"10014-2","text":"树节点2","leaf":true,"pid":"10014"},
+		   {"id":"10014-3","text":"树节点3","leaf":true,"pid":"10014"}
+		]},
+		{"id":"10015","text":"树节点4","leaf":true,"pid":"0101"},
+		{"id":"10016","text":"叶子节点2","leaf":true,"pid":"0101"}
+	];
+</script>
+<f:tree id="tree1" dataUrl="" staticData="staticData" rootVisible="false" ></f:tree>
+</textarea>
+
+<p>json数据格式示例，树的json格式是子嵌套的，children属性里面又是一个树的json结构:</p>
+<textarea name="code" class="html" style="display: none;">
+[ 
+  {"id":"01","text":"研发","desc":null,"pid":"0101",
+  	"children":[
+  		{"id":"0101","text":"开发平台部","desc":null,"}
+  	]
+  }, 
+  {"id":"010103","text":"开发工程师","desc":null,"pid":"0101"} 
+]
+</textarea>
+
+<p>ajax方式加载树数据：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:tree id="tree2" dataUrl="getTreeDataRandom.fservice" rootVisible="false" ></f:tree>
+</textarea>
+
+<p>复选模式(selectChildren)，选中父节点子节点自动选中，选中子节点，父节点半选状态：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:tree id="tree3" dataUrl="" staticData="staticData" rootVisible="false" selectModel="selectChildren"></f:tree>
+</textarea>
+
+<p>复选模式(selectParent)，选中子节点父节点全选中，选中父节点子节点状态不变：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:tree id="tree4" dataUrl="" staticData="staticData" rootVisible="false" selectModel="selectParent"></f:tree>
+</textarea>
+
+<p>树节点点击事件：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+   function onNodeClick1(nodeData) {
+	   alert("树节点被点击: " + nodeData.id);
+   }
+</script>
+<f:tree id="tree5" dataUrl="" staticData="staticData" rootVisible="false" onNodeClick="onNodeClick1"></f:tree>
+</textarea>

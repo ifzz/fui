@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Message.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： Messagecss
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121206		hanyin	新建
+ */
+
+.f-message {
+	
+}
+ 
+ .f-message .f-popupMessage-body {
+	border: 0px;
+	background-color: transparent;
+	padding: 10px 10px 5px 10px;
+	overflow: hidden;
+}
+
+.f-message .f-tool-cell {
+	text-align: left;
+}
+
+.f-message-icon-question {
+	background: transparent no-repeat top left;
+	background-image: url("images/fmessage/icon-question.gif");
+}
+
+.f-message-icon-error {
+	background: transparent no-repeat top left;
+	background-image: url("images/fmessage/icon-error.gif");
+}
+
+.f-message-icon-info {
+	background: transparent no-repeat top left;
+	background-image: url("images/fmessage/icon-info.gif");
+}
+
+.f-message-icon-warning {
+	background: transparent no-repeat top left;
+	background-image: url("images/fmessage/icon-warning.gif");
+}
+
+.f-message-header {
+	cursor: move;
+}

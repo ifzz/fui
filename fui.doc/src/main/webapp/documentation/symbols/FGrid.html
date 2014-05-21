@@ -1,0 +1,911 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Grid</h3>
+<p>FGrid替换原生的table标签，支持分页展示，并统一样式；</p>
+<img src="../resource/images/grid.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>需要做数据table展现，并且需要分页功能。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>不支持行列可编辑功能；</li>
+	<li>不支持分组grid和treegrid；</li>
+	<li>不支持多列头；</li>
+	<li>不支持筛选列的功能；</li>
+	<li>不支持导出和打印功能；</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>在低端浏览器下不建议加载过多数据（总数据项超过1000），如果数据量过大，请采用分页或者减少pageSize；</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FGrid实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:grid id="grid1" width="600"  height="350" dataUrl="getGridPageData2.fservice">
+    <f:column title="姓名" dataIndex="name" width="250" headerAlign="left"  textAlign="left" renderer=""></f:column>
+    <f:column title="年龄" dataIndex="age" width="150" headerAlign="center" textAlign="center" renderer="" ></f:column>
+    <f:column title="详细地址" dataIndex="address" width="150" headerAlign="right" textAlign="right" wordWrap="true" renderer=""></f:column>
+
+    <f:pagingbar id="testbar" pageSize="25"></f:pagingbar>
+</f:grid>
+</textarea>
+
+<p>json数据格式示例:</p>
+<textarea name="code" class="html" style="display: none;">
+{ 
+  "totalCount":20, 
+  "listData":[
+  	{"id":"01","text":"研发","desc":"描述1","pid":"00"}, 
+  	{"id":"0101","text":"开发平台部","desc":"描述2","pid":"01"}, 
+  	{"id":"010101","text":"部门经理","desc":描述3,"pid":"0101"}, 
+  	{"id":"010102","text":"产品经理","desc":"描述4","pid":"0101"} 
+  ]
+}
+</textarea>
+
+<p>通过配置autoload属性为false，数据懒加载：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:grid id="grid2" autoload="false" width="600" height="350" dataUrl="getGridPageData2.fservice">
+	// 列信息、分页栏等信息
+</f:grid>
+</textarea>
+
+<p>通过设置multiSelect为复选，支持跨页选中，通过API获取被选中行的数据：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:grid id="grid3" selectModel="multiSelect" crossPageSelect="true" width="600" height="350" dataUrl="getGridPageData2.fservice">
+	// 列信息、分页栏等信息
+</f:grid>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		// 返回一个对象的数组，每个对象就是ajax请求回来的选中行的所有字段信息
+		var selectedData = $("#grid3").FGrid("getSelectedDatas");
+		// ...
+	});
+</script>
+</textarea>
+
+<p>自定义列渲染，配置column的renderer属性指定列渲染函数：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	function colRenderFunc(cellData, rowData, index) {
+		// cellData：当前单元格的数据
+		// rowData：当前行的数据
+		// index ：当前行的索引
+		if (index/2 === 1)
+			return "<span style='color:red'>" + cellData + "</span>";
+	}
+</script>
+
+<f:grid id="grid4" width="600"  height="350" dataUrl="getGridPageData2.fservice">
+    <f:column title="姓名" dataIndex="name" width="250" headerAlign="left"  textAlign="left" renderer="colRenderFunc"></f:column>
+    <f:column title="年龄" dataIndex="age" width="150" headerAlign="center" textAlign="center" renderer="colRenderFunc" ></f:column>
+    <f:column title="详细地址" dataIndex="address" width="150" headerAlign="right" textAlign="right" wordWrap="true" renderer="colRenderFunc"></f:column>
+
+    <f:pagingbar id="testbar" pageSize="25"></f:pagingbar>
+</f:grid>
+</textarea>
+
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td><b>id</b></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>组件的唯一标识。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>autoload</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>组件初始化时是否加载数据。默认是为:false,即默认不加载数据。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>baseParams</td>
+	        					<td>Object</td>
+	        					<td>
+	        						<p>设置组件的初始化参数，默认为{}。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td></td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>colModel</td>
+	        					<td>Array[JSON]</td>
+	        					<td>
+	        						<p>列数据模型,该属性类型为Array.数组中的json对象保存各列的属性。这些属性如下：<br/><ol>        <li>title：列标题。类型：String</li>        <li>headerAlign：设置列标题居左、居中、居右显示。类型：String，可选值为："left"，"center"，"right"。默认值为"left"</li>        <li>textAlign：设置单元格内容居左、居中、居右显示。类型：String，可选值为："left"，"center"，"right"。默认值为"left"</li>        <li>width：列宽度。类型：Number</li>        <li>dataIndex：对应后台服务返回数据中的字段。类型：String</li>        <li>wordWrap：设置列内容是否自动换行，false表示当列内容超过列宽后不换行， true表示当列内容超过列宽的时候自动换行（英文字符串或者数字当做一个单词来处理，如果超过边界不会换行显示）。类型：Boolean,默认值为false。注意：使用该属(属性值为true）同时，又使用renderer函数，则需要在renderer函数中嵌套table（样式为“f-grid-cell-wrap”）来实现超出部分换行显示的功能。</li>       <li>sortable：是否可排序。类型：Boolean,默认值为：false。请求中会添加两个参数：sortBy和sortDir。其中sortBy的值为需要排序的列的dataIndex属性值，sortDir的值为asc（升序）或者desc（降序）。</li>       <li>defaultSortDir：设置默认排序是升序还是降序。类型：String,默认值为：null。该属性只有在sortable属性为true时才有效且只能配置一次，如果多列配置了该属性，首次配置的有效。</li>       <li>renderer：自定义列渲染函数。类型：Function,默认值为：null。该函数会传递以下数据：(cellData , rowData, index)。其中：cellData为单元格的值，rowData为当前行的数据，index为当前行的索引号（从0开始）</li></ol> <br/><b ><span style="color:red;">注意事项：</span></b><br/>当使用jsp或者freemarker标签写页面的时候，grid组件<b>不需要配置属性</b>，用户只需要在grid标签内部嵌套column标签，并在column标签上配置相应的属性即可。column标签有一下属性：title、headAlign、textAlign、width、dataIndex、wordWrap、sortable,、defaultSortDir、renderer<br/>如果用户单独使用FUI的js库，则需要按照上面的格式配置完整的colModel属性。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>[]</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>crossPageSelect</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>设置是否支持跨页选择。注意：只有在selectModel属性值为“multiSelect”时，该属性才有效。并且需要设置uniqueKey属性，用于生成区别行数据的唯一索引。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>dataUrl</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>ajax请求获取数据的请求地址。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>emptyMsg</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>grid组件没有数据时显示的内容。在fui_lang_zh_CN.js中，设置了该属性的默认值为“没有数据”。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"没有数据"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>hasRowNumber</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>组件是否有数字列。默认值为：true，即有数字列。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>hasTips</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>鼠标移到单元格上时，是否提示单元格内容。默认值为false，即不提示单元格内容。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>height</td>
+	        					<td>Number</td>
+	        					<td>
+	        						<p>组件的高度</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>350</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>rowNumberWidth</td>
+	        					<td>Number</td>
+	        					<td>
+	        						<p>设置数字列的宽度。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>24</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>selectModel</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>设置组件行选择模式。默认值为：“normal”，即没有单选框和复选框模式。该属性还有其他两值可选:multiSelect（复选模式，有复选列） 和 singleSelect（单选模式，有单选列）。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"normal"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>uniqueKey</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>用于生成区别行数据的唯一索引。注意：该属性只有在selectModel属性值为“multiSelect”，crossPageSelect属性为“true”时有效。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre> <f:grid selectModel="multiSelect" crossPageSelect="true" uniqueKey="uniqueKey" ></f:grid>function uniqueKey (itemData){   return itemData['dataIndex1']+itemData['dataIndex2']+itemData['dataIndex2'];}</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>width</td>
+	        					<td>Number</td>
+	        					<td>
+	        						<p>组件的宽度</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>600</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+          		<!-- doc_events_begin -->
+          		<h4>事件</h4>
+          		<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+          						<td>onBeforesend</td>
+          						<td>function(jqXHR)</td>
+          						<td>
+          							<p>请求发送前触发，可用于添加遮罩组件。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        XMLHTTPReques对象。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onContextMenu</td>
+          						<td>function(e)</td>
+          						<td>
+          							<p>表格内容区域右键菜单触发的事件。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>e</b>
+		                                        鼠标事件
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onLoadError</td>
+          						<td>function(XMLHTTPReques, textStatus, errorThrown)</td>
+          						<td>
+          							<p>请求失败时触发。例如：ajax超时，网络中断。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>XMLHTTPReques</b>
+		                                        XMLHTTPReques对象。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        请求状态，通常 textStatus 和 errorThrown 之中。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>errorThrown</b>
+		                                        错误信息，通常 textStatus 和 errorThrown 之中。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onLoadfailure</td>
+          						<td>function(data, textStatus, jqXHR)</td>
+          						<td>
+          							<p>请求成功但returnCode为1或者-1时触发。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        请求返回的数据。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        请求状态。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        XMLHTTPReques对象。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onLoadsuccess</td>
+          						<td>function(data, textStatus, jqXHR)</td>
+          						<td>
+          							<p>请求成功时触发</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        请求返回的数据。类型为“page”。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        请求状态。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        XMLHTTPReques对象。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onRowClick</td>
+          						<td>function(rowData, rowIndex)</td>
+          						<td>
+          							<p>单击一行记录后触发。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>rowData</b>
+		                                        类型：Object 当前行的数据。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>rowIndex</b>
+		                                        类型：Number， 当前行数据的索引，从0开始。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onRowDbClick</td>
+          						<td>function(rowData, rowIndex)</td>
+          						<td>
+          							<p>双击一行记录后触发</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>rowData</b>
+		                                        类型：Object 当前行的数据。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>rowIndex</b>
+		                                        类型：Number， 当前行数据的索引，从0开始。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onRowDeselect</td>
+          						<td>function(rowData, rowIndex)</td>
+          						<td>
+          							<p>取消选中一行记录后触发。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>rowData</b>
+		                                        类型：Object 当前行的数据。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>rowIndex</b>
+		                                        类型：Number， 当前行数据的索引，从0开始。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onRowSelect</td>
+          						<td>function(rowData, rowIndex)</td>
+          						<td>
+          							<p>选中一行记录后触发。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>rowData</b>
+		                                        类型：Object 当前行的数据。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>rowIndex</b>
+		                                        类型：Number， 当前行数据的索引，从0开始。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          			</tbody>
+          		</table>
+          	  	<!-- doc_events_end -->
+       		
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>getAllData</td>
+								<td>()</td>
+								<td>
+									<p>获取当前页的所有数据,返回的数据类型是Array 。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getContextMenuData</td>
+								<td>()</td>
+								<td>
+									<p>获取右键菜单选中行的数据。该方法只有绑定右键菜单时才会用到。例如：绑定右键菜单，弹出FMenu，点击FMenu子列表，获取右键选中行的数据。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getSelectedDatas</td>
+								<td>()</td>
+								<td>
+									<p>获取选中行的数据,返回的数据类型是Array 。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>load</td>
+								<td>(params, url)</td>
+								<td>
+									<p>请求数据。 如果url不传，则请求url使用组件默认的dataUrl属性值。如果两个参数都不传，等同于重新请求当前页的数据。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>params</b>
+		                                        可选 请求数据的参数
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>url</b>
+		                                        可选  请求数据的url地址
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setBaseParams</td>
+								<td>(params)</td>
+								<td>
+									<p>重新设置当前组件的参数。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>params</b>
+		                                        类型：Object。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setSize</td>
+								<td>(width, height)</td>
+								<td>
+									<p>设置组件的高宽。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>width</b>
+		                                        类型：Number 组件的宽度
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>height</b>
+		                                        类型：Number 组件的高度
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

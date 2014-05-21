@@ -1,0 +1,59 @@
+
+<h3>CheckboxGroup</h3>
+<p>FCheckboxGroup管理多个checkbox组件，将被勾选的复选框的value值拼接为逗号分隔的字符串作为表单的提交值。</p>
+<img src="../resource/images/checkboxGroup.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>功能类似于选项不多且明确的复选combo，是另一种的展现方式</p>
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>FCheckboxGroup不管理内部checkbox布局</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li>内部包含的checkbox不能有name属性，但必须有value值</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FCheckboxGroup实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<style type="text/css">
+	.checkbox-item {
+		float : left;
+		width: 80px;
+	}
+</style>
+
+<f:checkboxGroup name="checkboxGroup1" style="width:252px;height: 45px;padding:5px;">
+	<div class="checkbox-item">
+		<label><input type="checkbox" value="0">Swim</label>
+	</div>
+	<div class="checkbox-item">
+		<label><input type="checkbox" value="1">Basketball</label>
+	</div>
+	<div class="checkbox-item">
+		<label><input type="checkbox" value="2">Football</label>
+	</div>
+	<div class="checkbox-item">
+		<label><input type="checkbox" value="3">Badminton</label>
+	</div>
+	<div class="checkbox-item">
+		<label><input type="checkbox" value="4">Volleyball</label>
+	</div>
+	<div class="checkbox-item">
+		<label><input type="checkbox" value="5">Climbing</label>
+	</div>
+	<div class="checkbox-item">
+		<label><input type="checkbox" value="6">Running</label>
+	</div>
+</f:checkboxGroup>
+</textarea>

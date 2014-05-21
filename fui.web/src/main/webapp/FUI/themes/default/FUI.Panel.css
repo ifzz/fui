@@ -1,0 +1,147 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Panel.css 面板组件的css
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 面板css
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121225	  hanyin 	给header的f-tool增加float和margin样式
+ * 20130122   hanyin 	给f-panel-body增加position:relative样式，避免Ie6下内容显示异常的问题
+ */
+
+.f-panel {
+	/* 盒子模型 */
+	border-style: solid;
+    border-width: 0;
+}
+
+.f-panel .f-panel-header {
+	/* 背景 */
+	background-image: url("images/fpanel/white-top-bottom.gif");
+	background-repeat: repeat-x;
+	background-position: 0 -1px;
+	background-attachment: scroll;
+
+	/* 盒子模型 */
+	height: 15px;
+	margin: 0;
+	margin-top: 0;
+	padding-top: 5px;
+	padding-right: 3px;
+	padding-bottom: 4px;
+	padding-left: 5px;
+	border-width: 1px;
+	border-color: #99BBE8;
+	border-style: solid;
+	box-shadow: none;
+}
+
+.f-panel .f-panel-header .f-panel-header-icon  {
+	/* 文本 */
+	letter-spacing: normal;
+	line-height: 15px;
+	text-align: start;
+	vertical-align: baseline;
+	
+	/* 布局 */
+	overflow: hidden;
+	float: left;
+	display: inline;
+}
+
+.f-panel .f-panel-header .f-panel-header-title  {
+	/* 文本 */
+	font-family: tahoma, arial, verdana, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	font-style: normal;
+	color: #15428B;
+	letter-spacing: normal;
+	line-height: 15px;
+	text-align: start;
+	vertical-align: baseline;
+	
+	/* 布局 */
+	overflow: hidden;
+	float: left;
+	display: inline;
+}
+
+.f-panel .f-panel-header .f-panel-header-title {
+	/* 字体 */
+	font-size: 12px;
+}
+
+.f-panel .f-panel-header .f-panel-tool {
+	/* 布局 */
+	display: inline;
+	float: right;
+	overflow: hidden;
+}
+
+.f-panel-header .f-tool {
+	float: right;
+	margin-left: 2px;
+}
+
+.f-panel div.f-panel-wrapper {
+	/* 作为外部 wrapper 的 div 不要定死高度, 最好还加上 overflow: hidden.以达到高度自适应 */
+	overflow-x: auto;
+	overflow-y: auto;
+
+	/* 盒子模型 */
+    border-color: #99BBE8;
+    border-style: none solid solid solid;
+    border-width: 0 1px 1px 1px;
+}
+
+.f-panel div.f-panel-wrapper .f-panel-body {
+	/* 背景 */
+	background-color: #FFFFFF;
+    
+    /* 其他 */
+    overflow: auto;
+
+    /* 防止在IE6下，由于文字太长造成body被撑开溢出 */
+    *word-wrap: break-word;
+
+	/* 文本 */
+	font-family: tahoma, arial, verdana, sans-serif;
+	font-size: 12px;
+	
+	/* 20130122 hanyin add 修复内部表单显示异常的问题 */
+	position: relative;
+}
+
+.f-panel .f-panel-body .f-panel-body-content{
+	/* 盒子模型 */
+    width: auto;
+    /* 其他 */
+    overflow: auto;
+}
+
+.f-panel .f-panel-body .f-panel-body-top{
+	/* 盒子模型 */
+	width: 100%;
+    border-color: #99BBE8;
+    border-style: none none solid none;
+    border-width: 0 0 1px 0;
+}
+
+.f-panel .f-panel-body .f-panel-body-bottom{
+	/* 盒子模型 */
+	width: 100%;
+    border-color: #99BBE8;
+    border-style: solid none none none;
+    border-width: 1px 0 0 0;
+}
+
+.f-panel-body-content {
+	overflow: auto;
+}

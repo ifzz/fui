@@ -1,0 +1,668 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Validate</h3>
+<p>FValidate在jquery.validate的基础上进行了扩展，主要扩展的功能：① 含有隐藏域的表单校验；② 支持类似于ext的qtip提示方式。
+</p>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>适用于 需要对表单校验，并且form中存在 FUI含有隐藏域的表单组件，比如NumberField、combo、calendar的情况下。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>由于集成了jquery.validate，FUI只能保证经过验证过的功能是可以使用并建议使用的，其他的由于jquery.validate的缺陷造成问题建议采用规避的方式解决；</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基本功能：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		$("#formid").FValidate({
+			onkeyup : true,
+			rules : {
+				password : {
+					required : true,
+					minlength : 5
+				}
+			},
+			messages : {
+				password : {
+					required : '密码必须输入',
+					minlength : '密码不能小于5位'
+				}
+			}
+		});
+	});
+</script>
+</textarea>
+
+<p>自定义校验规则：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+			$.validator.addMethod("hasreg", function(value) {
+             return value != 'admin';
+      }, '此用户已经被注册');
+		});
+	});
+</script>
+</textarea>
+
+<p>提交前判断：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		$('#formid').submit(function() {
+			if (!$("#formid").valid()){
+				// 逻辑处理
+				// return false; //此处必须返回false，阻止常规的form提交
+			}
+		});
+	});
+</script>
+</textarea>
+
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td>errorClass</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>指定错误提示标签的class名称，此class也将添加在校验的元素上面。<br/>说明：错误提示的样式包括输入框的样式以及提示信息的样式。该属性一般情况下不需要设置，使用默认值即可。除非用户自定义错误提示的样式。该样式具体制定详见demo。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     errorClass: "invalid"  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>'error'</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>errorContainer</td>
+	        					<td>Selector</td>
+	        					<td>
+	        						<p>包含错误提示信息的容器，根据校验结果隐藏或者显示错误容器。其中该错误提示信息是由用户在页面设计的时候填写的内容。<br />与 errorLabelContainer 属性的区别是这个属性提示的错误信息是静态的，即为用户在页面设计时填写的内容。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$("#myform").FValidate({     errorContainer: "#messageBox1, #messageBox2"     //可以配置多个容器，这里的messageBox2元素没有被包装处理，只是错误发生的时候显示和隐藏此元素。  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>$( [] )</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>errorElement</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>指定错误信息的html标签名称<br/>说明：该属性只有当用户设置errorPlacement属性时才起作用。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     errorElement: "em"  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>'div'</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>errorLabelContainer</td>
+	        					<td>Selector</td>
+	        					<td>
+	        						<p>设置统一存放错误信息的容器，根据校验结果隐藏或者显示错误容器。校验框架会将所有的错误提示信息存放到该容器下。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$("#myform").FValidate({     errorLabelContainer: "#messageBox1 ul"     //messageBox为容器的id  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>$( [] )</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>errorModel</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>错误信息提示的模式。默认模式为“under”。有两种模式，“under”模式为：错误信息显示在输入框的下方。“qtip”模式为：错误信息悬浮显示。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     errorModel: "qtip"  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>'under'</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>errorPlacement</td>
+	        					<td>Function</td>
+	        					<td>
+	        						<p>定制错误信息显示的回调方法，用于自定义错误提示格式。该方法有两个参数，第一个参数是错误信息的元素，第二个是触发校验错误的源元素。FCombo组件和FNumberField组件第二个参数为隐藏域元素。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$("#myform").FValidate({    errorPlacement: function(error, element) {       // 用户自定义操作       error.appendTo( element.parent("td").next("td") );     }   })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>无</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>focusCleanup</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>获得焦点的时候是否清除错误提示，这种清除是针对所有元素的，<br/>如果设置为true，则必须将focusInvalid设置为false，否则将没有校验效果。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     focusInvalid: false, //必须设置     focusCleanup: true  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>focusInvalid</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>校验错误的时候是否将聚焦元素。该属性如果为true，校验出错时会将光标聚焦到错误处。<br/>说明:使用该属性时，提交按钮类型必须是"submit"类型。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     focusInvalid: false  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>groups</td>
+	        					<td>JSON</td>
+	        					<td>
+	        						<p>错误消息分组,如果没有设置errorPlacement，则分组内的元素出现错误时只在第一个元素后面显示错误消息，如果设置了errorPlacement，则可以在errorPlacement回调中定义显示位置 <br/></p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$("#myform").FValidate({    groups: {      username: "fname lname"    },    errorPlacement: function(error, element) {       if (element.attr("name") == "fname"                   || element.attr("name") == "lname" ){         error.insertAfter("#lastname");       }else{         error.insertAfter(element);       }     },   }) //将fname和lname的错误信息统一显示在lastname元素后面</pre>
+		        						
+		        					
+	        					</td>
+	        					<td></td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>ignore</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>校验时忽略指定的元素，可以配置需要校验的元素id和样式名称等jquery识别的选择器。<br/>说明：该属性值不能为 “：hidden”，否则会导致FCombo、FNumberField组件的校验无效。建议为复杂的选中器，用过不匹配个别标签。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$("#myform").FValidate({     ignore: ".ignore"     //此处还可以配置input[type='password']、#id等jquery的选择器  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>null</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>messages</td>
+	        					<td>JSON</td>
+	        					<td>
+	        						<p>键值对的校验错误信息.键是元素的name属性，值是错误信息的组合对象。<br/></p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$("#formId").FValidate({ rules: {   name: {     required: true,     minlength: 2   } }, messages: {   name: {     required: "We need your email address to contact you",     minlength: jQuery.format("At least {0} characters required!")     //这里的{0}就是minlength定义的2   } }})</pre>
+		        						
+		        					
+	        					</td>
+	        					<td></td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>onfocusout</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>在blur事件发生时是否进行校验，如果没有输入任何值，则将忽略校验。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     onfocusout: false  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>onkeyup</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>在keyup事件发生时是否进行校验。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     onkeyup: false  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>onsubmit</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>是否在提交时校验表单，如果设置为false，则提交的时候不校验表单，<br/>但是其它keyup、onblur等事件校验不受影响.</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     onsubmit: false  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>submitHandler</td>
+	        					<td>Function</td>
+	        					<td>
+	        						<p>定制校验通过后表单提交前的回调方法，用来替换默认提交，一般是Ajax提交方式需要使用到。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     submitHandler: function(form) {      $(form).ajaxSubmit(); //校验通过之后调用ajaxSubmit提交表单     }  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>undefined</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>success</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>指定校验成功没有任何错误后加到提示元素上面的样式名称<br/>和validClass的区别是它只加在提示元素上面，而不对校验的对象做任何变动。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     success: "valid"  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>无</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>validClass</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>指定校验成功没有任何错误后加到元素的class名称<br/></p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$(".selector").FValidate({     validClass: "success"  })</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>'valid'</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>element</td>
+								<td>(element)</td>
+								<td>
+									<p>校验选中的element</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>element</b>
+		                                        
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre> $("#myform").FValidate().element( "#myselect" );</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>form</td>
+								<td>()</td>
+								<td>
+									<p>触发表单校验</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre> $("#myform").FValidate().form()</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>FValidate</td>
+								<td>()</td>
+								<td>
+									<p>创建表单的校验对象</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>  $("#myform").FValidate({     //options  });</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>numberOfInvalids</td>
+								<td>()</td>
+								<td>
+									<p>统计没有通过校验的元素个数</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>var validator = $("#myform").FValidate();return validator.numberOfInvalids();</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>resetForm</td>
+								<td>()</td>
+								<td>
+									<p>重置表单，调用此方法将去掉所有提示信息</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre> var validator = $("#myform").FValidate(); validator.resetForm();</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>rules</td>
+								<td>()</td>
+								<td>
+									<p>针对选中的元素，动态添加删除校验规则的方法，有rules( "add", rules ) 和rules( "remove", [rules] )两种</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre> $('#username').rules('add',{      minlength:5,      messages: {          minlength: jQuery.format("Please, at least {0} characters are necessary")      }  });$("#myinput").rules("remove", "min max"); //remove可以配置多个rule，空格隔开</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>showErrors</td>
+								<td>(Object)</td>
+								<td>
+									<p>添加并显示提示信息,其中示例中的firstname和firstname1为form表单下面的一个表单组件的name属性值。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>Object</b>
+		                                        
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>var validator = $("#myform").FValidate();validator.showErrors({"firstname": "请重新选择！",'firstname1':'该字段输入信息有错误！'});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>valid</td>
+								<td>()</td>
+								<td>
+									<p>检查表单是否通过校验</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>  $("#myform").FValidate();  $("a.check").click(function() {    alert("Valid: " + $("#myform").valid());    return false;  });</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

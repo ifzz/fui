@@ -1,0 +1,73 @@
+
+<h3>Validate</h3>
+<p>FValidate在jquery.validate的基础上进行了扩展，主要扩展的功能：① 含有隐藏域的表单校验；② 支持类似于ext的qtip提示方式。
+</p>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>适用于 需要对表单校验，并且form中存在 FUI含有隐藏域的表单组件，比如NumberField、combo、calendar的情况下。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>由于集成了jquery.validate，FUI只能保证经过验证过的功能是可以使用并建议使用的，其他的由于jquery.validate的缺陷造成问题建议采用规避的方式解决；</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基本功能：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		$("#formid").FValidate({
+			onkeyup : true,
+			rules : {
+				password : {
+					required : true,
+					minlength : 5
+				}
+			},
+			messages : {
+				password : {
+					required : '密码必须输入',
+					minlength : '密码不能小于5位'
+				}
+			}
+		});
+	});
+</script>
+</textarea>
+
+<p>自定义校验规则：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+			$.validator.addMethod("hasreg", function(value) {
+             return value != 'admin';
+      }, '此用户已经被注册');
+		});
+	});
+</script>
+</textarea>
+
+<p>提交前判断：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		$('#formid').submit(function() {
+			if (!$("#formid").valid()){
+				// 逻辑处理
+				// return false; //此处必须返回false，阻止常规的form提交
+			}
+		});
+	});
+</script>
+</textarea>

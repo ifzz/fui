@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://jres.hundsun.com/xsd/fui" xmlns="http://jres.hundsun.com/xsd/fui"
+	elementFormDefault="qualified">
+
+	<xs:element name="fui">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="constant" type="constantType" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element name="channels" minOccurs="0" maxOccurs="1" />
+				<xs:element name="interceptors" minOccurs="0" maxOccurs="1" />
+                <xs:element name="lifecycle-processor" minOccurs="0" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="constantType">
+		<xs:attributeGroup ref="constantGroup" />
+	</xs:complexType>
+
+	<xs:attributeGroup name="constantGroup">
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="value" type="xs:string" />
+		<xs:attribute name="callback" type="xs:string" />
+	</xs:attributeGroup>
+
+</xs:schema>

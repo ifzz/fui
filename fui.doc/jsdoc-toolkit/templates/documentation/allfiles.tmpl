@@ -1,0 +1,21 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		{+include("static/outHeader.html")+}
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <div class="doc">
+        <div style="padding:10px">
+        <!-- ============================== class overview ============================ -->
+  		<h4>源文件清单</h4>
+  		<div style="text-align:right;">{+new Link().toFile("index.html").withText("查看控件清单")+}</div>
+        <for each="item" in="data">
+				<h4>{+new Link().toSrc(item.alias).withText(item.name)+}</h4>
+		</for>
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+{+include("static/foot.html")+}

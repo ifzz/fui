@@ -1,0 +1,816 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/* *
+<span class='line'>  2</span>  * 版本：1.0.0.1
+<span class='line'>  3</span>  * 系统名称: FUI
+<span class='line'>  4</span>  * 模块名称: JRES
+<span class='line'>  5</span>  * 文件名称: FUI.Validate.js
+<span class='line'>  6</span>  * 作者：qudc
+<span class='line'>  7</span>  * 邮箱：qudc@hundsun.com
+<span class='line'>  8</span>  * 软件版权: 恒生电子股份有限公司
+<span class='line'>  9</span>  * 功能描述：FComboGrid组件对应的代码。
+<span class='line'> 10</span>  * 修改记录:
+<span class='line'> 11</span>  * 修改日期      修改人员             修改说明
+<span class='line'> 12</span>  * 2013-03-15   qudc                修改options.showErrors 函数，实现errorModel模式为qtip时，第二次提示错误信息报js错误的问题。
+<span class='line'> 13</span>  * 2013-03-15   qudc                修改options.showErrors 函数，实现errorModel模式为qtip时，第一次校验失败（例如必输项没有输入内容），校验成功以后，鼠标移上去，原先错误信息仍然会显示。现在心中valid属相标志，获取组件校验是否成功，如果成功，则不做提示。
+<span class='line'> 14</span>  */</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="COMM">/**
+<span class='line'> 16</span>  * @name FValidate
+<span class='line'> 17</span>  * @class 
+<span class='line'> 18</span>  * 输入验证，可以方便地对表单进行校验.指导用户输入的准确性，当用户输入不符合业务规则时给予提示，并影响表单的提交。此组件在jquery.validate的基础上
+<span class='line'> 19</span>  * 做了必要扩展：支持含有隐藏域的FUI的表单组件校验；支持类似ext的qtip的功能等。
+<span class='line'> 20</span>  */</span><span class="WHIT">
+<span class='line'> 21</span> 
+<span class='line'> 22</span> </span><span class="COMM">/**@lends FValidate# */</span><span class="WHIT">
+<span class='line'> 23</span> 
+<span class='line'> 24</span> 
+<span class='line'> 25</span> 
+<span class='line'> 26</span> 
+<span class='line'> 27</span> 
+<span class='line'> 28</span> 
+<span class='line'> 29</span> 
+<span class='line'> 30</span> </span><span class="COMM">/**
+<span class='line'> 31</span>  * 指定校验成功没有任何错误后加到元素的class名称&lt;br/>
+<span class='line'> 32</span>  * @name FValidate#validClass
+<span class='line'> 33</span>  * @type String
+<span class='line'> 34</span>  * @default 'valid'
+<span class='line'> 35</span>  * @example
+<span class='line'> 36</span>  * $(".selector").FValidate({
+<span class='line'> 37</span>  *      validClass: "success"
+<span class='line'> 38</span>  *   })
+<span class='line'> 39</span>  */</span><span class="WHIT">
+<span class='line'> 40</span> 
+<span class='line'> 41</span> </span><span class="COMM">/**
+<span class='line'> 42</span>  * 指定校验成功没有任何错误后加到提示元素上面的样式名称&lt;br/>
+<span class='line'> 43</span>  * 和validClass的区别是它只加在提示元素上面，而不对校验的对象做任何变动。
+<span class='line'> 44</span>  * @name FValidate#success
+<span class='line'> 45</span>  * @type String
+<span class='line'> 46</span>  * @default 无
+<span class='line'> 47</span>  * @example
+<span class='line'> 48</span>  * $(".selector").FValidate({
+<span class='line'> 49</span>  *      success: "valid"
+<span class='line'> 50</span>  *   })
+<span class='line'> 51</span>  */</span><span class="WHIT">
+<span class='line'> 52</span> 
+<span class='line'> 53</span> 
+<span class='line'> 54</span> 
+<span class='line'> 55</span> 
+<span class='line'> 56</span> 
+<span class='line'> 57</span> </span><span class="COMM">/**
+<span class='line'> 58</span>  * 获得焦点的时候是否清除错误提示，这种清除是针对所有元素的，&lt;br/>
+<span class='line'> 59</span>  * 如果设置为true，则必须将focusInvalid设置为false，否则将没有校验效果。
+<span class='line'> 60</span>  * @name FValidate#focusCleanup
+<span class='line'> 61</span>  * @type Boolean
+<span class='line'> 62</span>  * @default false
+<span class='line'> 63</span>  * @example
+<span class='line'> 64</span>  * $(".selector").FValidate({
+<span class='line'> 65</span>  *      focusInvalid: false, //必须设置
+<span class='line'> 66</span>  *      focusCleanup: true
+<span class='line'> 67</span>  *   })
+<span class='line'> 68</span>  */</span><span class="WHIT">
+<span class='line'> 69</span> 
+<span class='line'> 70</span> 
+<span class='line'> 71</span> </span><span class="COMM">/**
+<span class='line'> 72</span>  * 在blur事件发生时是否进行校验，如果没有输入任何值，则将忽略校验。
+<span class='line'> 73</span>  * @name FValidate#onfocusout
+<span class='line'> 74</span>  * @type Boolean
+<span class='line'> 75</span>  * @default true
+<span class='line'> 76</span>  * @example
+<span class='line'> 77</span>  * $(".selector").FValidate({
+<span class='line'> 78</span>  *      onfocusout: false
+<span class='line'> 79</span>  *   })
+<span class='line'> 80</span>  */</span><span class="WHIT">
+<span class='line'> 81</span> 
+<span class='line'> 82</span> </span><span class="COMM">/**
+<span class='line'> 83</span>  * 在keyup事件发生时是否进行校验。
+<span class='line'> 84</span>  * @name FValidate#onkeyup
+<span class='line'> 85</span>  * @type Boolean
+<span class='line'> 86</span>  * @default true
+<span class='line'> 87</span>  * @example
+<span class='line'> 88</span>  * $(".selector").FValidate({
+<span class='line'> 89</span>  *      onkeyup: false
+<span class='line'> 90</span>  *   })
+<span class='line'> 91</span>  */</span><span class="WHIT">
+<span class='line'> 92</span> 
+<span class='line'> 93</span> 
+<span class='line'> 94</span> 
+<span class='line'> 95</span> 
+<span class='line'> 96</span> </span><span class="COMM">/**
+<span class='line'> 97</span>  * 定制错误信息显示的回调方法，用于自定义错误提示格式。该方法有两个参数，第一个参数是错误信息的元素，第二个是触发校验错误的源元素。FCombo组件和FNumberField组件第二个参数为隐藏域元素。
+<span class='line'> 98</span>  * @name FValidate#errorPlacement
+<span class='line'> 99</span>  * @type Function
+<span class='line'>100</span>  * @default 无
+<span class='line'>101</span>  * @example
+<span class='line'>102</span>  * $("#myform").FValidate({
+<span class='line'>103</span>  *     errorPlacement: function(error, element) {
+<span class='line'>104</span>  *        // 用户自定义操作
+<span class='line'>105</span>  *        error.appendTo( element.parent("td").next("td") );
+<span class='line'>106</span>  *      }
+<span class='line'>107</span>  *    })
+<span class='line'>108</span>  */</span><span class="WHIT">
+<span class='line'>109</span> 
+<span class='line'>110</span> 
+<span class='line'>111</span> </span><span class="COMM">/**
+<span class='line'>112</span>  * 定制校验通过后表单提交前的回调方法，用来替换默认提交，一般是Ajax提交方式需要使用到。
+<span class='line'>113</span>  * @type Function
+<span class='line'>114</span>  * @name FValidate#submitHandler
+<span class='line'>115</span>  * @param form 当前表单对象
+<span class='line'>116</span>  * @example
+<span class='line'>117</span>  * $(".selector").FValidate({
+<span class='line'>118</span>  *      submitHandler: function(form) {
+<span class='line'>119</span>  *       $(form).ajaxSubmit(); //校验通过之后调用ajaxSubmit提交表单
+<span class='line'>120</span>  *      }
+<span class='line'>121</span>  *   })
+<span class='line'>122</span>  */</span><span class="WHIT">
+<span class='line'>123</span> 
+<span class='line'>124</span> 
+<span class='line'>125</span> 
+<span class='line'>126</span> 
+<span class='line'>127</span> </span><span class="COMM">/**
+<span class='line'>128</span>  * 检查表单是否通过校验
+<span class='line'>129</span>  * @name FValidate#valid
+<span class='line'>130</span>  * @function
+<span class='line'>131</span>  * @returns Boolean
+<span class='line'>132</span>  * @example
+<span class='line'>133</span>  *   $("#myform").FValidate();
+<span class='line'>134</span>  *   $("a.check").click(function() {
+<span class='line'>135</span>  *     alert("Valid: " + $("#myform").valid());
+<span class='line'>136</span>  *     return false;
+<span class='line'>137</span>  *   });
+<span class='line'>138</span>  */</span><span class="WHIT">
+<span class='line'>139</span> 
+<span class='line'>140</span> 
+<span class='line'>141</span> 
+<span class='line'>142</span> </span><span class="COMM">/**
+<span class='line'>143</span>  * 触发表单校验
+<span class='line'>144</span>  * @name FValidate#form
+<span class='line'>145</span>  * @function
+<span class='line'>146</span>  * @returns Boolean
+<span class='line'>147</span>  * @example
+<span class='line'>148</span>  *  $("#myform").FValidate().form()
+<span class='line'>149</span>  */</span><span class="WHIT">
+<span class='line'>150</span> 
+<span class='line'>151</span> </span><span class="COMM">/**
+<span class='line'>152</span>  * 校验选中的element
+<span class='line'>153</span>  * @name FValidate#element
+<span class='line'>154</span>  * @param element
+<span class='line'>155</span>  * @function
+<span class='line'>156</span>  * @returns Boolean
+<span class='line'>157</span>  * @example
+<span class='line'>158</span>  *  $("#myform").FValidate().element( "#myselect" );
+<span class='line'>159</span>  */</span><span class="WHIT">
+<span class='line'>160</span> 
+<span class='line'>161</span> </span><span class="COMM">/**
+<span class='line'>162</span>  * 重置表单，调用此方法将去掉所有提示信息
+<span class='line'>163</span>  * @name FValidate#resetForm
+<span class='line'>164</span>  * @function
+<span class='line'>165</span>  * @returns 无
+<span class='line'>166</span>  * @example
+<span class='line'>167</span>  *  var validator = $("#myform").FValidate();
+<span class='line'>168</span>  *  validator.resetForm();
+<span class='line'>169</span>  */</span><span class="WHIT">
+<span class='line'>170</span> 
+<span class='line'>171</span> </span><span class="COMM">/**
+<span class='line'>172</span>  *  添加并显示提示信息,其中示例中的firstname和firstname1为form表单下面的一个表单组件的name属性值。
+<span class='line'>173</span>  * @name FValidate#showErrors
+<span class='line'>174</span>  * @function
+<span class='line'>175</span>  * @param Object
+<span class='line'>176</span>  * @returns 无
+<span class='line'>177</span>  * @example
+<span class='line'>178</span>  * var validator = $("#myform").FValidate();
+<span class='line'>179</span>  * validator.showErrors({"firstname": "请重新选择！",'firstname1':'该字段输入信息有错误！'});
+<span class='line'>180</span>  */</span><span class="WHIT">
+<span class='line'>181</span> 
+<span class='line'>182</span> </span><span class="COMM">/**
+<span class='line'>183</span>  *  统计没有通过校验的元素个数
+<span class='line'>184</span>  * @name FValidate#numberOfInvalids
+<span class='line'>185</span>  * @function
+<span class='line'>186</span>  * @returns Integer
+<span class='line'>187</span>  * @example
+<span class='line'>188</span>  * var validator = $("#myform").FValidate();
+<span class='line'>189</span>  * return validator.numberOfInvalids();
+<span class='line'>190</span>  */</span><span class="WHIT">
+<span class='line'>191</span> 
+<span class='line'>192</span> </span><span class="COMM">/**
+<span class='line'>193</span>  * 针对选中的元素，动态添加删除校验规则的方法，有rules( "add", rules ) 和rules( "remove", [rules] )两种
+<span class='line'>194</span>  * @name FValidate#rules
+<span class='line'>195</span>  * @function
+<span class='line'>196</span>  * @returns rules Object{Options}
+<span class='line'>197</span>  * @example
+<span class='line'>198</span>  *  $('#username').rules('add',{
+<span class='line'>199</span>  *       minlength:5,
+<span class='line'>200</span>  *       messages: {
+<span class='line'>201</span>  *           minlength: jQuery.format("Please, at least {0} characters are necessary")
+<span class='line'>202</span>  *       }
+<span class='line'>203</span>  *   });
+<span class='line'>204</span>  *
+<span class='line'>205</span>  * $("#myinput").rules("remove", "min max"); //remove可以配置多个rule，空格隔开
+<span class='line'>206</span>  */</span><span class="WHIT">
+<span class='line'>207</span> 
+<span class='line'>208</span> </span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">$</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">    </span><span class="NAME">$.extend</span><span class="PUNC">(</span><span class="NAME">$.fn</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>212</span>          * 创建表单的校验对象
+<span class='line'>213</span>          * @name FValidate#FValidate
+<span class='line'>214</span>          * @function
+<span class='line'>215</span>          * @returns 当前form的校验对象
+<span class='line'>216</span>          * @example
+<span class='line'>217</span>          *   $("#myform").FValidate({
+<span class='line'>218</span>          *      //options
+<span class='line'>219</span>          *   });
+<span class='line'>220</span>          */</span><span class="WHIT">
+<span class='line'>221</span> 
+<span class='line'>222</span> </span><span class="WHIT">        </span><span class="NAME">FValidate</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>223</span> 
+<span class='line'>224</span> </span><span class="WHIT">            </span><span class="COMM">// if nothing is selected, return nothing; can't chain anyway</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>226</span> </span><span class="WHIT">                </span><span class="NAME">options</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">options.debug</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">window.console</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">console.warn</span><span class="PUNC">(</span><span class="STRN">"nothing selected, can't validate, returning nothing"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>227</span> 
+<span class='line'>228</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>230</span> 
+<span class='line'>231</span> </span><span class="WHIT">            </span><span class="COMM">// check if a validator for this form was already created</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">validator</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$.data</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'validator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">validator</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>236</span> 
+<span class='line'>237</span> </span><span class="WHIT">            </span><span class="COMM">// Add novalidate tag if HTML5.</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">            </span><span class="NAME">this.attr</span><span class="PUNC">(</span><span class="STRN">'novalidate'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'novalidate'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">            </span><span class="COMM">//特殊处理onkeyup属性,如果用户设置true，则使用默认的onkeyup函数。即只接收false属性。</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">options.onkeyup</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">                </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">options.onkeyup</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="WHIT">            </span><span class="COMM">//特殊处理onclick属性，如果用户设置true，则使用默认的onclick函数。即只接收false属性。</span><span class="WHIT">
+<span class='line'>244</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">options.onclick</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>245</span> </span><span class="WHIT">                </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">options.onclick</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>246</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="WHIT">            </span><span class="COMM">//特殊处理onfocusout属性，如果用户设置true，则使用默认的onfocusout函数。即只接收false属性。</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">options.onfocusout</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="WHIT">                </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">options.onfocusout</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">            </span><span class="COMM">//特殊处理onsubmit属性，如果用户设置true，则使用默认的onsubmit函数。即只接收false属性。</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">options.onsubmit</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">                </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">options.onsubmit</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>256</span>              * 如果用户设置了errorModel，且值为qtip或者under，则执行系统默认制定的方式。
+<span class='line'>257</span>              * 否则，如果用户自己制定显示方式，设置errorPlacement属性，则按照用户自己设置的方式进行。
+<span class='line'>258</span>              */</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">options.errorPlacement</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"qtip"</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">options.errorModel</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="WHIT">                    </span><span class="NAME">options.errorMsgClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"f-validate-errorMsg"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">                    </span><span class="NAME">options.errorElement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"label"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">                    </span><span class="NAME">options.errorPlacement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">element</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">error.html</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>265</span> </span><span class="WHIT">                            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>266</span> </span><span class="WHIT">                            </span><span class="COMM">//var error = error.wrap("&lt;span id='fui-validate-qtip-msg' class='f-validate-errorMsg' style='display:none;' />").parent();</span><span class="WHIT">
+<span class='line'>267</span> 
+<span class='line'>268</span> </span><span class="WHIT">                            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">qtipMsgEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">'#fui-validate-qtip-msg'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>269</span> </span><span class="WHIT">                            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">qtipMsgEl.length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="WHIT">                                </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">'body'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="STRN">"&lt;span id='fui-validate-qtip-msg' class='f-validate-errorMsg' style='display:none;' />"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>272</span> 
+<span class='line'>273</span> 
+<span class='line'>274</span> </span><span class="WHIT">                            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"errorMsgTarget"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">                            </span><span class="COMM">//例如combo number 组件有两个input</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">                            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">                                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"parent"</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>278</span> </span><span class="WHIT">                                    </span><span class="COMM">//制定节点查找其兄弟节点</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="WHIT">                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.parent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>280</span> </span><span class="WHIT">                                    </span><span class="NAME">parent.attr</span><span class="PUNC">(</span><span class="STRN">'f-validate-qtip-msg'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">error.html</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>281</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="WHIT">                                    </span><span class="COMM">//通过id来查找</span><span class="WHIT">
+<span class='line'>283</span> </span><span class="WHIT">                                    </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$.trim</span><span class="PUNC">(</span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>284</span> </span><span class="WHIT">                                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">errorMsgTarget.indexOf</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="WHIT">                                        </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"#"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>286</span> </span><span class="WHIT">                                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>287</span> </span><span class="WHIT">                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>288</span> </span><span class="WHIT">                                    </span><span class="NAME">parent.attr</span><span class="PUNC">(</span><span class="STRN">'f-validate-qtip-msg'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">error.html</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>289</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="WHIT">                                </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">'f-validate-qtip-msg'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">error.html</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>292</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>293</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>294</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>295</span> </span><span class="WHIT">                    </span><span class="NAME">options.showErrors</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">errorMap</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">errorList</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>296</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">errorList</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">errorList.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="WHIT">                            </span><span class="NAME">$.each</span><span class="PUNC">(</span><span class="NAME">errorList</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">obj</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="WHIT">                                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">msg</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.message</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="WHIT">                                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">obj.element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="WHIT">                                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"errorMsgTarget"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="WHIT">                                </span><span class="COMM">//绑定一个次事件</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="WHIT">                                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"hasbindmouseevent"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">"true"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>303</span> </span><span class="WHIT">                                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>304</span> </span><span class="WHIT">                                        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parentEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>305</span> </span><span class="WHIT">                                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"parent"</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>306</span> </span><span class="WHIT">                                            </span><span class="COMM">//指定父节点查找其兄弟节点</span><span class="WHIT">
+<span class='line'>307</span> </span><span class="WHIT">                                            </span><span class="NAME">parentEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.parent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>308</span> </span><span class="WHIT">                                        </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>309</span> </span><span class="WHIT">                                            </span><span class="COMM">//通过id来查找</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="WHIT">                                            </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$.trim</span><span class="PUNC">(</span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="WHIT">                                            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">errorMsgTarget.indexOf</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>312</span> </span><span class="WHIT">                                                </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"#"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="WHIT">                                            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="WHIT">                                            </span><span class="NAME">parentEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="WHIT">                                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>316</span> </span><span class="WHIT">                                        </span><span class="COMM">//判断是否有错误提示消息</span><span class="WHIT">
+<span class='line'>317</span> </span><span class="WHIT">                                        </span><span class="COMM">//if (msgEl.html().length > 0 && msgEl.attr("class").length > 0 && msgEl.find("label").html().length > 0) {</span><span class="WHIT">
+<span class='line'>318</span> </span><span class="WHIT">                                        </span><span class="NAME">parentEl.bind</span><span class="PUNC">(</span><span class="STRN">'mouseover'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">                                                </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">qtipMsgEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">'#fui-validate-qtip-msg'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">msg</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">'f-validate-qtip-msg'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>323</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">valid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT">  </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">'valid'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>324</span> </span><span class="WHIT">                                                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">valid</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'true'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="NAME">qtipMsgEl.length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>325</span> </span><span class="WHIT">                                                        </span><span class="NAME">qtipMsgEl.html</span><span class="PUNC">(</span><span class="NAME">msg</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>326</span> </span><span class="WHIT">                                                        </span><span class="NAME">qtipMsgEl.css</span><span class="PUNC">(</span><span class="STRN">'display'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'inline'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">css</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="STRN">'top'</span><span class="PUNC">:</span><span class="NAME">e.pageY</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">10</span><span class="WHIT"> </span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'left'</span><span class="PUNC">:</span><span class="NAME">e.pageX</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">5</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>327</span> </span><span class="WHIT">                                                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">                                                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">'mouseout'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="WHIT">                                                </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">qtipMsgEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">'#fui-validate-qtip-msg'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>331</span> </span><span class="WHIT">                                                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">qtipMsgEl.length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="WHIT">                                                        </span><span class="NAME">qtipMsgEl.css</span><span class="PUNC">(</span><span class="STRN">'display'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'none'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>333</span> </span><span class="WHIT">                                                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="WHIT">                                                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>335</span> 
+<span class='line'>336</span> </span><span class="WHIT">                                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>337</span> </span><span class="WHIT">                                        </span><span class="COMM">//直接綁定</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="WHIT">                                        </span><span class="NAME">el.bind</span><span class="PUNC">(</span><span class="STRN">'mouseover'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">                                                </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">qtipMsgEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">'#fui-validate-qtip-msg'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>341</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">msg</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">'f-validate-qtip-msg'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">valid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT">  </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">'valid'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="WHIT">                                                     </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">valid</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'true'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="NAME">qtipMsgEl.length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="WHIT">                                                        </span><span class="NAME">qtipMsgEl.html</span><span class="PUNC">(</span><span class="NAME">msg</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="WHIT">                                                        </span><span class="NAME">qtipMsgEl.css</span><span class="PUNC">(</span><span class="STRN">'display'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'inline'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">css</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="STRN">'top'</span><span class="PUNC">:</span><span class="NAME">e.pageY</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">10</span><span class="WHIT"> </span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'left'</span><span class="PUNC">:</span><span class="NAME">e.pageX</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">5</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="WHIT">                                                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="WHIT">                                                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">'mouseout'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>349</span> </span><span class="WHIT">                                                </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>350</span> </span><span class="WHIT">                                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">qtipMsgEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">'#fui-validate-qtip-msg'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="WHIT">                                                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">qtipMsgEl.length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>352</span> </span><span class="WHIT">                                                        </span><span class="NAME">qtipMsgEl.css</span><span class="PUNC">(</span><span class="STRN">'display'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'none'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>353</span> </span><span class="WHIT">                                                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">                                                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>355</span> </span><span class="WHIT">                                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>356</span> </span><span class="WHIT">                                    </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"hasbindmouseevent"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="WHIT">                            </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">this.currentElements</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">parents</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">map</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">                                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.tagName.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'td'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="WHIT">                                    </span><span class="COMM">//$(this).children().eq(1).hide();</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="WHIT">                                    </span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">eq</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="STRN">"error-border"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>364</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>365</span> </span><span class="WHIT">                                    </span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="STRN">"error-border"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>366</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="WHIT">                                </span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">eq</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="STRN">"x-form-invalid"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>369</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>370</span> </span><span class="WHIT">                        </span><span class="NAME">this.defaultShowErrors</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>371</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">                    </span><span class="COMM">//用户没有设置errorPlacement，errorModel使用默认值：under</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">                    </span><span class="NAME">options.errorPlacement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">element</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">error.html</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>376</span> </span><span class="WHIT">                            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">                            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"errorMsgTarget"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>378</span> </span><span class="WHIT">                            </span><span class="COMM">//例如combo number 组件有两个input</span><span class="WHIT">
+<span class='line'>379</span> </span><span class="WHIT">                            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>380</span> </span><span class="WHIT">                                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"parent"</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>381</span> </span><span class="WHIT">                                    </span><span class="COMM">//制定节点查找其兄弟节点</span><span class="WHIT">
+<span class='line'>382</span> </span><span class="WHIT">                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.parent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>383</span> </span><span class="WHIT">                                    </span><span class="NAME">error.insertAfter</span><span class="PUNC">(</span><span class="NAME">parent</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>384</span> </span><span class="WHIT">                                    </span><span class="NAME">error.css</span><span class="PUNC">(</span><span class="STRN">'display'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'none'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>385</span> 
+<span class='line'>386</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>387</span> </span><span class="WHIT">                                    </span><span class="COMM">//通过id来查找</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">                                    </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$.trim</span><span class="PUNC">(</span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">                                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">errorMsgTarget.indexOf</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="WHIT">                                        </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"#"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="WHIT">                                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>392</span> </span><span class="WHIT">                                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>393</span> </span><span class="WHIT">                                    </span><span class="NAME">error.insertAfter</span><span class="PUNC">(</span><span class="NAME">parent</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>394</span> </span><span class="WHIT">                                    </span><span class="NAME">error.css</span><span class="PUNC">(</span><span class="STRN">'display'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'none'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>395</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>396</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>397</span> </span><span class="WHIT">                                </span><span class="COMM">//纯的html元素，例如input</span><span class="WHIT">
+<span class='line'>398</span> </span><span class="WHIT">                                </span><span class="NAME">error.insertAfter</span><span class="PUNC">(</span><span class="NAME">el</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>399</span> </span><span class="WHIT">                                </span><span class="NAME">error.css</span><span class="PUNC">(</span><span class="STRN">'display'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'none'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>400</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>401</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>402</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>403</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>404</span> 
+<span class='line'>405</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>406</span> 
+<span class='line'>407</span> 
+<span class='line'>408</span> </span><span class="WHIT">            </span><span class="NAME">validator</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">$.fvalidator</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="WHIT">            </span><span class="NAME">$.data</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'validator'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">validator</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>410</span> 
+<span class='line'>411</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator.settings.onsubmit</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>412</span> 
+<span class='line'>413</span> </span><span class="WHIT">                </span><span class="COMM">//var inputsAndButtons = this.find("input, button");</span><span class="WHIT">
+<span class='line'>414</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">inputs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.find</span><span class="PUNC">(</span><span class="STRN">'input'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>415</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">buttons</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.find</span><span class="PUNC">(</span><span class="STRN">'button'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>416</span> 
+<span class='line'>417</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">inputsAndButtons</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">inputs.add</span><span class="PUNC">(</span><span class="NAME">buttons</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>418</span> 
+<span class='line'>419</span> </span><span class="WHIT">                </span><span class="COMM">// allow suppresing validation by adding a cancel class to the submit button</span><span class="WHIT">
+<span class='line'>420</span> </span><span class="WHIT">                </span><span class="NAME">inputsAndButtons.filter</span><span class="PUNC">(</span><span class="STRN">".cancel"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>421</span> </span><span class="WHIT">                    </span><span class="NAME">validator.cancelSubmit</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>422</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>423</span> 
+<span class='line'>424</span> </span><span class="WHIT">                </span><span class="COMM">// when a submitHandler is used, capture the submitting button</span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator.settings.submitHandler</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="WHIT">                    </span><span class="NAME">inputsAndButtons.filter</span><span class="PUNC">(</span><span class="STRN">":submit"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">                        </span><span class="NAME">validator.submitButton</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>429</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>430</span> 
+<span class='line'>431</span> </span><span class="WHIT">                </span><span class="COMM">// validate the form on submit</span><span class="WHIT">
+<span class='line'>432</span> </span><span class="WHIT">                </span><span class="NAME">this.submit</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>433</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator.settings.debug</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>434</span> </span><span class="WHIT">                    </span><span class="COMM">// prevent form submit to be able to see console output</span><span class="WHIT">
+<span class='line'>435</span> </span><span class="WHIT">                        </span><span class="NAME">event.preventDefault</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>436</span> 
+<span class='line'>437</span> </span><span class="WHIT">                    </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handle</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>438</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator.settings.submitHandler</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>439</span> </span><span class="WHIT">                            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator.submitButton</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>440</span> </span><span class="WHIT">                                </span><span class="COMM">// insert a hidden input as a replacement for the missing submit button</span><span class="WHIT">
+<span class='line'>441</span> </span><span class="WHIT">                                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hidden</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;input type='hidden'/>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"name"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">validator.submitButton.name</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="NAME">validator.submitButton.value</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">appendTo</span><span class="PUNC">(</span><span class="NAME">validator.currentForm</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>442</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="WHIT">                            </span><span class="NAME">validator.settings.submitHandler.call</span><span class="PUNC">(</span><span class="NAME">validator</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">validator.currentForm</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="WHIT">                            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator.submitButton</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>445</span> </span><span class="WHIT">                                </span><span class="COMM">// and clean up afterwards; thanks to no-block-scope, hidden can be referenced</span><span class="WHIT">
+<span class='line'>446</span> </span><span class="WHIT">                                </span><span class="NAME">hidden.remove</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>447</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>448</span> </span><span class="WHIT">                            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>449</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>450</span> </span><span class="WHIT">                        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>451</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>452</span> 
+<span class='line'>453</span> </span><span class="WHIT">                    </span><span class="COMM">// prevent submit for invalid forms or custom submit handlers</span><span class="WHIT">
+<span class='line'>454</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator.cancelSubmit</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>455</span> </span><span class="WHIT">                        </span><span class="NAME">validator.cancelSubmit</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>456</span> </span><span class="WHIT">                        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">handle</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>457</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>458</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator.form</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>459</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator.pendingRequest</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>460</span> </span><span class="WHIT">                            </span><span class="NAME">validator.formSubmitted</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>461</span> </span><span class="WHIT">                            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>462</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>463</span> </span><span class="WHIT">                        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">handle</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>464</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>465</span> </span><span class="WHIT">                        </span><span class="NAME">validator.focusInvalid</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>466</span> </span><span class="WHIT">                        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>467</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>468</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>469</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>470</span> </span><span class="WHIT">            </span><span class="COMM">//validator.checkForm();</span><span class="WHIT">
+<span class='line'>471</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">validator</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>472</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>473</span> 
+<span class='line'>474</span> </span><span class="WHIT">        </span><span class="COMM">//校验单个控件</span><span class="WHIT">
+<span class='line'>475</span> </span><span class="WHIT">        </span><span class="PUNC">,</span><span class="NAME">isValidate</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">formId</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>476</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">formId</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>477</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">form</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">formId</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>478</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">form.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>479</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">valid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>480</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">validator</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">form.validate</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>481</span> </span><span class="WHIT">                    </span><span class="NAME">valid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">validator.element</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>482</span> </span><span class="WHIT">                    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">valid</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>483</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>484</span> </span><span class="WHIT">                    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>485</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>486</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>487</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">valid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>488</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>489</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">element.form</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>490</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">validator</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$.data</span><span class="PUNC">(</span><span class="NAME">element.form</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'validator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>491</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">validator</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>492</span> </span><span class="WHIT">                        </span><span class="NAME">valid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">validator.element</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>493</span> </span><span class="WHIT">                        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">valid</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>494</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>495</span> </span><span class="WHIT">                        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>496</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>497</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>498</span> </span><span class="WHIT">                    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>499</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>500</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>501</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>502</span> 
+<span class='line'>503</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>504</span> 
+<span class='line'>505</span> </span><span class="WHIT">    </span><span class="NAME">$.fvalidator</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">form</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>506</span> </span><span class="WHIT">        </span><span class="NAME">this.settings</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$.extend</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">$.fvalidator.defaults</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">options</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>507</span> </span><span class="WHIT">        </span><span class="NAME">this.currentForm</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">form</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>508</span> </span><span class="WHIT">        </span><span class="NAME">this.init</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>509</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>510</span> 
+<span class='line'>511</span> 
+<span class='line'>512</span> </span><span class="WHIT">    </span><span class="NAME">$.extend</span><span class="PUNC">(</span><span class="NAME">$.fvalidator</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>513</span> </span><span class="WHIT">        </span><span class="NAME">prototype</span><span class="PUNC">:</span><span class="NAME">$.validator.prototype</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>514</span> </span><span class="WHIT">        </span><span class="NAME">defaults</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>515</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>516</span>              * 键值对的校验错误信息.键是元素的name属性，值是错误信息的组合对象。&lt;br/>
+<span class='line'>517</span>              * @name FValidate#messages
+<span class='line'>518</span>              * @type JSON
+<span class='line'>519</span>              * @default {}
+<span class='line'>520</span>              * @example
+<span class='line'>521</span>              * $("#formId").FValidate({
+<span class='line'>522</span>              *  rules: {
+<span class='line'>523</span>              *    name: {
+<span class='line'>524</span>              *      required: true,
+<span class='line'>525</span>              *      minlength: 2
+<span class='line'>526</span>              *    }
+<span class='line'>527</span>              *  },
+<span class='line'>528</span>              *  messages: {
+<span class='line'>529</span>              *    name: {
+<span class='line'>530</span>              *      required: "We need your email address to contact you",
+<span class='line'>531</span>              *      minlength: jQuery.format("At least {0} characters required!")
+<span class='line'>532</span>              *      //这里的{0}就是minlength定义的2
+<span class='line'>533</span>              *    }
+<span class='line'>534</span>              *  }
+<span class='line'>535</span>              *})
+<span class='line'>536</span>              */</span><span class="WHIT">
+<span class='line'>537</span> </span><span class="WHIT">            </span><span class="NAME">messages</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>538</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>539</span>              * 错误消息分组,如果没有设置errorPlacement，则分组内的元素出现错误时只在第一个元素后面显示错误消息，
+<span class='line'>540</span>              * 如果设置了errorPlacement，则可以在errorPlacement回调中定义显示位置 &lt;br/>
+<span class='line'>541</span>              * @name FValidate#groups
+<span class='line'>542</span>              * @type JSON
+<span class='line'>543</span>              * @default {}
+<span class='line'>544</span>              * @example
+<span class='line'>545</span>              * $("#myform").FValidate({
+<span class='line'>546</span>              *     groups: {
+<span class='line'>547</span>              *       username: "fname lname"
+<span class='line'>548</span>              *     },
+<span class='line'>549</span>              *     errorPlacement: function(error, element) {
+<span class='line'>550</span>              *        if (element.attr("name") == "fname"
+<span class='line'>551</span>              *                    || element.attr("name") == "lname" ){
+<span class='line'>552</span>              *          error.insertAfter("#lastname");
+<span class='line'>553</span>              *        }else{
+<span class='line'>554</span>              *          error.insertAfter(element);
+<span class='line'>555</span>              *        }
+<span class='line'>556</span>              *      },
+<span class='line'>557</span>              *    }) //将fname和lname的错误信息统一显示在lastname元素后面
+<span class='line'>558</span>              */</span><span class="WHIT">
+<span class='line'>559</span> </span><span class="WHIT">            </span><span class="NAME">groups</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>560</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>561</span>              * 键值对的校验规则.键是元素的name属性，值是校验规则的组合对象，每一个规则都可以绑定一个依赖对象，&lt;br/>
+<span class='line'>562</span>              * 通过depends设定，只有依赖对象成立才会执行验证&lt;br/>
+<span class='line'>563</span>              * $(".selector").FValidate({
+<span class='line'>564</span>              *  rules: {
+<span class='line'>565</span>              *    contact: { //其中 contact为组件的name属性值
+<span class='line'>566</span>              *      required: true,
+<span class='line'>567</span>              *      maxlength:10
+<span class='line'>568</span>              *    }
+<span class='line'>569</span>              *  }
+<span class='line'>570</span>              *})
+<span class='line'>571</span>              */</span><span class="WHIT">
+<span class='line'>572</span> </span><span class="WHIT">            </span><span class="NAME">rules</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>573</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>574</span>              * 指定错误提示标签的class名称，此class也将添加在校验的元素上面。&lt;br/>
+<span class='line'>575</span>              * 说明：错误提示的样式包括输入框的样式以及提示信息的样式。该属性一般情况下不需要设置，使用默认值即可。除非用户自定义错误提示的样式。该样式具体制定详见demo。
+<span class='line'>576</span>              * @name FValidate#errorClass
+<span class='line'>577</span>              * @type String
+<span class='line'>578</span>              * @default 'error'
+<span class='line'>579</span>              * @example
+<span class='line'>580</span>              * $(".selector").FValidate({
+<span class='line'>581</span>              *      errorClass: "invalid"
+<span class='line'>582</span>              *   })
+<span class='line'>583</span>              */</span><span class="WHIT">
+<span class='line'>584</span> </span><span class="WHIT">            </span><span class="NAME">errorClass</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"f-validate-error"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>585</span> </span><span class="WHIT">            </span><span class="NAME">validClass</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"valid"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>586</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>587</span>              * 指定错误信息的html标签名称&lt;br/>
+<span class='line'>588</span>              * 说明：该属性只有当用户设置errorPlacement属性时才起作用。
+<span class='line'>589</span>              * @name FValidate#errorElement
+<span class='line'>590</span>              * @type String
+<span class='line'>591</span>              * @default 'div'
+<span class='line'>592</span>              * @example
+<span class='line'>593</span>              * $(".selector").FValidate({
+<span class='line'>594</span>              *      errorElement: "em"
+<span class='line'>595</span>              *   })
+<span class='line'>596</span>              */</span><span class="WHIT">
+<span class='line'>597</span> </span><span class="WHIT">            </span><span class="NAME">errorElement</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"div"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>598</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>599</span>              * 错误信息提示的模式。默认模式为“under”。有两种模式，“under”模式为：错误信息显示在输入框的下方。“qtip”模式为：错误信息悬浮显示。
+<span class='line'>600</span>              * @name  FValidate#errorModel
+<span class='line'>601</span>              * @type String
+<span class='line'>602</span>              * @default 'under'
+<span class='line'>603</span>              * @example
+<span class='line'>604</span>              * $(".selector").FValidate({
+<span class='line'>605</span>              *      errorModel: "qtip"
+<span class='line'>606</span>              *   })
+<span class='line'>607</span>              */</span><span class="WHIT">
+<span class='line'>608</span> </span><span class="WHIT">            </span><span class="NAME">errorModel</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"under"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>609</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>610</span>              * 校验错误的时候是否将聚焦元素。该属性如果为true，校验出错时会将光标聚焦到错误处。&lt;br/>
+<span class='line'>611</span>              * 说明:使用该属性时，提交按钮类型必须是"submit"类型。
+<span class='line'>612</span>              * @name FValidate#focusInvalid
+<span class='line'>613</span>              * @type Boolean
+<span class='line'>614</span>              * @default true
+<span class='line'>615</span>              * @example
+<span class='line'>616</span>              * $(".selector").FValidate({
+<span class='line'>617</span>              *      focusInvalid: false
+<span class='line'>618</span>              *   })
+<span class='line'>619</span>              */</span><span class="WHIT">
+<span class='line'>620</span> </span><span class="WHIT">            </span><span class="NAME">focusInvalid</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>621</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>622</span>              * 包含错误提示信息的容器，根据校验结果隐藏或者显示错误容器。其中该错误提示信息是由用户在页面设计的时候填写的内容。&lt;br />
+<span class='line'>623</span>              * 与 errorLabelContainer 属性的区别是这个属性提示的错误信息是静态的，即为用户在页面设计时填写的内容。
+<span class='line'>624</span>              * @name FValidate#errorContainer
+<span class='line'>625</span>              * @type Selector
+<span class='line'>626</span>              * @default $( [] )
+<span class='line'>627</span>              * @example
+<span class='line'>628</span>              * $("#myform").FValidate({
+<span class='line'>629</span>              *      errorContainer: "#messageBox1, #messageBox2"
+<span class='line'>630</span>              *      //可以配置多个容器，这里的messageBox2元素没有被包装处理，只是错误发生的时候显示和隐藏此元素。
+<span class='line'>631</span>              *   })
+<span class='line'>632</span>              */</span><span class="WHIT">
+<span class='line'>633</span> </span><span class="WHIT">            </span><span class="NAME">errorContainer</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>634</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>635</span>              * 设置统一存放错误信息的容器，根据校验结果隐藏或者显示错误容器。校验框架会将所有的错误提示信息存放到该容器下。
+<span class='line'>636</span>              * @name FValidate#errorLabelContainer
+<span class='line'>637</span>              * @type Selector
+<span class='line'>638</span>              * @default $( [] )
+<span class='line'>639</span>              * @example
+<span class='line'>640</span>              * $("#myform").FValidate({
+<span class='line'>641</span>              *      errorLabelContainer: "#messageBox1 ul"
+<span class='line'>642</span>              *      //messageBox为容器的id
+<span class='line'>643</span>              *   })
+<span class='line'>644</span>              *
+<span class='line'>645</span>              */</span><span class="WHIT">
+<span class='line'>646</span> </span><span class="WHIT">            </span><span class="NAME">errorLabelContainer</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>647</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>648</span>              * 是否在提交时校验表单，如果设置为false，则提交的时候不校验表单，&lt;br/>
+<span class='line'>649</span>              * 但是其它keyup、onblur等事件校验不受影响.
+<span class='line'>650</span>              * @name FValidate#onsubmit
+<span class='line'>651</span>              * @type Boolean
+<span class='line'>652</span>              * @default true
+<span class='line'>653</span>              * @example
+<span class='line'>654</span>              * $(".selector").FValidate({
+<span class='line'>655</span>              *      onsubmit: false
+<span class='line'>656</span>              *   })
+<span class='line'>657</span>              */</span><span class="WHIT">
+<span class='line'>658</span> </span><span class="WHIT">            </span><span class="NAME">onsubmit</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>659</span> </span><span class="WHIT">            </span><span class="COMM">//修改： ignore: ":hidden",</span><span class="WHIT">
+<span class='line'>660</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>661</span>              * 校验时忽略指定的元素，可以配置需要校验的元素id和样式名称等jquery识别的选择器。&lt;br/>
+<span class='line'>662</span>              * 说明：该属性值不能为 “：hidden”，否则会导致FCombo、FNumberField组件的校验无效。建议为复杂的选中器，用过不匹配个别标签。
+<span class='line'>663</span>              * @name FValidate#ignore
+<span class='line'>664</span>              * @type String
+<span class='line'>665</span>              * @default null
+<span class='line'>666</span>              * @example
+<span class='line'>667</span>              * $("#myform").FValidate({
+<span class='line'>668</span>              *      ignore: ".ignore"
+<span class='line'>669</span>              *      //此处还可以配置input[type='password']、#id等jquery的选择器
+<span class='line'>670</span>              *   })
+<span class='line'>671</span>              */</span><span class="WHIT">
+<span class='line'>672</span> </span><span class="WHIT">            </span><span class="NAME">ignore</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>673</span> </span><span class="WHIT">            </span><span class="NAME">ignoreTitle</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>674</span> </span><span class="WHIT">            </span><span class="NAME">onfocusin</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>675</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">elementEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>676</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hasprevioussbling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">elementEl.attr</span><span class="PUNC">(</span><span class="STRN">"hasprevioussbling"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>677</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hasChecked</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">elementEl.attr</span><span class="PUNC">(</span><span class="STRN">'hasChecked'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>678</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">hasChecked</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>679</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">hasprevioussbling</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"true"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>680</span> </span><span class="WHIT">                        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">prevElement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">elementEl.prev</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>681</span> </span><span class="WHIT">                        </span><span class="NAME">this.check</span><span class="PUNC">(</span><span class="NAME">prevElement</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>682</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>683</span> </span><span class="WHIT">                        </span><span class="NAME">this.check</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>684</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>685</span> </span><span class="WHIT">                    </span><span class="COMM">//this.element(element);</span><span class="WHIT">
+<span class='line'>686</span> </span><span class="WHIT">                    </span><span class="NAME">elementEl.attr</span><span class="PUNC">(</span><span class="STRN">'hasChecked'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'true'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>687</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>688</span> </span><span class="WHIT">                </span><span class="NAME">this.lastActive</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>689</span> 
+<span class='line'>690</span> </span><span class="WHIT">                </span><span class="COMM">// hide error label and remove error class on focus if enabled</span><span class="WHIT">
+<span class='line'>691</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.settings.focusCleanup</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">this.blockFocusCleanup</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>692</span> </span><span class="WHIT">                    </span><span class="NAME">this.settings.unhighlight</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">this.settings.unhighlight.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">element</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.settings.errorClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.settings.validClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>693</span> 
+<span class='line'>694</span> 
+<span class='line'>695</span> </span><span class="WHIT">                    </span><span class="COMM">//如果该输入框为FCombo和FNumberField组件的一部分，那么需要查找其前一节点并根据该节点隐藏错误信息。</span><span class="WHIT">
+<span class='line'>696</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">hasprevioussbling</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">"true"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>697</span> </span><span class="WHIT">                        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">prevElement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">elementEl.prev</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>698</span> </span><span class="WHIT">                        </span><span class="NAME">this.addWrapper</span><span class="PUNC">(</span><span class="NAME">this.errorsFor</span><span class="PUNC">(</span><span class="NAME">prevElement</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>699</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>700</span> </span><span class="WHIT">                        </span><span class="NAME">this.addWrapper</span><span class="PUNC">(</span><span class="NAME">this.errorsFor</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>701</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>702</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>703</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>704</span> 
+<span class='line'>705</span> </span><span class="WHIT">            </span><span class="NAME">onfocusout</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>706</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">elementEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>707</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">elementEl.attr</span><span class="PUNC">(</span><span class="STRN">"hasprevioussbling"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">"true"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>708</span> </span><span class="WHIT">                    </span><span class="COMM">// element.previousSibling</span><span class="WHIT">
+<span class='line'>709</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">prevElement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">elementEl.prev</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>710</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.checkable</span><span class="PUNC">(</span><span class="NAME">prevElement</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">prevElement.name</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.submitted</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">this.optional</span><span class="PUNC">(</span><span class="NAME">prevElement</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>711</span> </span><span class="WHIT">                        </span><span class="NAME">this.element</span><span class="PUNC">(</span><span class="NAME">prevElement</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>712</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>713</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.checkable</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">element.name</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.submitted</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">this.optional</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>714</span> </span><span class="WHIT">                    </span><span class="NAME">this.element</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>715</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>716</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>717</span> 
+<span class='line'>718</span> </span><span class="WHIT">            </span><span class="NAME">onkeyup</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>719</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.keyUpTimeout</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>720</span> </span><span class="WHIT">                    </span><span class="NAME">clearTimeout</span><span class="PUNC">(</span><span class="NAME">this.keyUpTimeout</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>721</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>722</span> </span><span class="WHIT">                </span><span class="NAME">_this</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>723</span> </span><span class="WHIT">                </span><span class="NAME">this.keyUpTimeout</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">setTimeout</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>724</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">elementEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>725</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">elementEl.attr</span><span class="PUNC">(</span><span class="STRN">"hasprevioussbling"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">"true"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>726</span> </span><span class="WHIT">                        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">prevElement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">prev</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>727</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">prevElement.name</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">_this.submitted</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">prevElement</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">_this.lastElement</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>728</span> </span><span class="WHIT">                            </span><span class="NAME">_this.element</span><span class="PUNC">(</span><span class="NAME">prevElement</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>729</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>730</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>731</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">element.name</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">_this.submitted</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">_this.lastElement</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>732</span> </span><span class="WHIT">                            </span><span class="NAME">_this.element</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>733</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>734</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>735</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">300</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>736</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>737</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>738</span>              * 在checkbox和radio的click事件发生后是否进行校验。
+<span class='line'>739</span>              * onclick
+<span class='line'>740</span>              *  Boolean
+<span class='line'>741</span>              *  true
+<span class='line'>742</span>              * $(".selector").FValidate({
+<span class='line'>743</span>              *      onclick: false
+<span class='line'>744</span>              *   })
+<span class='line'>745</span>              */</span><span class="WHIT">
+<span class='line'>746</span> </span><span class="WHIT">            </span><span class="NAME">onclick</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>747</span> </span><span class="WHIT">                </span><span class="COMM">// click on selects, radiobuttons and checkboxes</span><span class="WHIT">
+<span class='line'>748</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">element.name</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.submitted</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>749</span> </span><span class="WHIT">                    </span><span class="NAME">this.element</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>750</span> </span><span class="WHIT">                </span><span class="COMM">// or option elements, check parent select in that case</span><span class="WHIT">
+<span class='line'>751</span> </span><span class="WHIT">                </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">element.parentNode.name</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.submitted</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>752</span> </span><span class="WHIT">                    </span><span class="NAME">this.element</span><span class="PUNC">(</span><span class="NAME">element.parentNode</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>753</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>754</span> </span><span class="WHIT">            </span><span class="NAME">highlight</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">errorClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">validClass</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>755</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">element.type</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'radio'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>756</span> </span><span class="WHIT">                    </span><span class="NAME">this.findByName</span><span class="PUNC">(</span><span class="NAME">element.name</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="NAME">errorClass</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="NAME">validClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>757</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>758</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>759</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">errorValidateTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"errorValidateTarget"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>760</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"errorMsgTarget"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>761</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">errorValidateTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>762</span> </span><span class="WHIT">                        </span><span class="NAME">el.addClass</span><span class="PUNC">(</span><span class="NAME">errorClass</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="NAME">validClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>763</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>764</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">'next'</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">errorValidateTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>765</span> </span><span class="WHIT">                            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">validateEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.next</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>766</span> </span><span class="WHIT">                            </span><span class="NAME">validateEl.addClass</span><span class="PUNC">(</span><span class="NAME">errorClass</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="NAME">validClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>767</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>768</span> </span><span class="WHIT">                            </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">errorValidateTarget</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="NAME">errorClass</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="NAME">validClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>769</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>770</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>771</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="STRN">'parent'</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>772</span> </span><span class="WHIT">                        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parentEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.parent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>773</span> </span><span class="WHIT">                        </span><span class="NAME">parentEl.attr</span><span class="PUNC">(</span><span class="STRN">'valid'</span><span class="PUNC">,</span><span class="STRN">'false'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>774</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>775</span> </span><span class="WHIT">                        </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">'valid'</span><span class="PUNC">,</span><span class="STRN">'false'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>776</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>777</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>778</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>779</span> </span><span class="WHIT">            </span><span class="NAME">unhighlight</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">errorClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">validClass</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>780</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">element.type</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'radio'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>781</span> </span><span class="WHIT">                    </span><span class="NAME">this.findByName</span><span class="PUNC">(</span><span class="NAME">element.name</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="NAME">errorClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>782</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>783</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>784</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">errorValidateTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"errorValidateTarget"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>785</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"errorMsgTarget"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>786</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">errorValidateTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>787</span> </span><span class="WHIT">                        </span><span class="NAME">el.removeClass</span><span class="PUNC">(</span><span class="NAME">errorClass</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="NAME">validClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>788</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>789</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">'next'</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">errorValidateTarget</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>790</span> </span><span class="WHIT">                            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">validateEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.next</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>791</span> </span><span class="WHIT">                            </span><span class="NAME">validateEl.removeClass</span><span class="PUNC">(</span><span class="NAME">errorClass</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="NAME">validClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>792</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>793</span> </span><span class="WHIT">                            </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">errorValidateTarget</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="NAME">errorClass</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="NAME">validClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>794</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>795</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>796</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="STRN">'parent'</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">errorMsgTarget</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>797</span> </span><span class="WHIT">                        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parentEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.parent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>798</span> </span><span class="WHIT">                        </span><span class="NAME">parentEl.attr</span><span class="PUNC">(</span><span class="STRN">'valid'</span><span class="PUNC">,</span><span class="STRN">'true'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>799</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>800</span> </span><span class="WHIT">                        </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">'valid'</span><span class="PUNC">,</span><span class="STRN">'true'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>801</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>802</span> 
+<span class='line'>803</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>804</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>805</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>806</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>807</span> 
+<span class='line'>808</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>809</span> </span></pre></body></html>

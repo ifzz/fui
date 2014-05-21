@@ -1,0 +1,72 @@
+
+<h3>Tabs</h3>
+<p>导航式容器，以切换的方式在多个页面间切换浏览。通过简单的配置展示多页签信息，同时组件提供丰富的事件支持，比如选中页签，关闭页签，添加页签等等；支持各个页签以ajax方式加载内容（默认iframe，懒加载）；
+</p>
+<img src="../resource/images/tabs.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>可以用于主页面的多页签导航，也可以用于页面中划分页面模块布局；
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>支持静态页面和动态页面两种方式，其中动态页面采用iframe的话，iframe自身存在内存泄漏，请慎重使用；但是使用页面片段的方式则要处理好id重提的问题</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>第一个页签静态页面，第二个页面片段，其他iframe方式：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:tabs id="tabs" width="400px" height="250px">
+  <f:tab id="主页面">
+  	这是一个静态内容
+  </f:tab>
+  <f:tab title="页面片段" url="testFormSegment.jsp" iframe="false"></f:tab>
+  <f:tab title="iframe页面1" url="testIFrame1.jsp"></f:tab>
+  <f:tab title="iframe页面2" url="testIFrame2.jsp" closable="true"></f:tab>
+</f:tabs>
+</textarea>
+
+<p>动态添加、删除一个标签页，主动刷新一个tab页</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		$("#bnt1").click(function() {
+			$("#tabs1").FTabs("add", 
+				{
+					title : "新标签页",
+					url : "testIFrame1.jsp",
+					closable : true
+				}
+			);
+		});
+		$("#bnt2").click(function() {
+			$("#tabs1").FTabs("closeTab", 1); // 删除第二个页签
+		});
+		$("#bnt3").click(function() {
+			$("#tabs1").FTabs("reload", 2); // 刷新第三个页签
+		});
+	});
+</script>
+
+<button id="bnt1">添加一个页签</button>
+<button id="bnt2">删除第二个页签</button>
+<button id="bnt3">刷新第三个页签</button>
+<f:tabs id="tabs1" width="400px" height="250px">
+  <f:tab id="主页面">
+  	这是一个静态内容
+  </f:tab>
+  // 其他页面
+</f:tabs>
+
+</textarea>
+

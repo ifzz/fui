@@ -1,0 +1,547 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Menu</h3>
+<p>FMenu适用于菜单方式链接导航或右键菜单</p>
+<img src="../resource/images/menu.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>右键菜单和功能列表
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>菜单被关闭的条件：① 菜单/子菜单被点击；② document捕捉到click事件。</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>如果点击某区域菜单无法被关闭，请检查是否是该区域的click事件冒泡被阻止。</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FCombo实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:menu id="playBackMenu" onClick="menuClick">
+  <f:menuItem iconCls="f-icon-seek-start" onClick="prevClick">Prev</f:menuItem>
+  <f:menuItem iconCls="f-icon-stop">Stop</f:menuItem>
+  <f:menuItem iconCls="f-icon-play">Play</f:menuItem>
+  <f:menuItem iconCls="f-icon-seek-end">Next</f:menuItem>
+</f:menu>
+</textarea>
+
+<p>右键菜单：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(document).bind("contextmenu", function(e) {
+		$("#playBackMenu").FMenu("show", {position:{left:e.pageX, top:e.pageY}});
+		e.stopImmediatePropagation(); // 组织浏览器默认行为，弹出浏览器的右键菜单
+		return false;
+	});
+	
+	function menuClick(item, event) {
+		alert("id: " + item.id + "\nurl: " + item.url + "\nmenuId: " + item.menuId + "\nparentMenuId: " + item.parentMenuId);
+	}
+</script>
+
+<f:menu id="playBackMenu" onClick="menuClick">
+  <f:menuItem iconCls="f-icon-seek-start" onClick="prevClick">Prev</f:menuItem>
+  <f:menuItem iconCls="f-icon-stop">Stop</f:menuItem>
+  <f:menuItem iconCls="f-icon-play">Play</f:menuItem>
+  <f:menuItem iconCls="f-icon-seek-end">Next</f:menuItem>
+</f:menu>
+</textarea>
+
+<p>绑定静态菜单数据：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var data1 = [{id:"item1", text:"Fruit", url:"www.baidu.com", children:[{id:"subItem1", text:"Apple"},{id:"subItem2", text:"Grape"}]},
+      	    {id:"item2", text:"Electrical Equipment", children:[{id:"subItem21", text:"T.V."},{id:"subItem22", text:"Air-conditioning"}]}];
+</script>
+
+<f:menu id="listbox11" onClick="menuClick" staticData="data1"></f:menu>
+</textarea>
+
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td><ins>attach</ins></td>
+	        					<td>Object</td>
+	        					<td>
+	        						<p>要关联的组件的选择器，或者jquery对象</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$("#menu_1").FMenu("show", {attach:$("#buttonId")}) 或者$("#menu_1").FMenu("show", {attach:"#buttonId"})</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>null</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>id</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>标识(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>null</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>staticData</td>
+	        					<td>Array</td>
+	        					<td>
+	        						<p>静态数据，用于初始化Menu对象</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>var data1 = [{id:"item1", text:"Fruit", url:"www.baidu.com", children:[{id:"subItem1", text:"Apple"},{id:"subItem2", text:"Grape"}]},	    {id:"item2", text:"Electrical Equipment", children:[{id:"subItem21", text:"T.V."},{id:"subItem22", text:"Air-conditioning"}]}];$("#menu_1").FMenu("show", {staticData: data1})</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>null</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+          		<!-- doc_events_begin -->
+          		<h4>事件</h4>
+          		<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+          						<td><ins>beforeHide</ins></td>
+          						<td>function(options)</td>
+          						<td>
+          							<p>隐藏之前事件，类型为function或者function的名字（字符串）</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>options</b>
+		                                        本次menu显示出来的初始化选项，用户可以读取或者修改选项的值
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre>var beforeHide = function(options) {    // TODO ... do something};$("#menu_1").FMenu("show", {        beforeHide : beforeHide 			// 或者 beforeHide:"beforeHide"});</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td><ins>beforeShow</ins></td>
+          						<td>function(options)</td>
+          						<td>
+          							<p>显示之前事件，类型为function或者function的名字（字符串）</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>options</b>
+		                                        本次menu显示出来的初始化选项，用户可以读取或者修改选项的值
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre>var beforeShow = function(options) {    // TODO ... do something};$("#menu_1").FMenu("show", {        beforeShow : beforeShow 		// 或者beforeShow : "beforeShow"});</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td><ins>onClick</ins></td>
+          						<td>function(item, event)</td>
+          						<td>
+          							<p>当点击选择menu的时候触发的事件，item包含当前menuItem的所有数据。类型为function或者function的名字（字符串）。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>item</b>
+		                                        点击菜单选项的信息信息 {id: "...", url: "..."}
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>event</b>
+		                                        触发的原始的jquery事件对象
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre>$("#menu_1").FMenu("show", {        onClick:function(item, event){           location.href = item.url;        }});</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td><ins>onHide</ins></td>
+          						<td>function(options)</td>
+          						<td>
+          							<p>隐藏之后事件，类型为function或者function的名字（字符串）</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>options</b>
+		                                        本次menu显示出来的初始化选项，用户可以读取或者修改选项的值
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre>var onHide = function(options) {    // TODO ... do something};$("#menu_1").FMenu("show", {        onHide : onHide 			// 或者 onHide:"onHide"});</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td><ins>onShow</ins></td>
+          						<td>function(options)</td>
+          						<td>
+          							<p>显示之后事件，类型为function或者function的名字（字符串）</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>options</b>
+		                                        本次menu显示出来的初始化选项，用户可以读取或者修改选项的值
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre>var onShow = function(options) {    // TODO ... do something};$("#menu_1").FMenu("show", {        onShow : onShow 			// 或者 onShow:"onShow"});</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          			</tbody>
+          		</table>
+          	  	<!-- doc_events_end -->
+       		
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>disableItem</td>
+								<td>(itemId)</td>
+								<td>
+									<p>将某个menuitem设置为disabled，设置之后menuitem将不会触发事件，如果有子菜单将不能打开子菜单，必须有menuItem。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>itemId</b>
+		                                        menuItem的ID
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//调用disableItem方法 $('#btn').click(function(){    $('#menu_simple').FMenu('disableItem','001');});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>enableItem</td>
+								<td>(itemId)</td>
+								<td>
+									<p>将某个menuitem设置为enable。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>itemId</b>
+		                                        menuItem的ID
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//调用enableItem方法 $('#btn').click(function(){    $('#menu_simple').FMenu('enableItem','001');});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>hide</td>
+								<td>()</td>
+								<td>
+									<p>隐藏menu，隐藏之后会清空menu当前的状态，并且会关闭所有的子菜单。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//调用hide方法 $('#btn').click(function(){    $('#menuId').FMenu('hide');});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setStaticData</td>
+								<td>(staticData)</td>
+								<td>
+									<p>设置Menu的静态数据内容，在下次显示的时候才用新的静态数据</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>staticData</b>
+		                                        静态数据对象
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//调用disableItem方法var data1 = [...]; $('#btn').click(function(){    $('#menu_simple').FMenu('setStaticData',data1);});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>show</td>
+								<td>(options)</td>
+								<td>
+									<p>显示menu，menu不会自己显示，必须调用show方法才能显示</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>options</b>
+		                                        类型为Object，非必须，menu的显示属性，可以是attach、position、offset、direction等，详细的参数介绍请见“功能描述”中有关“初始化属性”和“显示属性”中的内容。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//通过点击button显示menu $('#btn').click(function(){    $('#menu_simple').FMenu('show', {attach:"#attachbutton"});});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

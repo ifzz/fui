@@ -1,0 +1,90 @@
+
+<h3>Message</h3>
+<p>替换原生Javascript的alert()，避免浏览器被阻塞的问题。</p>
+<img src="../resource/images/message-alert.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FMask</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>Message用于提供提示信息的弹出窗口，使用alert()、confirm()等函数时出现的那种提示信息的弹出窗口。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>只能作为简要消息提示，不能用作fwin等复杂的场景中；</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>alert提醒：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		function showResult(btn){
+		    //alert('You clicked the "' + btn +'" button');
+		};
+		$('#mb8').click(function(){
+			$.FMessage.alert('Status', 'Changes saved successfully.', showResult);
+		});
+	});
+</script>
+</textarea>
+
+<p>选择提示图标：</p>
+<textarea name="code" class="html" style="display: none;">
+<select id="icons">
+  <option id="error" selected="selected" value="f-message-icon-error">Error</option>
+  <option id="info" value="f-message-icon-info">Informational</option>
+  <option id="question" value="f-message-icon-question">Question</option>
+  <option id="warning" value="f-message-icon-warning">Warning</option>
+</select> &nbsp;
+<button id="mb9">Show</button>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+    $('#mb9').click(function() {
+	     $.FMessage.show({
+	           title: 'Icon Support',
+	           msg: 'Here is a message with an icon!',
+	           buttons:  $.FMessage.OK,
+	           // callback: showResult,
+	           icon: $("#icons").val()
+	     });
+    });
+		// ...
+	});
+</script>
+</textarea>
+
+<p>修改按钮的文本：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		// ...
+    $('#mb10').click(function() {
+	     $.FMessage.show({
+	           title: 'Icon Support',
+	           msg: 'Here is a message with an icon!',
+	           buttons:  $.FMessage.OK | $.FMessage.YESNOCANCEL,
+	           // callback: showResult,
+	           icon: $.FMessage.QUESTION,
+	           buttonTexts : {
+	           	yes : "I say yes!",
+	           	ok : "I said ok!",
+	           	no : "No more...",
+	           	cancel : "Bye."
+	           },
+	           callback : showResult
+	     });
+	});
+</script>
+</textarea>
+

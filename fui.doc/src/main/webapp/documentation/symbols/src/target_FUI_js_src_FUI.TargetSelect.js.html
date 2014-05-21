@@ -1,0 +1,244 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/*
+<span class='line'>  2</span>  * 版本：1.0.0.1
+<span class='line'>  3</span>  * 系统名称: FUI
+<span class='line'>  4</span>  * 模块名称: JRES
+<span class='line'>  5</span>  * 文件名称: FUI.FTargetSelect.js
+<span class='line'>  6</span>  * 作者：hanyin
+<span class='line'>  7</span>  * 邮箱：hanyin@hundsun.com
+<span class='line'>  8</span>  * 软件版权: 恒生电子股份有限公司
+<span class='line'>  9</span>  * 功能描述：FTargetSelect组件对应的代码。
+<span class='line'> 10</span>  * 修改记录:
+<span class='line'> 11</span>  * 修改日期      修改人员             修改说明
+<span class='line'> 12</span>  * 20130116  hanyin		按照新的form表单标准：增加方法setDisable、isDisable、getValue、setValue等
+<span class='line'> 13</span>  */</span><span class="WHIT">
+<span class='line'> 14</span> 
+<span class='line'> 15</span> </span><span class="COMM">/**
+<span class='line'> 16</span>  * @name FTargetSelect
+<span class='line'> 17</span>  * @class 
+<span class='line'> 18</span>  * 回填输入框，不含有隐藏域的输入框，在默认情况下是只读的。此组件在FTextField组件的基础上绑定了按钮图标的点击事件。一般应用于点击按钮弹出一个FWin，
+<span class='line'> 19</span>  * 然后将在FWin上操作的结果回填到输入框中。
+<span class='line'> 20</span>  */</span><span class="WHIT">
+<span class='line'> 21</span> 
+<span class='line'> 22</span> </span><span class="COMM">/**@lends FTargetSelect# */</span><span class="WHIT">
+<span class='line'> 23</span> 
+<span class='line'> 24</span> </span><span class="COMM">/**
+<span class='line'> 25</span>  * 标识(仅标签使用)
+<span class='line'> 26</span>  * @name FTargetSelect#&lt;ins>id&lt;/ins>
+<span class='line'> 27</span>  * @type String
+<span class='line'> 28</span>  * @default 随机生成
+<span class='line'> 29</span>  * @example
+<span class='line'> 30</span>  * 无
+<span class='line'> 31</span>  */</span><span class="WHIT">
+<span class='line'> 32</span> 
+<span class='line'> 33</span> </span><span class="COMM">/**
+<span class='line'> 34</span>  * 表单组件的名字，用于表单提交是文本表单域的名字(仅标签使用)
+<span class='line'> 35</span>  * @name FTargetSelect#&lt;ins>name&lt;/ins>
+<span class='line'> 36</span>  * @type String
+<span class='line'> 37</span>  * @default ""
+<span class='line'> 38</span>  * @example
+<span class='line'> 39</span>  * 无
+<span class='line'> 40</span>  */</span><span class="WHIT">
+<span class='line'> 41</span> 
+<span class='line'> 42</span> </span><span class="COMM">/**
+<span class='line'> 43</span>  * 鼠标悬浮于输入框之上时，跟随鼠标弹出显示tip的文本(仅标签使用)
+<span class='line'> 44</span>  * @name FTargetSelect#&lt;ins>title&lt;/ins>
+<span class='line'> 45</span>  * @type String
+<span class='line'> 46</span>  * @default ""
+<span class='line'> 47</span>  * @example
+<span class='line'> 48</span>  * 无
+<span class='line'> 49</span>  */</span><span class="WHIT">
+<span class='line'> 50</span> 
+<span class='line'> 51</span> </span><span class="COMM">/**
+<span class='line'> 52</span>  * 设置在使用Tab键切换表单时的顺序，同一个表单中，tabIndex的值越大，顺序越靠后；如果tabIndex相同，DOM结构位于后面的顺序越靠后(仅标签使用)
+<span class='line'> 53</span>  * @name FTargetSelect#&lt;ins>tabIndex&lt;/ins>
+<span class='line'> 54</span>  * @type String
+<span class='line'> 55</span>  * @default 0
+<span class='line'> 56</span>  * @example
+<span class='line'> 57</span>  * 无
+<span class='line'> 58</span>  */</span><span class="WHIT">
+<span class='line'> 59</span> 
+<span class='line'> 60</span> </span><span class="COMM">/**
+<span class='line'> 61</span>  * 表单域的初始可用状态，如果为true则表示不可用，也不会参与表单提交；否则可以正常使用(仅标签使用)
+<span class='line'> 62</span>  * @name FTargetSelect#&lt;ins>disabled&lt;/ins>
+<span class='line'> 63</span>  * @type Boolean
+<span class='line'> 64</span>  * @default false
+<span class='line'> 65</span>  * @example
+<span class='line'> 66</span>  * 无
+<span class='line'> 67</span>  */</span><span class="WHIT">
+<span class='line'> 68</span> 
+<span class='line'> 69</span> </span><span class="COMM">/**
+<span class='line'> 70</span>  * 表单域的初始可编辑状态，如果为true则表示输入框不可用，如果存在图标，图标可以点击；否则可以正常使用(仅标签使用)
+<span class='line'> 71</span>  * @name FTargetSelect#&lt;ins>readonly&lt;/ins>
+<span class='line'> 72</span>  * @type Boolean
+<span class='line'> 73</span>  * @default false
+<span class='line'> 74</span>  * @example
+<span class='line'> 75</span>  * 无
+<span class='line'> 76</span>  */</span><span class="WHIT">
+<span class='line'> 77</span> 
+<span class='line'> 78</span> </span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">$</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">	</span><span class="NAME">$.registerWidgetEvent</span><span class="PUNC">(</span><span class="STRN">"onTriggerClick"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">	</span><span class="NAME">$.widget</span><span class="PUNC">(</span><span class="STRN">"FUI.FTargetSelect"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">	    </span><span class="NAME">options</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">	    	</span><span class="COMM">/**
+<span class='line'> 83</span> 	    	 * 点击查询图标时触发。该事件在关联的公共窗体弹出之前触发，可用于输入框的校验，当该事件返回false或者不返回，则不执行公共窗体弹出。如果返回true，则弹出公共窗体。
+<span class='line'> 84</span> 	    	 * @event
+<span class='line'> 85</span> 	    	 * @name FTargetSelect#onTriggerClick
+<span class='line'> 86</span> 	    	 * @param id 本组件的ID
+<span class='line'> 87</span> 	    	 * @example
+<span class='line'> 88</span> 	    	 */</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">	    	</span><span class="NAME">onTriggerClick</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">	    </span><span class="NAME">_create</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">	    	</span><span class="NAME">this.options.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element.attr</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">	    </span><span class="NAME">_init</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">	    	</span><span class="NAME">this._bindEvent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">	    </span><span class="NAME">_bindEvent</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self.options.id</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">triggerEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">+</span><span class="NAME">id</span><span class="PUNC">+</span><span class="STRN">"-trigger"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">	    	</span><span class="NAME">triggerEl.click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">	    		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">FTextField</span><span class="PUNC">(</span><span class="STRN">"disabled"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">	    			</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">	    		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">	    		</span><span class="COMM">//e.stopImmediatePropagation();</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">	    		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">func</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self._getTriggerFunc</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">	    		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">func</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	    			</span><span class="NAME">func.call</span><span class="PUNC">(</span><span class="NAME">self</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">self.options.id</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">	    		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">	    </span><span class="NAME">_getTriggerFunc</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">func</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options.onTriggerClick</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">	    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$Utils.isString</span><span class="PUNC">(</span><span class="NAME">func</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	    		</span><span class="KEYW">try</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">	    			</span><span class="NAME">func</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">eval</span><span class="PUNC">(</span><span class="NAME">func</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">	    		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">catch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">	    			</span><span class="NAME">func</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">    		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">$.isFunction</span><span class="PUNC">(</span><span class="NAME">func</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">    			</span><span class="NAME">func</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">    		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">func</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>128</span> 
+<span class='line'>129</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>130</span> 	     * 设置表单输入框的值，如果传入了参数则表示设置；该方法会始终返回当前表单输入框的值；如果存在隐藏域则访问隐藏域，否则效果同方法displayValue(v)。&lt;br/>
+<span class='line'>131</span> 	     * &lt;span style="color:red">注意：&lt;/span>不建议绑定输入框的 change或者onChange事件，因为这些事件
+<span class='line'>132</span> 	     * 在通过js修改输入框的value之后&lt;b>不会触发&lt;/b>（很奇妙的是，在IE6/7/8上居然触发了），所以在这种情况下请绑定 onValueChanged事件。&lt;br/>
+<span class='line'>133</span> 	     * 另外在默认情况下，调用此方法对输入框赋值，会触发onValueChanged事件，可以通过传入force=true来关闭事件的触发。
+<span class='line'>134</span> 	     * @name FTargetSelect#setValue
+<span class='line'>135</span> 	     * @function
+<span class='line'>136</span> 	     * @param v 要设置的表单输入框的值
+<span class='line'>137</span> 	     * @param force 非必须，如果传入true则不会触发onValueChanged事件
+<span class='line'>138</span> 	     * @return 当前表单输入框的值，如果进行了设置，那么返回设置之后表单输入框的值
+<span class='line'>139</span> 	     * @example
+<span class='line'>140</span> 	     */</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">	    </span><span class="NAME">setValue</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">v</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">force</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"value"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">v</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">force</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>144</span> 
+<span class='line'>145</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>146</span> 	     * 获取表单域的值
+<span class='line'>147</span> 	     * @name FTargetSelect#getValue
+<span class='line'>148</span> 	     * @function
+<span class='line'>149</span> 	     * @return 当前表单域的值
+<span class='line'>150</span> 	     * @example
+<span class='line'>151</span> 	     */</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">	    </span><span class="NAME">getValue</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"value"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>155</span> 
+<span class='line'>156</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>157</span> 	     * 重置表单域的值为空，如果存在隐藏域，隐藏域也会被清空。但是不会去除表单域的校验信息，如果需要去除表单域的校验信息，请调用FForm的reset方法。
+<span class='line'>158</span> 	     * @name FTargetSelect#reset
+<span class='line'>159</span> 	     * @function
+<span class='line'>160</span> 	     * @return void
+<span class='line'>161</span> 	     * @example
+<span class='line'>162</span> 	     */</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">	    </span><span class="NAME">reset</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"reset"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>166</span> 
+<span class='line'>167</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>168</span> 	     * 设置输入框的可用状态；表单处于不可用状态时，不可编辑，该表单域也不会参与表单的提交
+<span class='line'>169</span> 	     * @name FTargetSelect#setDisabled
+<span class='line'>170</span> 	     * @function
+<span class='line'>171</span> 	     * @param state 如果传入true，则表示将组件置为不可用状态；如果传入false，则表示置为可用状态。
+<span class='line'>172</span> 	     * @return 当前表单的可用状态，true表示表单不可用，false表示表单可用
+<span class='line'>173</span> 	     * @example
+<span class='line'>174</span> 	     */</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">	    </span><span class="NAME">setDisabled</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">state</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"disabled"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">state</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>178</span> 
+<span class='line'>179</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>180</span> 	     * 获取输入框的可用状态；表单处于不可用状态时，不可编辑，该表单域也不会参与表单的提交
+<span class='line'>181</span> 	     * @name FTargetSelect#isDisabled
+<span class='line'>182</span> 	     * @function
+<span class='line'>183</span> 	     * @return 当前表单的可用状态，true表示表单不可用，false表示表单可用
+<span class='line'>184</span> 	     * @example
+<span class='line'>185</span> 	     */</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">	    </span><span class="NAME">isDisabled</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"disabled"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>190</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>191</span> 	     * 设置输入框的可编辑状态；表单处于不可编辑状态时，输入框不可用，如果存在图标，图标可以点击。
+<span class='line'>192</span> 	     * @name FTargetSelect#setReadonly
+<span class='line'>193</span> 	     * @function
+<span class='line'>194</span> 	     * @param state 如果传入true，则表示将组件置为不可编辑状态；如果传入false，则表示置为可编辑状态。
+<span class='line'>195</span> 	     * @return 当前表单的可编辑状态，true表示表单输入框不可编辑，false表示表单可编辑。
+<span class='line'>196</span> 	     * @example
+<span class='line'>197</span> 	     */</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">	    </span><span class="NAME">setReadonly</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">state</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"readonly"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">state</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>201</span> 
+<span class='line'>202</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>203</span> 	     * 获取输入框的可编辑状态；表单处于不可编辑状态时，输入框不可用，如果存在图标，图标可以点击。
+<span class='line'>204</span> 	     * @name FTargetSelect#isReadonly
+<span class='line'>205</span> 	     * @function
+<span class='line'>206</span> 	     * @param state 如果传入true，则表示将组件置为不可编辑状态；如果传入false，则表示置为可编辑状态。
+<span class='line'>207</span> 	     * @return 当前表单的可编辑状态，true表示表单输入框不可编辑，false表示表单可编辑。
+<span class='line'>208</span> 	     * @example
+<span class='line'>209</span> 	     */</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">	    </span><span class="NAME">isReadonly</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"readonly"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>215</span> 	     * 设置鼠标点击trigger按钮是的处理方法
+<span class='line'>216</span> 	     * @name FTargetSelect#setOnTriggerClick
+<span class='line'>217</span> 	     * @function
+<span class='line'>218</span> 	     * @example
+<span class='line'>219</span> 	     */</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">	    </span><span class="NAME">setOnTriggerClick</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">func</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">	    	</span><span class="NAME">this.options.onTriggerClick</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">func</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>223</span> 
+<span class='line'>224</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>225</span> 	     * 销毁组件
+<span class='line'>226</span> 	     * @name FTargetSelect#destroy
+<span class='line'>227</span> 	     * @function
+<span class='line'>228</span> 	     * @example
+<span class='line'>229</span> 	     */</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">	    </span><span class="NAME">destroy</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">		    </span><span class="COMM">// 调用父类的销毁方法</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">		    </span><span class="NAME">$.Widget.prototype.destroy.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span> 
+<span class='line'>237</span> </span></pre></body></html>

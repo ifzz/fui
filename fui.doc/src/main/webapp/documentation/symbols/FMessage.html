@@ -1,0 +1,384 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Message</h3>
+<p>替换原生Javascript的alert()，避免浏览器被阻塞的问题。</p>
+<img src="../resource/images/message-alert.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FMask</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>Message用于提供提示信息的弹出窗口，使用alert()、confirm()等函数时出现的那种提示信息的弹出窗口。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>只能作为简要消息提示，不能用作fwin等复杂的场景中；</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>alert提醒：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		function showResult(btn){
+		    //alert('You clicked the "' + btn +'" button');
+		};
+		$('#mb8').click(function(){
+			$.FMessage.alert('Status', 'Changes saved successfully.', showResult);
+		});
+	});
+</script>
+</textarea>
+
+<p>选择提示图标：</p>
+<textarea name="code" class="html" style="display: none;">
+<select id="icons">
+  <option id="error" selected="selected" value="f-message-icon-error">Error</option>
+  <option id="info" value="f-message-icon-info">Informational</option>
+  <option id="question" value="f-message-icon-question">Question</option>
+  <option id="warning" value="f-message-icon-warning">Warning</option>
+</select> &nbsp;
+<button id="mb9">Show</button>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+    $('#mb9').click(function() {
+	     $.FMessage.show({
+	           title: 'Icon Support',
+	           msg: 'Here is a message with an icon!',
+	           buttons:  $.FMessage.OK,
+	           // callback: showResult,
+	           icon: $("#icons").val()
+	     });
+    });
+		// ...
+	});
+</script>
+</textarea>
+
+<p>修改按钮的文本：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		// ...
+    $('#mb10').click(function() {
+	     $.FMessage.show({
+	           title: 'Icon Support',
+	           msg: 'Here is a message with an icon!',
+	           buttons:  $.FMessage.OK | $.FMessage.YESNOCANCEL,
+	           // callback: showResult,
+	           icon: $.FMessage.QUESTION,
+	           buttonTexts : {
+	           	yes : "I say yes!",
+	           	ok : "I said ok!",
+	           	no : "No more...",
+	           	cancel : "Bye."
+	           },
+	           callback : showResult
+	     });
+	});
+</script>
+</textarea>
+
+
+        <p>&nbsp;</p>
+        
+        	
+            
+            
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>alert</td>
+								<td>(title, msg, callback)</td>
+								<td>
+									<p>alert消息框</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>title</b>
+		                                        消息的标题
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>msg</b>
+		                                        消息的内容
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>callback</b>
+		                                        消息关闭的时候的回调方法
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre><pre>$.FMessage.alert("Attention", "Everything is ok!");</pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>confirm</td>
+								<td>(title, msg, callback)</td>
+								<td>
+									<p>confirm消息框</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>title</b>
+		                                        消息的标题
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>msg</b>
+		                                        消息的内容
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>callback</b>
+		                                        消息关闭的时候的回调方法
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>function showResult(btn) {  alert('You clicked the "' + btn +'" button');};$.FMessage.confirm('Confirm', 'Are you sure you want to do that?', showResult);</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>prompt</td>
+								<td>(title, msg, callback)</td>
+								<td>
+									<p>带一个输入框的消息框</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>title</b>
+		                                        消息的标题
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>msg</b>
+		                                        消息的内容
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>callback</b>
+		                                        消息关闭的时候的回调方法
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>function showResultText(btn, text){  alert('You clicked the "' + btn +'" button and entered the text "' + text + '"');};$.FMessage.prompt('Confirm', 'Are you sure you want to do that?', showResultText);</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>show</td>
+								<td>(op)</td>
+								<td>
+									<p>弹出指定参数的消息框</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>op</b>
+		                                        消息框的弹出选项，可以有下列属性：<ol><li><b>title:</b> 消息框标题；</li><li><b>msg:</b> 消息的内容，对于prompt，就是输入框的提示信息；</li><li><b>callback:</b> 输入框在关闭的时候出发的回调方法，非必须；</li><li><b>width:</b> 输入框的宽度，默认情况下自动设置合适的宽度，也可以通过设置此属性修改；</li><li><b>icon:</b> msg前的图标，目前只支持 $.FMessage.INFO、$.FMessage.QUESTION、$.FMessage.ERROR、$.FMessage.WARNING；如果没有设置此属性，则不显示图标；</li><li><b>prompt:</b> boolean类型，true则表示显示一个带输入框的消息框，此时icon属性无效；</li><li><b>buttons:</b> Message显示的按钮<pre>$.FMessage.OK 只显示一个"OK"按钮$.FMessage.OKCANCEL 显示一个"OK"按钮，一个"Cancel"按钮$.FMessage.YES 只显示一个"Yes"按钮$.FMessage.NO 只显示一个"No"按钮$.FMessage.YESNO 只显示一个"Yes"按钮，一个"No"按钮$.FMessage.CANCEL 只显示一个"Cancel"按钮$.FMessage.YESNOCANCEL 显示"Yes"、"No"、"Cancel"按钮这些按钮可以自由组合，比如 $.FMessage.OK|$.FMessage.CANCEL 效果与 $.FMessage.OKCANCEL一致</pre></li><li><b>buttonTexts:</b> 配置按钮对应文字<pre> $.FMessage.show({   title: 'Icon Support',   msg: 'Here is a message with an icon!',   buttons:  $.FMessage.OK | $.FMessage.YESNOCANCEL,   icon: $.FMessage.QUESTION,   buttonTexts : {     yes : "I say yes!",     no : "No more...",     cancel : "Bye."   } });</pre></li> <li><b>closeIcon</b> 是否显示右上角的关闭按钮，false则不显示按钮，默认显示</li></ol>
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

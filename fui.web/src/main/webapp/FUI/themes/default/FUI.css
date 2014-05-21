@@ -1,0 +1,1113 @@
+@charset "utf-8";
+/**
+ * 版本：FVersion@
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.all.css
+ * 作者：qudc
+ * 邮箱：qudc@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ */
+@charset "utf-8";
+html,
+body,
+div,
+dl,
+dt,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+p,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+img,
+body,
+html {
+  border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+  font-style: normal;
+  font-weight: normal;
+}
+caption,
+th {
+  text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+}
+q:before,
+q:after {
+  content: '';
+}
+@charset "utf-8";
+/* 表单组件，input输入框的样式*/
+.f-input-bg {
+  padding-bottom: 0;
+  padding-top: 2px;
+  background: none repeat-x scroll 0 0 transparent;
+  border: 1px solid;
+  padding: 1px 3px;
+  background-color: #FFFFFF;
+  background-image: url("./images/input-bg.gif");
+  border-color: #B5B8C8;
+  font-size: 12px;
+  font-family: tahoma, arial, helvetica, sans-serif;
+}
+@charset "utf-8";
+.f-combo {
+  position: relative;
+  left: 0;
+  top: 0;
+  zoom: 1;
+  white-space: nowrap;
+}
+.f-combo .f-combo-trigger {
+  cursor: pointer;
+  width: 17px;
+  height: 21px;
+  border: 0;
+  top: 0;
+  *margin-top: 1px\9;
+}
+.f-combo-list-container {
+  z-index: 15000;
+  position: absolute;
+  zoom: 1;
+  overflow: auto;
+  overflow-x: hidden;
+}
+.f-combo-list-inner {
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+.f-combo-list-div {
+  padding: 2px;
+  height: 16px;
+  line-height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  *width: 2000px;
+}
+.f-combo-list-inner .f-combo-list-div-mouseover {
+  border: 1px dotted !important;
+  cursor: pointer;
+}
+.f-combo-list-inner .f-combo-list-div-selected {
+  border: 1px dotted !important;
+  cursor: pointer ;
+}
+.f-combo-list-multi-img {
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+.f-combo-disable {
+  cursor: default !important;
+  filter: alpha(opacity=60);
+  opacity: 0.6 !important;
+}
+.f-combo-disable .f-combo-trigger {
+  cursor: default !important;
+}
+.f-combo-readonly .f-combo-input {
+  filter: alpha(opacity=60);
+  opacity: 0.6 !important;
+}
+.f-combo-selectable {
+  filter: alpha(opacity=60);
+  opacity: 0.6 !important;
+}
+.f-combo-selectable .f-combo-trigger {
+  cursor: default !important;
+}
+.f-combo-hidden {
+  display: none !important;
+}
+.f-combo-input-forceselect {
+  cursor: pointer !important;
+}
+.f-combo-list-multi-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  zoom: 1;
+}
+@charset "utf-8";
+.f-combo .f-combo-trigger {
+  position: absolute;
+  background: transparent no-repeat 0 0;
+  background-image: url("./images/fcombo/trigger.gif");
+  border-bottom: 1px solid ;
+  border-bottom-color: #b5b8c8;
+}
+.f-combo-list-container {
+  border: 1px solid #98C0F4;
+  background: white;
+}
+.f-combo-list-div {
+  border: 1px solid white;
+  font-size: 12px;
+  font-family: tahoma, arial, helvetica, sans-serif;
+}
+.f-combo-list-inner .f-combo-list-div-mouseover {
+  border-color: #A3BAE9 !important;
+  background: #DFE8F6;
+}
+.f-combo-list-multi-img {
+  background: no-repeat 1px 1px;
+  background-image: url("./images/fgrid/row-check-sprite.gif");
+}
+.f-combo-list-div-multi-selected .f-combo-list-multi-img {
+  background-position: -24px 1px !important;
+}
+@charset "utf-8";
+.f-borderlayout-position {
+  position: absolute;
+}
+/*
+* 修改日期      修改人员   修改说明
+* 2013-01-09    qudc      修改样式  .f-grid .f-grid-page-input  将  text-align:right;修改成 text-align:center;
+* 2013-02-18    qudc      修复需求：5009  ，添加样式.f-grid .f-grid-body TD  解决内容区域单元格 和列头宽度差1px的问题（列头包含1pxborder宽度）
+* 2013-02-19    qudc      修复需求：5018，1、新增样式：.f-grid .f-grid-head  2、修改样式f-grid-cell-move-right 的宽度
+* 2013-02-23    qudc      修改bug：4702   修改.f-grid .f-grid-title-inner样式，添加 ： word-wrap:normal; 解决列宽被挤变形的问题
+*/
+.f-grid {
+  border: 1px solid;
+}
+.f-grid * {
+  font-size: 13px;
+  font-family: arial, tahoma, helvetica, sans-serif;
+}
+/*add by qudc 2013-02-19 解决需求5018 */
+.f-grid .f-grid-head {
+  position: relative;
+}
+.f-grid-body TABLE,
+.f-grid-head TABLE,
+.f-grid-page TABLE {
+  border-collapse: collapse;
+  table-layout: auto;
+}
+.f-grid .f-grid-body {
+  overflow: auto;
+}
+.f-grid .f-empty-div {
+  height: 2px;
+  padding: 6px;
+  display: -moz-inline-box;
+  display: inline-block;
+}
+.f-grid .f-grid-body TD {
+  padding-right: 1px ;
+}
+.f-grid .f-grid-body2 TD {
+  padding: 0px;
+  border-left: 0px;
+  border-top: 0px;
+  border-bottom: 1px solid #ededed;
+  border-right: 1px solid #ededed;
+}
+.f-grid .f-grid-title-inner {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  word-wrap: normal;
+}
+.f-grid .f-grid-cell {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  border: 0;
+  margin: 0;
+  padding: 3px 6px ;
+  line-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
+}
+/*add by qudc 2013-02-19 解决需求5018  缩小拖动列的宽度，由原来的10px修改成6px*/
+.f-grid .f-grid-cell-move-right {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  vertical-align: top;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  height: 24px;
+  width: 6px;
+  cursor: col-resize;
+}
+.f-grid .f-grid-row-number {
+  width: 24px;
+  text-align: right;
+}
+.f-grid .f-grid-page-bg TABLE {
+  table-layout: auto;
+  width: auto;
+}
+.f-grid .f-grid-page TD {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  line-height: 22px;
+  vertical-align: top;
+}
+.f-grid .f-grid-page-number {
+  margin-left: 2px;
+  margin-right: 4px;
+}
+.f-grid .f-total-count {
+  padding-right: 2px;
+}
+.f-grid .f-grid-checkbox-wrap {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  border: 0;
+  margin: 0;
+  padding: 3px 3px 3px 3px;
+  line-height: 18px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
+  width: 15px;
+  text-align: center;
+}
+.f-grid .f-grid-radio-wrap {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  border: 0;
+  margin: 0;
+  padding: 3px 3px 3px 3px;
+  line-height: 18px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
+  width: 15px;
+  text-align: center;
+}
+.f-grid .f-grid-row-numbertext {
+  padding: 3px 8px 0 0 !important;
+  text-align: right;
+  font-size: 9pt;
+  line-height: 16px;
+}
+.f-grid .f-grid-page-btn {
+  cursor: pointer;
+}
+.f-grid .f-grid-cell-wrap {
+  white-space: normal;
+}
+.f-grid .f-grid-page-input {
+  width: 25px;
+  font-size: 12px;
+  padding: 1 px 3px ;
+  border: 1px solid ;
+  height: 18px;
+  text-align: center;
+}
+.f-grid .f-grid-cell-sortable {
+  cursor: pointer;
+}
+/*
+* 修改日期      修改人员   修改说明
+* 2013-02-19    qudc      修复需求5018， grid列支持可拖动，新增样式#grid-move-line
+*/
+.f-grid {
+  border-color: #99BCE8;
+}
+.f-grid .f-grid-head,
+.f-grid .f-grid-body {
+  border: 1px;
+  background-color: white;
+  color: #300016;
+}
+.f-grid .f-grid-border {
+  border: 1px solid #a6c3eb;
+}
+.f-grid .f-grid-head {
+  overflow: hidden;
+  background: url("./images/fgrid/grid-bg.png") 0px -69px repeat-x;
+}
+.f-grid-head TH,
+.f-grid-body TH {
+  border: 0;
+  margin: 0;
+  padding: 0px;
+  border-left: 0px;
+  border-top: 0px;
+  border-right: 1px solid #d0d0d0;
+  border-bottom: 0px;
+  height: 24px;
+  overflow: hidden;
+}
+#f-grid-move-proxy {
+  position: absolute;
+  width: 1px;
+  z-index: 10000;
+  background-color: #808080;
+  cursor: col-resize;
+}
+.f-grid .f-grid-tr-even {
+  background-color: #f6f6f6;
+}
+.f-grid .f-grid-tr-odd {
+  background-color: #ffffff;
+}
+.f-grid .f-grid-tr-checked {
+  background-color: #d6e8f5;
+}
+.f-grid .f-grid-page-bg {
+  height: 22px;
+  padding: 2px;
+  border-top: 1px solid #a6c3eb;
+  background: url("./images/fgrid/grid-bg.png") 0px 0px repeat-x;
+  zoom: 1;
+}
+.f-grid .f-grid-page-split {
+  margin: 5px 2px 0px 2px;
+  width: 4px;
+  height: 13px;
+  display: -moz-inline-box;
+  display: inline-block;
+  background: url("./images/fgrid/grid-bg.png") 0px -56px no-repeat;
+  vertical-align: top;
+}
+.f-grid .f-grid-loading-img {
+  margin-top: 3px;
+  padding: 0;
+  border: 0;
+  width: 16px;
+  height: 16px;
+  display: -moz-inline-box;
+  display: inline-block;
+  background: url("./images/fgrid/loading.gif") no-repeat;
+  vertical-align: top;
+}
+.f-grid .f-grid-page-button {
+  padding: 0;
+  border: 0;
+  width: 22px;
+  height: 22px;
+  display: -moz-inline-box;
+  display: inline-block;
+  background: url("./images/fgrid/grid-pagebar.gif") no-repeat;
+}
+.f-grid .f-grid-page-first {
+  background-position: -44px 0px;
+}
+.f-grid .f-grid-page-first-hover {
+  background-position: -22px 0px;
+}
+.f-grid .f-grid-page-first-disabled {
+  background-position: 0px 0px;
+}
+.f-grid .f-grid-page-first-active {
+  background-position: -66px 0px;
+}
+.f-grid .f-grid-page-prev {
+  background-position: -44px -22px;
+}
+.f-grid .f-grid-page-prev-hover {
+  background-position: -22px -22px;
+}
+.f-grid .f-grid-page-prev-disabled {
+  background-position: 0px -22px;
+}
+.f-grid .f-grid-page-prev-active {
+  background-position: -66px -22px;
+}
+.f-grid .f-grid-page-next {
+  background-position: -44px -44px;
+}
+.f-grid .f-grid-page-next-hover {
+  background-position: -22px -44px;
+}
+.f-grid .f-grid-page-next-disabled {
+  background-position: 0px -44px;
+}
+.f-grid .f-grid-page-next-active {
+  background-position: -66px -44px;
+}
+.f-grid .f-grid-page-last {
+  background-position: -44px -66px;
+}
+.f-grid .f-grid-page-last-hover {
+  background-position: -22px -66px;
+}
+.f-grid .f-grid-page-last-disabled {
+  background-position: 0px -66px;
+}
+.f-grid .f-grid-page-last-active {
+  background-position: -66px -66px;
+}
+.f-grid .f-grid-page-refresh {
+  background-position: -44px -88px;
+}
+.f-grid .f-grid-page-refresh-hover {
+  background-position: -22px -88px;
+}
+.f-grid .f-grid-page-refresh-disabled {
+  background-position: 0px -88px;
+}
+.f-grid .f-grid-page-refresh-active {
+  background-position: -66px -88px;
+}
+.f-grid .f-grid-checkbox {
+  padding: 0;
+  border: 0;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  vertical-align: top;
+  width: 13px;
+  height: 13px;
+  margin: auto auto;
+  background: url("./images/fgrid/checkbox.gif") no-repeat 0px 0px;
+}
+.f-grid .f-grid-checkbox-checked {
+  background-position: 0px -13px;
+}
+.f-grid .f-grid-radio {
+  padding: 0;
+  border: 0;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  vertical-align: top;
+  width: 13px;
+  height: 13px;
+  margin: auto auto;
+  background: url("./images/fgrid/radio.gif") no-repeat 0px 0px;
+}
+.f-grid .f-grid-radio-checked {
+  background-position: 0px -13px;
+}
+.f-grid .f-grid-row-numberbg {
+  background-image: url("./images/fgrid/grid3-special-col-bg.gif");
+  width: 24px;
+}
+.f-grid .f-grid-page-input {
+  border-color: #B5B8C8;
+  background-color: white;
+  background-image: url("./images/form/text-bg.gif");
+  border-color: #B5B8C8;
+}
+.f-grid-cell-span-desc .f-grid-cell-span-text {
+  background: url("./images/fgrid/sort_desc.gif") no-repeat scroll right 6px transparent;
+  padding-right: 16px;
+}
+.f-grid-cell-span-asc .f-grid-cell-span-text {
+  background: url("./images/fgrid/sort_asc.gif") no-repeat scroll right 6px transparent;
+  padding-right: 16px;
+}
+/*add by qudc 2013-02-19 解决需求5018 */
+#grid-move-line {
+  position: absolute;
+  width: 1px;
+  z-index: 10000;
+  background-color: #808080;
+  cursor: col-resize;
+}
+@charset "utf-8";
+.f-mask-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20000;
+  overflow: hidden;
+}
+.f-mask-scroll-hide {
+  overflow: hidden !important;
+}
+.f-mask-img {
+  position: absolute;
+  z-index: 20001;
+  top: 0;
+  left: 0;
+  border: 1px solid;
+  padding: 2px;
+}
+.f-mask-img div {
+  padding: 5px 10px 5px 25px;
+  border: 1px solid;
+  cursor: wait;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
+  line-height: 16px;
+}
+@charset "utf-8";
+.f-mask-bg {
+  opacity: 0.5;
+  filter: alpha(opacity = 50);
+  background-color: #ccc;
+}
+.f-mask-img {
+  border-color: #6593CF;
+  background: none repeat-x scroll 0 -16px transparent;
+  background-color: #C3DAF9;
+  background-image: url("./images/mask/tb-blue.gif");
+}
+.f-mask-img div {
+  color: #222;
+  border-color: #a3bad9;
+  background: no-repeat 5px 5px;
+  background-color: #fbfbfb ;
+  background-image: url("./images/mask/loading.gif");
+}
+@charset "utf-8";
+@charset "utf-8";
+/*FValidate*/
+/*默认错误显示标签的class样式*/
+/*输入框的错误样式  .f-validate-error */
+input.f-validate-error {
+  background: none repeat-x scroll center bottom transparent;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  background-image: url("./images/fvalidate/invalid_line.gif");
+  border-color: #CC3300;
+}
+textarea.f-validate-error {
+  background: none repeat-x scroll center bottom transparent;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  background-image: url("./images/fvalidate/invalid_line.gif");
+  border-color: #CC3300;
+}
+div.f-validate-error {
+  background: none no-repeat scroll 0 2px transparent;
+  line-height: 16px;
+  padding: 2px 2px 2px 18px;
+  background-image: url("./images/fvalidate/warning.gif");
+  color: #C0272B;
+  font: 11px tahoma, arial, helvetica, sans-serif;
+}
+.f-validate-errorMsg {
+  background: url("./images/fvalidate/alert.gif") center no-repeat #ffffff;
+  background-position: 5px 50%;
+  text-align: left;
+  padding: 2px 10px 2px 25px;
+  border: 1px solid red;
+  display: none;
+  position: absolute;
+  border-radius: 4px;
+  z-index: 20000;
+  color: #444444;
+  font: 11px tahoma, arial, helvetica, sans-serif;
+}
+@charset "utf-8";
+.f-win {
+  position: absolute;
+  z-index: 10100;
+}
+.f-win-tl {
+  padding-left: 6px;
+  position: relative;
+  z-index: 1;
+}
+.f-win-tr {
+  padding-right: 6px;
+  z-index: 1;
+  overflow: hidden;
+}
+.f-win-tc {
+  overflow: hidden;
+}
+.f-win-tool {
+  overflow: hidden;
+  width: 15px;
+  height: 15px;
+  float: right;
+  cursor: pointer;
+  margin-left: 2px;
+}
+.f-win-header {
+  color: #15428b;
+  font: bold 11px tahoma, arial, verdana, sans-serif;
+  padding: 5px 0 4px;
+  overflow: hidden;
+  cursor: move ;
+  zoom: 1;
+}
+.f-win-bwrap {
+  position: relative;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+/* 中部左侧*/
+.f-win-ml {
+  padding-left: 6px;
+}
+/* 中部右侧*/
+.f-win-mr {
+  padding-right: 6px;
+  overflow: hidden;
+}
+/* 中部center区域*/
+.f-win-mc {
+  overflow: hidden;
+  border: 1px solid;
+  margin: 0;
+  padding: 0;
+  zoom: 1;
+}
+/* 中部body区域*/
+.f-win-body {
+  border: 1px solid;
+  _height: 1px;
+  position: relative;
+  overflow: auto;
+}
+/* 底部左侧*/
+.f-win-bl {
+  padding-left: 6px;
+}
+/* 底部右侧*/
+.f-win-br {
+  padding-right: 6px;
+}
+/* 底部中部*/
+.f-win-bc {
+  overflow: hidden;
+  zoom: 1;
+}
+.f-win-title {
+  cursor: move;
+  font-size: 12px;
+  font: bold 11px tahoma, arial, verdana, sans-serif;
+}
+.f-win-custom-content {
+  _height: 1px;
+  zoom: 1;
+  clear: both;
+}
+.f-win-btn-l {
+  padding-left: 3px;
+  height: 24px;
+  cursor: pointer;
+  zoom: 1;
+  display: inline-block;
+  *display: inline;
+}
+.f-win-btn-r {
+  height: 24px;
+  padding-right: 3px;
+}
+.f-win-btn-c {
+  height: 24px;
+  overflow: hidden;
+  zoom: 1;
+  clear: both;
+}
+.f-win-btn-noicon-text {
+  line-height: 16px;
+  height: 16px;
+  padding: 4px 14px 4px 18px;
+  font-size: 12px;
+  zoom: 1;
+  display: inline-block;
+  *display: inline;
+}
+.f-win-btn-icon-text {
+  line-height: 16px;
+  height: 16px;
+  padding: 4px 14px 4px 0px;
+  font-size: 12px;
+  zoom: 1;
+  display: inline-block;
+  *display: inline;
+}
+.f-win-btn-icon {
+  padding: 4px 0px 4px 4px;
+  *padding-bottom: 1px !important;
+  line-height: 16px;
+  height: 16px;
+  width: 16px;
+  zoom: 1;
+  display: inline-block;
+  *display: inline;
+}
+.f-dotted-line {
+  position: absolute;
+  border: 1px dashed #3B5A82;
+  cursor: move;
+  z-index: 20000;
+}
+.f-win-iframe {
+  width: 100%;
+  height: 100%;
+  border-style: none #ffffff solid;
+}
+@charset "utf-8";
+.f-win-tl {
+  background: none no-repeat scroll 0 0 transparent;
+  background-image: url("./images/fwin/left-corners.png");
+}
+.f-win-tr {
+  background: none no-repeat scroll right 0 transparent;
+  background-image: url("./images/fwin/right-corners.png");
+}
+.f-win-ml {
+  background: none repeat-y scroll 0 0 transparent;
+  background-image: url("./images/fwin/left-right.png");
+}
+.f-win-mr {
+  background: none repeat-y scroll right 0 transparent;
+  background-image: url("./images/fwin/left-right.png");
+}
+.f-win-tc {
+  background: none repeat-x scroll 0 0 transparent;
+  background-image: url("./images/fwin/top-bottom.png");
+}
+.f-win-tool {
+  background: transparent no-repeat;
+  background-image: url("./images/fwin/tool-sprites.gif");
+}
+.f-win-close {
+  background-position: 0 0 ;
+}
+.f-win-max {
+  background-position: 0 -30px;
+}
+.f-win-restore {
+  background-position: 0 -45px;
+}
+.f-win-mc {
+  border-color: #A3BAE9 #DFE8F6 #DFE8F6 #A3BAE9;
+  background-color: #CCD9E8;
+}
+.f-win-body {
+  border-color: #dfe8f6 #a3bae9 #a3bae9 #dfe8f6;
+}
+.f-win-bl {
+  background: none repeat-y scroll 0 bottom transparent;
+  background-image: url("./images/fwin/left-corners.png");
+}
+.f-win-br {
+  background: none repeat-y scroll right bottom transparent;
+  background-image: url("./images/fwin/right-corners.png");
+}
+.f-win-bc {
+  background: none repeat-x scroll 0 bottom transparent;
+  background-image: url("./images/fwin/top-bottom.png");
+}
+.f-win-title {
+  color: #15428B;
+}
+.f-win-btn-l {
+  background-image: url("./images/fwin/f-win-btn-bg-lr.gif");
+  background-position: 0 0px;
+  background-repeat: no-repeat;
+}
+.f-win-btn-r {
+  background-image: url("./images/fwin/f-win-btn-bg-lr.gif");
+  background-position: 100% -24px;
+  background-repeat: no-repeat;
+}
+.f-win-btn-c {
+  background-image: url("./images/fwin/f-win-btn-bg-c.gif");
+  background-position: 0px 0px;
+  background-repeat: repeat;
+}
+@charset "utf-8";
+.f-dotted-line {
+  position: absolute;
+  border: 2px dotted gray ;
+}
+@charset "utf-8";
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Tree.less
+ * 作者：qudc
+ * 邮箱：qudc@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 组件的结构样式
+ * 修改记录:
+ * 修改日期   修改人员   修改说明
+ * 20130216	   qudc 	删除f-tree a样式中：    border:1px solid white;  解决需求5003 ，ie8标准模式下不设置width和height属性（即width和height属性为auto）会出现纵向滚动条的问题。
+ */
+.f-tree * {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-family: tahoma, arial, helvetica, sans-serif;
+}
+.f-tree ul {
+  margin: 0;
+  padding: 0 0 0 18px;
+}
+.f-tree li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  line-height: 14px;
+  text-align: left;
+  white-space: nowrap;
+}
+.f-tree a {
+  padding: 0px 3px 0px 0;
+  margin: 0 10px 0 0;
+  cursor: pointer;
+  height: 16px;
+  line-height: 16px;
+  color: #333;
+  background-color: transparent;
+  text-decoration: none;
+  vertical-align: top;
+  display: inline-block;
+}
+.f-tree-head {
+  height: 15px;
+  padding: 5px 0 4px 5px;
+  border-width: 1px 1px 0 1px;
+  border-style: solid;
+}
+.f-tree-body {
+  border-width: 1px;
+  border-style: solid;
+  overflow: auto;
+}
+.f-tree-title {
+  color: #15428B;
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: normal;
+  line-height: 15px;
+  overflow: hidden;
+  text-align: left;
+  vertical-align: baseline;
+}
+.f-tree .node-text {
+  line-height: 16px;
+  margin: 0 2px 0 2px;
+}
+.f-tree-body span {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.f-tree-body span.f-tree-button {
+  display: inline-block;
+}
+.f-tree-body span.f-tree-elbow {
+  width: 18px;
+  height: 18px;
+}
+.f-tree-body span.f-tree-checkmark {
+  width: 16px;
+  height: 16px;
+}
+.f-tree-body span.f-tree-folder {
+  width: 16px;
+  height: 16px;
+}
+.f-tree-body span.f-tree-checkbox-unselected,
+.f-tree-body span.f-tree-checkbox-selected,
+.f-tree-body span.f-tree-checkbox-selected-part,
+.f-tree-body span.f-tree-checkbox-unselected-part {
+  height: 13px;
+  line-height: 13px;
+  margin: 0 2px 0 0;
+  width: 13px;
+}
+@charset "utf-8";
+.f-tree-head {
+  background-image: url("./images/fpanel/white-top-bottom.gif");
+  background-repeat: repeat-x;
+  background-position: 0 -1px;
+  background-attachment: scroll;
+  border-color: #99BBE8;
+}
+.f-tree-body {
+  border-color: #99BBE8;
+}
+.f-tree-body span.f-tree-button {
+  background: url("./images/ftree/tree-node.gif") no-repeat;
+}
+.f-tree-body span.f-tree-elbow-plus-top-close {
+  background-position: -74px 0;
+}
+.f-tree-body span.f-tree-elbow-plus-top-open {
+  background-position: -92px 0;
+}
+.f-tree-body span.f-tree-elbow-plus-middle-close {
+  background-position: -74px -18px;
+}
+.f-tree-body span.f-tree-elbow-plus-middle-open {
+  background-position: -92px -18px;
+}
+.f-tree-body span.f-tree-elbow-plus-bottom-close {
+  background-position: -74px -36px;
+}
+.f-tree-body span.f-tree-elbow-plus-bottom-open {
+  background-position: -92px -36px;
+}
+.f-tree-body span.f-tree-elbow-plus-root-close {
+  background-position: -74px -54px;
+}
+.f-tree-body span.f-tree-elbow-plus-root-open {
+  background-position: -92px -54px;
+}
+.f-tree-body span.f-tree-elbow-flat-top {
+  background-position: -56px 0;
+}
+.f-tree-body span.f-tree-elbow-flat-middle {
+  background-position: -56px -18px;
+}
+.f-tree-body span.f-tree-elbow-flat-bottom {
+  background-position: -56px -36px;
+}
+.f-tree-body span.f-tree-folder-close {
+  background-position: -110px 0;
+}
+.f-tree-body span.f-tree-folder-open {
+  background-position: -110px -16px;
+}
+.f-tree-body span.f-tree-leaf {
+  background-position: -110px -32px;
+}
+.f-tree-body span.f-tree-checkbox-unselected {
+  background-position: 0 0;
+}
+.f-tree-body span.f-tree-checkbox-selected {
+  background-position: -14px 0;
+}
+.f-tree-body span.f-tree-checkbox-unselected-part {
+  background-position: 0 -28px;
+}
+.f-tree-body span.f-tree-checkbox-selected-part {
+  background-position: -14px -28px;
+}
+.f-tree-body ul.line {
+  background: url("./images/ftree/line_conn.gif") repeat-y scroll 0 0 transparent;
+}
+.f-tree-body li a.selected-node {
+  background-color: #c7ddf5;
+  font-weight: bold;
+}
+/**添加扩展的css样式*/
+@charset "utf-8";
+.f-form-checkbox-label {
+  position: relative;
+  clear: none !important;
+  display: inline !important;
+  float: none !important;
+  margin-left: 4px;
+  top: -2px;
+  width: auto !important;
+}
+.f-form-checkbox-field {
+  height: 18px;
+  line-height: 18px;
+  padding-top: 2px;
+  padding-top: 0px\9;
+  *padding-top: 0px;
+  _padding-top: 0px;
+}
+@charset "utf-8";
+.f-form-img {
+  border: 2px solid ;
+  text-align: center;
+  overflow: hidden;
+}
+@charset "utf-8";
+.f-form-img {
+  border-color: #dddddd;
+}
+@charset "utf-8";
+.f-form-label {
+  text-align: left;
+  display: block;
+  padding: 3px 3px 3px 0;
+}
+@charset "utf-8";
+.f-form-element {
+  font: 12px tahoma, arial, helvetica, sans-serif;
+  display: block;
+  margin-bottom: 4px;
+}
+.f-form-fieldlabel {
+  text-align: left;
+  clear: left;
+  display: block;
+  float: left;
+  padding: 3px 3px 3px 0;
+  position: relative;
+  width: 100px;
+}
+.f-form-field {
+  padding-left: 105px;
+  position: relative;
+}
+.f-form-input {
+  padding-bottom: 0;
+  padding-top: 2px;
+  border: 1px solid;
+  padding: 1px 3px;
+  font-size: 12px;
+  font-family: tahoma, arial, helvetica, sans-serif;
+  height: 18px;
+}
+.f-form-clear-left {
+  clear: left;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+}
+@charset "utf-8";
+.f-form-input {
+  background: none repeat-x scroll 0 0 transparent;
+  background-color: #FFFFFF;
+  background-image: url("./images/input-bg.gif");
+  border-color: #B5B8C8;
+}

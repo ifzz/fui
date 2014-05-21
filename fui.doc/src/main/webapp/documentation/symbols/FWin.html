@@ -1,0 +1,610 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Win</h3>
+<p>用于弹窗方式进行数据展示或交互，他是一个弹出式容器，但是不管内容的布局。
+</p>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>适用于弹窗式数据展示或者交互方式，典型的如增加，修改，查看的页面。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FWin实例</p>
+<textarea name="code" class="html" style="display: none;">
+<f:win id="test1" title="测试1" >
+	// ... 内容
+</f:win>
+</textarea>
+
+<p>弹出win</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		$("#bnt1").click(function() {
+			$("#win2").FWin("show");
+		});
+	};
+</script>
+<f:win id="win2" title="测试2" >
+	// ... 内容
+</f:win>
+</textarea>
+
+<p>绑定close、show事件：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	function onWinShow1() {
+		// 在关闭win之后的处理逻辑，比如清空表单等
+		alert("窗口显示出来了");
+	}
+	function onWinClose1() {
+		// 在关闭win之后的处理逻辑，比如清空表单等
+		alert("窗口关闭了");
+	}
+</script>
+<f:win id="win3" title="测试3" onClose="onWinClose1" onShow="onWinShow1">
+	// ... 内容
+</f:win>
+</textarea>
+
+
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td>buttonAlign</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>窗体中的按钮的对齐方式  center left right</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>center</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>buttons</td>
+	        					<td>Array</td>
+	        					<td>
+	        						<p>窗体中的按钮。此配置项为JSON数组。每个JSON对象具有 <code>text</code> 属性(配置按钮文字)、 <code>click</code> 属性(配置按钮触发时的回调方法)、<code>iconCls</code>属性（配置按钮的样式图片）。其中iconCls的样式如下所示：.iconCls {background: url("../dd/drop-yes.gif") no-repeat scroll left center transparent;}</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>  $("#select").FWin({buttons : [{     text : "确定",     iconCls:"isOk",     click : function () {...} }, {     text : "取消",     iconCls:"cancel",     click : function () {...} }]);</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>[]</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>draggable</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>设置组件是否可拖动。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>hasCloseBtn</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>设置win组件右上角是否有关闭按钮，默认值为true，即有关闭按钮。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>height</td>
+	        					<td>Number</td>
+	        					<td>
+	        						<p>组件的高度。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>  $("#select").FWin({height : 300});</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>300</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>isIframe</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>是否以iframe的方式加载页面,如果该属性值为true，生成的iframe标签的id为“FWin组件的id-iframe”。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>maxable</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>是否可最大化。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>maximized</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>设置win组件打开时是否最大化窗口。默认值为false。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>modal</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>是否模态窗口。默认值为true，即以模态的方式展现窗口。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>pageUrl</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>组件加载页面的地址,如果isIframe属性为true,那么请求的页面需要是标准的HTML页面，如果isIframe属性为false，那么请求的页面只能是HTML片段，不允许包含html、head、body这些html标签。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>title</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>窗体的标题。</p>
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>width</td>
+	        					<td>Number</td>
+	        					<td>
+	        						<p>组件的宽度。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>  $("#select").FWin({width : 400});</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>400</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+          		<!-- doc_events_begin -->
+          		<h4>事件</h4>
+          		<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+          						<td>onClose</td>
+          						<td>function()</td>
+          						<td>
+          							<p>窗体关闭时触发事件。</p>
+          							
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onResize</td>
+          						<td>function()</td>
+          						<td>
+          							<p>窗体大小被改变时。当用户调用setSize方法时，会触发该事件。</p>
+          							
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onSetHtml</td>
+          						<td>function()</td>
+          						<td>
+          							<p>通过setHtml方法设置html片段后触发该事件，或者设置pageUrl属性（isIframe属性为false）以ajax的方式成功加载html片段后触发该事件。注意事项：&lt;f:win&gt;A&lt;/f:win&gt; 或者&lt;@win &gt;Av/@win&gt;，其中A的值可以为空格，回车，具体页面内容，①当A是以上值时，调用组件的show方法触发onSetHtml事件。②当A没值时，且未设置pageUrl属性，那么调用组件的show方法时不触发onSetHtml事件。③当A没值时，设置pageUrl(isIframe属性为false)，请求成功后都会触发onSetHtml事件。</p>
+          							
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onShow</td>
+          						<td>function()</td>
+          						<td>
+          							<p>调用show方法时，触发onShow事件。用户可以在该事件中对组件中的表单进行重新</p>
+          							
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          			</tbody>
+          		</table>
+          	  	<!-- doc_events_end -->
+       		
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>close</td>
+								<td>()</td>
+								<td>
+									<p>关闭窗体。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$("#select").FWin('close');</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setHtml</td>
+								<td>()</td>
+								<td>
+									<p>设置FWin组件内容区域的html片段。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre> $("#select").FWin('setHtml','&lt;div&gt;我是content内容&lt;/div&gt;');</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setPageUrl</td>
+								<td>(pageUrl)</td>
+								<td>
+									<p>设置FWin组件请求页面的路径，如果isIframe属性为true，则以iframe的方式加载页面。否则以ajax的方式获取内容html，然后添加到FWin组件中。注意，调用setPageUrl方法之前，需要先调用show方法。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>pageUrl</b>
+		                                        请求页面的路径
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre> $("#select").FWin('setPageUrl','contentPage.jsp');</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setSize</td>
+								<td>(w, h)</td>
+								<td>
+									<p>通过传入的参数，设置组件的高宽并重新居中显示。注意事项：调用该方法之前，必须先调用组件的show方法展现组件。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>w</b>
+		                                        组件的宽度（number类型）
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>h</b>
+		                                        组件的高度(number类型)
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$("#select").FWin('setSize',w,h);</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>show</td>
+								<td>()</td>
+								<td>
+									<p>打开window窗体。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre> $("#select").FWin('show');</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

@@ -1,0 +1,843 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Tree</h3>
+<p>支持动态数据（ajax异步树）加载和静态数据两种数据加载模式；支持单选和复选；可以绑定树节点点击事件
+</p>
+<img src="../resource/images/tree.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>适用于主页面的菜单树，也适用于需要类似于组织机构展现方式。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>不支持后台组装树的DOM，即dom结构是在浏览器端生成；</li>
+	<li>仅支持异步树，并且每次最多展开一级；</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于静态数据初始化树：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var staticData = [
+		{"id":"10012","text":"树节点1",checked:"true","pid":"0101","children":[
+		   {"id":"10012-1","text":"叶子节点1",leaf:"true","pid":"10012","desc":null}
+		]},
+		{"id":"10013","text":"树节点2","leaf":true,"pid":"0101"} ,
+		{"id":"10014","text":"树节点3","pid":"0101","children":[
+		   {"id":"10014-1","text":"树节点1","pid":"10014","leaf":true},
+		   {"id":"10014-2","text":"树节点2","leaf":true,"pid":"10014"},
+		   {"id":"10014-3","text":"树节点3","leaf":true,"pid":"10014"}
+		]},
+		{"id":"10015","text":"树节点4","leaf":true,"pid":"0101"},
+		{"id":"10016","text":"叶子节点2","leaf":true,"pid":"0101"}
+	];
+</script>
+<f:tree id="tree1" dataUrl="" staticData="staticData" rootVisible="false" ></f:tree>
+</textarea>
+
+<p>json数据格式示例，树的json格式是子嵌套的，children属性里面又是一个树的json结构:</p>
+<textarea name="code" class="html" style="display: none;">
+[ 
+  {"id":"01","text":"研发","desc":null,"pid":"0101",
+  	"children":[
+  		{"id":"0101","text":"开发平台部","desc":null,"}
+  	]
+  }, 
+  {"id":"010103","text":"开发工程师","desc":null,"pid":"0101"} 
+]
+</textarea>
+
+<p>ajax方式加载树数据：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:tree id="tree2" dataUrl="getTreeDataRandom.fservice" rootVisible="false" ></f:tree>
+</textarea>
+
+<p>复选模式(selectChildren)，选中父节点子节点自动选中，选中子节点，父节点半选状态：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:tree id="tree3" dataUrl="" staticData="staticData" rootVisible="false" selectModel="selectChildren"></f:tree>
+</textarea>
+
+<p>复选模式(selectParent)，选中子节点父节点全选中，选中父节点子节点状态不变：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:tree id="tree4" dataUrl="" staticData="staticData" rootVisible="false" selectModel="selectParent"></f:tree>
+</textarea>
+
+<p>树节点点击事件：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+   function onNodeClick1(nodeData) {
+	   alert("树节点被点击: " + nodeData.id);
+   }
+</script>
+<f:tree id="tree5" dataUrl="" staticData="staticData" rootVisible="false" onNodeClick="onNodeClick1"></f:tree>
+</textarea>
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td><b>height</b></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>组件的高度，可以设置成具体的数值或者auto，如果设置成auto，那么具体高度由组件的内容来决定。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"350"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><b>id</b></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>组件的唯一标识。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><b>title</b></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>组件的唯一标识。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><b>width</b></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>组件的宽度 ,当组件的宽度需要自适应父容器时，可以设置成auto。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"250"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>baseParams</td>
+	        					<td>Object</td>
+	        					<td>
+	        						<p>设置组件的初始化参数，默认为{}。用户可以通过如下方式设置组件初始化参数值：{'code'：'600570','key':'hs'} ,如果使用JSP/freemarker标签，并在标签中直接写入具体的值，那么参数中必须使用单引号。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>&lt;f:grid baseParams="{'code'：'600570','key':'hs'}"&gt;&lt;/f:grid&gt; <br/>或者<br/>var bs =  {'code'：'600570','key':'hs'};&lt;f:grid baseParams="bs"&gt;&lt;/f:grid&gt;</pre>
+		        						
+		        					
+	        					</td>
+	        					<td></td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>dataUrl</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>获取节点数据的请求地址。默认值为：""。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>rootNode</td>
+	        					<td>Object</td>
+	        					<td>
+	        						<p>当rootVisible属性为true时，需要一个虚拟根节点。例如：{'id':'r','text':'根节点',expanded:true,'iconCls':'iconCls'}。说明：expanded属性用于设置根节点是否自动展开第一层树节点。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td></td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>rootVisible</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>设置根节点是否可见。默认值为true，根节点可见。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>selectModel</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>设置组件的选择模式，默认值为：“normal”，即默认选择模式。可以设置其它值，例如：“selectParent”、"selectChildren"。"selectParent"模式表示选择某个节点，会将其父节点选中。"selectChildren"模式表示选择某个节点，会将其已经渲染好的子节点选中。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"normal"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>staticData</td>
+	        					<td>Array[Object]</td>
+	        					<td>
+	        						<p>静态数据源。默认值为：null。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>数据结构如下：       [{              "id":"node1",              "text": "节点1",             "children":[{                  "id"："node2",                  "text": "节点2"              }, {                  "id":"node3",                  "text": "节点3"              }]          }];</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>null</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>syncLoad</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>是否一次性加载树节点数据，默认值为“false”，即每次只请求子节点数据。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+          		<!-- doc_events_begin -->
+          		<h4>事件</h4>
+          		<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+          						<td>onLoadError</td>
+          						<td>function(XMLHTTPReques, textStatus, errorThrown)</td>
+          						<td>
+          							<p>请求失败时触发。例如：ajax超时，网络中断。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>XMLHTTPReques</b>
+		                                        XMLHTTPReques对象。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        请求状态，通常 textStatus 和 errorThrown 之中。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>errorThrown</b>
+		                                        错误信息，通常 textStatus 和 errorThrown 之中。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onLoadfailure</td>
+          						<td>function(data, textStatus, jqXHR)</td>
+          						<td>
+          							<p>请求成功但returnCode为1或者-1时触发。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        请求返回的数据,类型为“tree”。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        请求状态。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        XMLHTTPReques对象。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onLoadsuccess</td>
+          						<td>function(data, textStatus, jqXHR)</td>
+          						<td>
+          							<p>请求成功时触发</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        请求返回的数据。类型为“tree”。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        请求状态。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        XMLHTTPReques对象。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onNodeClick</td>
+          						<td>function(nodeData)</td>
+          						<td>
+          							<p>树节点的text区域被点击的时候触发</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>nodeData</b>
+		                                        类型：Object 。单击的树节点数据对象，该事件在单击树节点文本区域或者树节点图标区域时触发。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onNodeDblClick</td>
+          						<td>function(nodeData)</td>
+          						<td>
+          							<p>树节点被双击时触发</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>nodeData</b>
+		                                        类型：Object 。双击的树节点对应的树节点对象。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onNodeSelect</td>
+          						<td>function(nodeData)</td>
+          						<td>
+          							<p>树节点选中时触发，在selectChildren模式和selectParent模式下有效。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>nodeData</b>
+		                                        类型：Object 。选中的当前节点的节点数据对象。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onNodeUnSelect</td>
+          						<td>function(nodeData)</td>
+          						<td>
+          							<p>树节点取消选中时触发，在selectChildren模式和selectParent模式下有效。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>nodeData</b>
+		                                        类型：Object 。所取消选中的树节点的数据对象。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          			</tbody>
+          		</table>
+          	  	<!-- doc_events_end -->
+       		
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>collapseNode</td>
+								<td>(nodeData)</td>
+								<td>
+									<p>收缩指定树节点</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>nodeData</b>
+		                                        类型：节点数据对象
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>expandNode</td>
+								<td>(nodeData)</td>
+								<td>
+									<p>展开指定树节点</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>nodeData</b>
+		                                        类型：节点数据对象
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getNodeDataById</td>
+								<td>(id)</td>
+								<td>
+									<p>根据树节点的id查找树节点对象</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>id</b>
+		                                        类型：'String' 树节点id
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getSelectedNodes</td>
+								<td>()</td>
+								<td>
+									<p>获取选中节点的数据对象。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>isExpanded</td>
+								<td>(nodeData)</td>
+								<td>
+									<p>判断树节点是否展开</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>nodeData</b>
+		                                        类型：节点数据对象
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>loadNode</td>
+								<td>(nodeData, params)</td>
+								<td>
+									<p>重新加载节点或者是整棵树，请求的url和参数不变。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>nodeData</b>
+		                                        类型：Object 树节点对象，如果属性rootVisible值为false，可以通过不传递nodeData参数来刷新整棵树。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>params</b>
+		                                        类型：Object 额外的请求参数
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setSize</td>
+								<td>(width, height)</td>
+								<td>
+									<p>设置组件的高宽。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>width</b>
+		                                        类型：Number 组件的宽度
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>height</b>
+		                                        类型：Number 组件的高度
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setStaticData</td>
+								<td>(data)</td>
+								<td>
+									<p>设置树的静态数据</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        类型：Object[] 树形数据的静态数据
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

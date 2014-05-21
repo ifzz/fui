@@ -1,0 +1,399 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/*
+<span class='line'>  2</span>  * 版本：1.0.0.1
+<span class='line'>  3</span>  * 系统名称: FUI
+<span class='line'>  4</span>  * 模块名称: JRES
+<span class='line'>  5</span>  * 文件名称: FUI.Button.js
+<span class='line'>  6</span>  * 作者：hanyin
+<span class='line'>  7</span>  * 邮箱：hanyin@hundsun.com
+<span class='line'>  8</span>  * 软件版权: 恒生电子股份有限公司
+<span class='line'>  9</span>  * 功能描述：FButton组件对应的代码。
+<span class='line'> 10</span>  * 修改记录:
+<span class='line'> 11</span>  * 修改日期      修改人员             修改说明
+<span class='line'> 12</span>  * 20121231  hanyin		修复在IE下，点击Button周边无法出发点击事件的问题
+<span class='line'> 13</span>  * 20130121  hanyin		新增setVisible、setDisabled方法
+<span class='line'> 14</span>  * 20130123  hanyin		修复在setIconCls传入""之后，再次传入有效cls无法显示图标的问题
+<span class='line'> 15</span>  * 20130131  hanyin		button的jsdoc中的setDisabled方法名错误为setDisable
+<span class='line'> 16</span>  */</span><span class="WHIT">
+<span class='line'> 17</span> 
+<span class='line'> 18</span> </span><span class="COMM">/** 
+<span class='line'> 19</span>  * @name FButton
+<span class='line'> 20</span>  * @class 
+<span class='line'> 21</span>  * 按钮组件，代替原始html中的button，提供了图标的功能并扩展了常用的api，通常用于事件和动作触发。
+<span class='line'> 22</span>  */</span><span class="WHIT">
+<span class='line'> 23</span> 
+<span class='line'> 24</span> </span><span class="COMM">/**@lends FButton# */</span><span class="WHIT">
+<span class='line'> 25</span> 
+<span class='line'> 26</span> </span><span class="COMM">/**
+<span class='line'> 27</span>  * 标识（在标签中使用）
+<span class='line'> 28</span>  * @name FButton#&lt;ins>id&lt;/ins>
+<span class='line'> 29</span>  * @type String
+<span class='line'> 30</span>  * @default
+<span class='line'> 31</span>  * @example
+<span class='line'> 32</span>  * 无
+<span class='line'> 33</span>  */</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="COMM">/**
+<span class='line'> 36</span>  * 按钮的文本(仅标签使用)
+<span class='line'> 37</span>  * @name FButton#&lt;ins>text&lt;/ins>
+<span class='line'> 38</span>  * @type String
+<span class='line'> 39</span>  * @default ""
+<span class='line'> 40</span>  * @example
+<span class='line'> 41</span>  * 无
+<span class='line'> 42</span>  */</span><span class="WHIT">
+<span class='line'> 43</span> 
+<span class='line'> 44</span> </span><span class="COMM">/**
+<span class='line'> 45</span>  * 按钮的类型（submit、reset等）(仅标签使用)，此属性需要与Form一起使用。
+<span class='line'> 46</span>  * @name FButton#&lt;ins>type&lt;/ins>
+<span class='line'> 47</span>  * @type String
+<span class='line'> 48</span>  * @default ""
+<span class='line'> 49</span>  * @example
+<span class='line'> 50</span>  * 无
+<span class='line'> 51</span>  */</span><span class="WHIT">
+<span class='line'> 52</span> 
+<span class='line'> 53</span> </span><span class="COMM">/**
+<span class='line'> 54</span>  * 渲染该组件为禁用状态的（默认为false）(仅标签使用)
+<span class='line'> 55</span>  * @name FButton#&lt;ins>disabled&lt;/ins>
+<span class='line'> 56</span>  * @type boolean
+<span class='line'> 57</span>  * @default false
+<span class='line'> 58</span>  * @example
+<span class='line'> 59</span>  * 无
+<span class='line'> 60</span>  */</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">				 </span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">$</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">	</span><span class="NAME">$.registerWidgetEvent</span><span class="PUNC">(</span><span class="STRN">"onClick"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">	</span><span class="NAME">$.widget</span><span class="PUNC">(</span><span class="STRN">"FUI.FButton"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">	    </span><span class="NAME">options</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'> 67</span> 	         * 用来指定text前面的样式类，非必须
+<span class='line'> 68</span> 	         * @name FButton#iconCls
+<span class='line'> 69</span> 	         * @type String
+<span class='line'> 70</span> 	         * @default ""
+<span class='line'> 71</span> 	         * @example
+<span class='line'> 72</span> 	         * 无
+<span class='line'> 73</span> 	         */</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">	        </span><span class="NAME">iconCls</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'> 76</span> 	         * 按钮的点击事件
+<span class='line'> 77</span> 	         * @event
+<span class='line'> 78</span> 	         * @name FButton#onClick
+<span class='line'> 79</span> 	         * @example
+<span class='line'> 80</span> 	         */</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">	        </span><span class="NAME">onClick</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">	        </span><span class="NAME">_disabled</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">	    </span><span class="NAME">_create</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">		    </span><span class="COMM">// 初始化ID</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ID</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element.attr</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">		    </span><span class="NAME">this.options.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ID</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="WHIT">		    </span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">		    </span><span class="NAME">this.options._disabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element.hasClass</span><span class="PUNC">(</span><span class="STRN">"f-state-disabled"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> 
+<span class='line'> 91</span> </span><span class="WHIT">		    </span><span class="COMM">// 绑定事件</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">		    </span><span class="NAME">this._bindEvent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">	    </span><span class="NAME">_init</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">	    </span><span class="NAME">_bindEvent</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">	    	</span><span class="NAME">self.element.click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">	    		</span><span class="COMM">// e.stopPropagation();</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">	    		</span><span class="NAME">self.click</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">	    		</span><span class="COMM">// return false;</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">	    </span><span class="COMM">// 对象销毁方法</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">	    </span><span class="NAME">destroy</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">		    </span><span class="COMM">// 调用父类的销毁方法</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">		    </span><span class="NAME">$.Widget.prototype.destroy.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>109</span> 
+<span class='line'>110</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>111</span> 	     * 触发点击事件"onClick"。
+<span class='line'>112</span> 	     * @name FButton#click
+<span class='line'>113</span> 	     * @function
+<span class='line'>114</span> 	     * @example
+<span class='line'>115</span> 	     * $('#btn').FButton('click');
+<span class='line'>116</span> 	     */</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	    </span><span class="NAME">click</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">self.isDisabled</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">			    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$.isFunction</span><span class="PUNC">(</span><span class="NAME">op.onClick</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">				    </span><span class="NAME">op.onClick.call</span><span class="PUNC">(</span><span class="NAME">self</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>127</span> 	     * 改变按钮的text属性。
+<span class='line'>128</span> 	     * @name FButton#setText
+<span class='line'>129</span> 	     * @function
+<span class='line'>130</span> 	     * @param text 按钮文本
+<span class='line'>131</span> 	     * @example
+<span class='line'>132</span> 	     * $('#btn').FButton('setText','按钮text');
+<span class='line'>133</span> 	     */</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">	    </span><span class="NAME">setText</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">text</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">text</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">			    </span><span class="NAME">this.element.find</span><span class="PUNC">(</span><span class="STRN">".f-new-btn-text"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="NAME">text</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>140</span> 	     * 判断组件是否被禁用
+<span class='line'>141</span> 	     * @name FButton#isDisabled
+<span class='line'>142</span> 	     * @function
+<span class='line'>143</span> 	     * @example
+<span class='line'>144</span> 	     * var disabled = $('#btn').FButton('isDisabled');
+<span class='line'>145</span> 	     */</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">	    </span><span class="NAME">isDisabled</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">		    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.options._disabled</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>150</span> 	     * 禁用/启用组件。
+<span class='line'>151</span> 	     * @name FButton#setDisabled
+<span class='line'>152</span> 	     * @function
+<span class='line'>153</span> 	     * @param disabled 如果为false，则表示启用；否则则表示禁用
+<span class='line'>154</span> 	     * @example
+<span class='line'>155</span> 	     * $('#btn').FButton('setDisable', false);
+<span class='line'>156</span> 	     */</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">	    </span><span class="NAME">setDisabled</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">disabled</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">selfEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op._objSelfEl</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">disabled</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">			    </span><span class="NAME">op._disabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">			    </span><span class="NAME">this.element.removeClass</span><span class="PUNC">(</span><span class="STRN">"f-state-disabled"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">			    </span><span class="NAME">op._disabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">			    </span><span class="NAME">this.element.addClass</span><span class="PUNC">(</span><span class="STRN">"f-state-disabled"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>169</span> 
+<span class='line'>170</span> </span><span class="WHIT">	</span><span class="NAME">$.widget</span><span class="PUNC">(</span><span class="STRN">"FUI.FSimpleButton"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">	    </span><span class="NAME">options</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'>173</span> 	         * 此组件的整体高度（包括margin，单位像素），默认为24。&lt;br/>
+<span class='line'>174</span> 	         * 仅支持数字形式的字符串或者带px单位的数字字符串，比如"40"、"40px"，都是表示40个像素；其他非法形式的字符串则被忽略。&lt;br/>
+<span class='line'>175</span> 	         * 请慎重设置组件的margin的top和bottom值，在不同浏览器下可能是不同的显示效果。请不要设置button的padding、border的样式，否则会造成宽度计算不准确
+<span class='line'>176</span> 	         * height属性不支持百分比。
+<span class='line'>177</span> 	         * @name FSimpleButton#height
+<span class='line'>178</span> 	         * @type String
+<span class='line'>179</span> 	         * @default "24"
+<span class='line'>180</span> 	         * @example
+<span class='line'>181</span> 	         * 无
+<span class='line'>182</span> 	         */</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">	        </span><span class="NAME">height</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">24</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'>185</span> 	         * 此组件的整体宽度（包括margin，单位象素），默认为75。&lt;br/>
+<span class='line'>186</span> 	         * 支持数字形式的字符串或者带px单位的数字字符串，比如"40"、"40px"，都表示40个像素，字符串如"px50"、"abcpx"等其他非法形式的字符串则被忽略；
+<span class='line'>187</span> 	         * width也支持百分比，比如"10%"，则表示占用外层容器(div,td等)宽度的比率，此时请慎重button设置左右margin、border和padding，否则会造成在不同浏览器下表现不一致不准确。&lt;br/>
+<span class='line'>188</span> 	         * 请不要设置button的padding、border的样式，否则会造成宽度计算不准确
+<span class='line'>189</span> 	         * @name FSimpleButton#width
+<span class='line'>190</span> 	         * @type String
+<span class='line'>191</span> 	         * @default "75"
+<span class='line'>192</span> 	         * @example
+<span class='line'>193</span> 	         * 无
+<span class='line'>194</span> 	         */</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">	        </span><span class="NAME">width</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">75</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'>197</span> 	         * 按钮的点击事件
+<span class='line'>198</span> 	         * @event
+<span class='line'>199</span> 	         * @name FSimpleButton#onClick
+<span class='line'>200</span> 	         * @example
+<span class='line'>201</span> 	         */</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">	        </span><span class="NAME">onClick</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>203</span> 
+<span class='line'>204</span> </span><span class="WHIT">	        </span><span class="COMM">// 是否是禁用状态</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">	        </span><span class="NAME">_disabled</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">	    </span><span class="NAME">_create</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">		    </span><span class="COMM">// 初始化ID</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">		    </span><span class="NAME">this.options.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element.attr</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">		    </span><span class="NAME">this.options._disabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this._getBoxEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">hasClass</span><span class="PUNC">(</span><span class="STRN">"f-state-disabled"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>212</span> 
+<span class='line'>213</span> </span><span class="WHIT">		    </span><span class="COMM">// 绑定事件</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">		    </span><span class="NAME">this._bindEvent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>217</span> </span><span class="WHIT">	    </span><span class="NAME">_init</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">	    </span><span class="NAME">_getBoxEl</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">boxEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op._objBoxEl</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">	    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">boxEl</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">	    		</span><span class="NAME">boxEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op._objBoxEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this._getButtonEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">parent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">parent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>226</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">boxEl</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">	    </span><span class="NAME">_getButtonEl</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>232</span> 
+<span class='line'>233</span> </span><span class="WHIT">	    </span><span class="NAME">_bindEvent</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">boxEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self._getBoxEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">bntEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self._getButtonEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>238</span> 
+<span class='line'>239</span> </span><span class="WHIT">		    </span><span class="NAME">boxEl.hover</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">		    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">self.disabled</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">		    		</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">		    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="WHIT">		    	</span><span class="NAME">boxEl.addClass</span><span class="PUNC">(</span><span class="STRN">"f-state-hover"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>244</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>245</span> </span><span class="WHIT">		    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">self.disabled</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>246</span> </span><span class="WHIT">		    		</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="WHIT">		    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">				</span><span class="NAME">boxEl.removeClass</span><span class="PUNC">(</span><span class="STRN">"f-state-hover f-state-active"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">mousedown</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">		    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">self.disabled</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">		    		</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">		    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">				</span><span class="NAME">boxEl.addClass</span><span class="PUNC">(</span><span class="STRN">"f-state-active"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">mouseup</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">		    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">self.disabled</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="WHIT">		    		</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="WHIT">		    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">				</span><span class="NAME">boxEl.removeClass</span><span class="PUNC">(</span><span class="STRN">"f-state-active"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="WHIT">				</span><span class="NAME">self.click</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">			</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">		    </span><span class="NAME">bntEl.focus</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="WHIT">		    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">self.disabled</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>265</span> </span><span class="WHIT">		    		</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>266</span> </span><span class="WHIT">		    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>267</span> </span><span class="WHIT">		    	</span><span class="NAME">boxEl.addClass</span><span class="PUNC">(</span><span class="STRN">"f-state-focus"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>268</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">blur</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>269</span> </span><span class="WHIT">		    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">self.disabled</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="WHIT">		    		</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">		    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>272</span> </span><span class="WHIT">				</span><span class="NAME">boxEl.removeClass</span><span class="PUNC">(</span><span class="STRN">"f-state-focus"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>273</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">	    </span><span class="COMM">// 对象销毁方法</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">	    </span><span class="NAME">destroy</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>278</span> </span><span class="WHIT">		    </span><span class="COMM">// 取消绑定的事件</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="WHIT">	    	</span><span class="NAME">this._getBoxEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">unbind</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>280</span> </span><span class="WHIT">	    	</span><span class="NAME">this._getButtonEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">unbind</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>281</span> </span><span class="WHIT">	    	</span><span class="NAME">this.options._objBoxEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="WHIT">		    </span><span class="COMM">// 调用父类的销毁方法</span><span class="WHIT">
+<span class='line'>283</span> </span><span class="WHIT">		    </span><span class="NAME">$.Widget.prototype.destroy.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>284</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>285</span> 
+<span class='line'>286</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>287</span> 	     * 触发点击事件"onClick"。
+<span class='line'>288</span> 	     * @name FSimpleButton#click
+<span class='line'>289</span> 	     * @function
+<span class='line'>290</span> 	     * @example
+<span class='line'>291</span> 	     * $('#btn').FButton('click');
+<span class='line'>292</span> 	     */</span><span class="WHIT">
+<span class='line'>293</span> </span><span class="WHIT">	    </span><span class="NAME">click</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>294</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>295</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>296</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">self.disabled</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="WHIT">			    </span><span class="COMM">// 如果有注册的点击事件，则先调用注册的点击事件</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="WHIT">			    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">canGo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="WHIT">			    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$.isFunction</span><span class="PUNC">(</span><span class="NAME">op.onClick</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="WHIT">				    </span><span class="COMM">// setTimeout(function() {</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="WHIT">				    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.onClick.call</span><span class="PUNC">(</span><span class="NAME">self</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="WHIT">				    </span><span class="NAME">canGo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>303</span> </span><span class="WHIT">				    </span><span class="COMM">// }, 0);</span><span class="WHIT">
+<span class='line'>304</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>305</span> </span><span class="WHIT">			    </span><span class="COMM">// 触发其他注册方式的点击事件</span><span class="WHIT">
+<span class='line'>306</span> </span><span class="WHIT">			    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">canGo</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>307</span> </span><span class="WHIT">				    </span><span class="NAME">this.element.triggerHandler</span><span class="PUNC">(</span><span class="STRN">"onClick"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>308</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>309</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>312</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>313</span> 	     * 禁用/启用组件。
+<span class='line'>314</span> 	     * @name FSimpleButton#disabled
+<span class='line'>315</span> 	     * @function
+<span class='line'>316</span> 	     * @param disabled 如果为false，则表示启用；否则则表示禁用
+<span class='line'>317</span> 	     * @example
+<span class='line'>318</span> 	     * $('#btn').FSimpleButton('disabled');
+<span class='line'>319</span> 	     */</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">	    </span><span class="NAME">disabled</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">disabled</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">arguments.length</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>323</span> </span><span class="WHIT">		    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">op._disabled</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>324</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>325</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">boxEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this._getBoxEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>326</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">bntEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this._getButtonEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>327</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">disabled</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">			    </span><span class="NAME">op._disabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="WHIT">			    </span><span class="NAME">boxEl.removeClass</span><span class="PUNC">(</span><span class="STRN">"f-state-hover f-state-active f-state-focus f-state-disabled"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="WHIT">			    </span><span class="NAME">bntEl.attr</span><span class="PUNC">(</span><span class="STRN">"disabled"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>331</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="WHIT">			    </span><span class="NAME">op._disabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>333</span> </span><span class="WHIT">			    </span><span class="NAME">boxEl.removeClass</span><span class="PUNC">(</span><span class="STRN">"f-state-hover f-state-active"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="WHIT">			    </span><span class="NAME">boxEl.addClass</span><span class="PUNC">(</span><span class="STRN">"f-state-disabled"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="WHIT">			    </span><span class="NAME">bntEl.attr</span><span class="PUNC">(</span><span class="STRN">"disabled"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>336</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>337</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>340</span> 	     * 改变按钮的text属性。
+<span class='line'>341</span> 	     * @name FButton#setText
+<span class='line'>342</span> 	     * @function
+<span class='line'>343</span> 	     * @param text 按钮文本
+<span class='line'>344</span> 	     * @example
+<span class='line'>345</span> 	     * $('#btn').FButton('setText','按钮text');
+<span class='line'>346</span> 	     */</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="WHIT">	    </span><span class="NAME">setText</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">text</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">text</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>349</span> </span><span class="WHIT">			    </span><span class="NAME">this._getButtonEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="NAME">text</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>350</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="WHIT">			    </span><span class="NAME">this._getButtonEl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="STRN">"&nbsp;"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>352</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>353</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>355</span> 
+<span class='line'>356</span> </span><span class="WHIT">	</span><span class="NAME">$.FUI.FSimpleButton</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$.FUI.FSimpleButton</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">	</span><span class="NAME">$.FUI.FSimpleButton.generateHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">op</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.id</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">$Utils.genId</span><span class="PUNC">(</span><span class="STRN">"f-button"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 0</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">text</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.text</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"Button"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">$Utils.UID</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 1</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.width</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"75px"</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 2</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.height</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"22px"</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 3</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">leftIconCls</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.leftIconCls</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">//4</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rightIconCls</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.rightIconCls</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 5</span><span class="WHIT">
+<span class='line'>364</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">onClick</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.onClick</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 6</span><span class="WHIT">
+<span class='line'>365</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">tabIndex</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.tabIndex</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 7</span><span class="WHIT">
+<span class='line'>366</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">disabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.disabled</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 8</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">iWidth</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">width</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 9</span><span class="WHIT">
+<span class='line'>369</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">iHeight</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 10</span><span class="WHIT">
+<span class='line'>370</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">iLineHeight</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">iHeight</span><span class="PUNC">/</span><span class="NUMB">2</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 11</span><span class="WHIT">
+<span class='line'>371</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">bntStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"width:"</span><span class="PUNC">+</span><span class="NAME">iWidth</span><span class="PUNC">+</span><span class="STRN">"px;"</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 12</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">		</span><span class="NAME">bntStyle</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"height:"</span><span class="PUNC">+</span><span class="NAME">iHeight</span><span class="PUNC">+</span><span class="STRN">"px;"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">		</span><span class="NAME">bntStyle</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"line-height:"</span><span class="PUNC">+</span><span class="NAME">iHeight</span><span class="PUNC">+</span><span class="STRN">"px;"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="WHIT">		</span><span class="NAME">bntStyle</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"margin-top:-"</span><span class="PUNC">+</span><span class="PUNC">(</span><span class="NAME">iLineHeight</span><span class="PUNC">+</span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">"px;"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>376</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">boxStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.style</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 13</span><span class="WHIT">
+<span class='line'>378</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>379</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">template</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"\
+<span class='line'>380</span> 			&lt;div id='{0}-wrapper' style='{13}' class='f-button f-widget f-form-unselectable' onselectstart='return false;'> \
+<span class='line'>381</span> 			&lt;div class='f-button-box'  style='width:{9}px;height:{10}px'> \
+<span class='line'>382</span> 			   &lt;div class='f-button-t' style='line-height:{iLineHeight}px'>&nbsp;&lt;/div> \
+<span class='line'>383</span> 			   &lt;button id='{0}' hidefocus='true' class='f-button-text' style='text-align:center;{12}' \
+<span class='line'>384</span> 			   	tabIndex={7}'> \
+<span class='line'>385</span> 			   	{1} \
+<span class='line'>386</span> 			   &lt;/button> \
+<span class='line'>387</span> 			&lt;/div>&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">$Utils.format</span><span class="PUNC">(</span><span class="NAME">template</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">text</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">height</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">leftIconCls</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">rightIconCls</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">onClick</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">    			</span><span class="NAME">tabIndex</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">disabled</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">iWidth</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">iHeight</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">iLineHeight</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">bntStyle</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">boxStyle</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>392</span> </span></pre></body></html>

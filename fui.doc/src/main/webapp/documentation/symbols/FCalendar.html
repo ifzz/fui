@@ -1,0 +1,631 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Calendar</h3>
+<p>FCalendar日历组件，供用户选择日期或者时间；
+FCalendar集成第三方 "<a href="http://www.my97.net/dp/demo/index.htm" target="_blank">My97DatePicker</a>" 插件，支持显示值和提交值不一样。</p>
+<img src="../resource/images/calendar.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li><a href="http://www.my97.net/dp/demo/index.htm" target="_blank">My97DatePicker</a></li>
+</ul>
+
+<h4>适用范围</h4>
+<p>选择日期或者时间，并且显示值和提交值的日期格式不一定相同的情况</p>
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>FUI集成My97插件，FUI只能保证<span style="color:red">已经经过验证</span>的功能是可用的并建议使用的，详情请见示例</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li>无</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FCalendar实例：</p>
+<textarea name="code-combobox" class="html" style="display: none;">
+<f:calendar name="date1"/>
+</textarea>
+
+<p>定制日期的显示格式（dateFmt）和提交格式（realDateFmt）， 用得比较多的日期格式包括 "yyyy"、"MM"、"dd"等，分别代表年、月、日；
+ 如果需要显示时间，"HH"表示小时，"mm"表示分钟，"ss"表示秒（<a href="http://www.my97.net/dp/demo/resource/2.2.asp#m224" target="_blank">更多日期格式</a>）：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts2 = {
+	    dateFmt : "yyyy年MM月dd日",
+	    realDateFmt : "yyyyMMdd"
+	};
+</script>
+
+<f:calendar name="date2" showOpts="showOpts2"/>
+</textarea>
+
+<p>定制无效天，可以使用此功能禁用周日至周六所对应的日期,相关属性:disabledDays (0至6 分别代表 周日至周六)：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts3 = {
+	    disabledDays:[0,6]
+	};
+</script>
+<f:calendar name="date3" showOpts="showOpts3"/>
+</textarea>
+
+<p>定制有效日期区间，minDate和maxDate分别指定有效日期的最小和最大日期，格式以dateFmt为准：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts4 = {
+		realDateFmt : "yyyyMMdd",
+	  dateFmt : "yyyy年MM月dd日",
+		minDate : "2013年01月01日",
+		maxDate : "2013年06月01日"
+	};
+</script>
+<f:calendar name="date4" showOpts="showOpts4"/>
+</textarea>
+
+<p>日期范围限制：两个日历，前面的日期+1天 不能大于 后面的日期：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts5 = {
+		maxDate:'#F{$dp.$D(\'date6\',{d:-1});}'
+	};
+	var showOpts6 = {
+		minDate:'#F{$dp.$D(\'date5\',{d:1});}'
+	};
+</script>
+<f:calendar id="date5" name="date51" showOpts="showOpts5"/>
+<f:calendar id="date6" name="date52" showOpts="showOpts6"/>
+</textarea>
+
+<p>时间选择：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts6 = {
+		dateFmt: "HH时mm分",
+		realTimeFmt: "HH:mm"
+	};
+</script>
+<f:calendar name="date6" showOpts="showOpts6"/>
+</textarea>
+
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td><ins>disabled</ins></td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>表单域的初始可用状态，如果为true则表示不可用，也不会参与表单提交；否则可以正常使用(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>id</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>标识(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>随机生成</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>name</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>表单组件的名字，用于表单提交是文本表单域的名字(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>readonly</ins></td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>表单域的初始可编辑状态，如果为true则表示输入框不可用，如果存在图标，图标可以点击；否则可以正常使用(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>tabIndex</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>设置在使用Tab键切换表单时的顺序，同一个表单中，tabIndex的值越大，顺序越靠后；如果tabIndex相同，DOM结构位于后面的顺序越靠后(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>0</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>title</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>鼠标悬浮于输入框之上时，跟随鼠标弹出显示tip的文本(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>showOpts</td>
+	        					<td>Object</td>
+	        					<td>
+	        						<p>显示的选项</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>destroy</td>
+								<td>()</td>
+								<td>
+									<p>销毁组件</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getValue</td>
+								<td>()</td>
+								<td>
+									<p>获取表单域的值</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>hide</td>
+								<td>()</td>
+								<td>
+									<p>隐藏组件</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$("#form1").FForm("hide");</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>isDisabled</td>
+								<td>()</td>
+								<td>
+									<p>获取输入框的可用状态；表单处于不可用状态时，不可编辑，该表单域也不会参与表单的提交</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>isReadonly</td>
+								<td>()</td>
+								<td>
+									<p>获取输入框的可编辑状态；表单处于不可编辑状态时，输入框不可用，如果存在图标，图标可以点击。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>isSelectable</td>
+								<td>()</td>
+								<td>
+									<p>判断组件下拉图片是否可点击 参数： 无 返回值： Boolean</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>reset</td>
+								<td>()</td>
+								<td>
+									<p>重置表单域的值为空，如果存在隐藏域，隐藏域也会被清空。但是不会去除表单域的校验信息，如果需要去除表单域的校验信息，请调用FForm的reset方法。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setDisabled</td>
+								<td>(state)</td>
+								<td>
+									<p>设置输入框的可用状态；表单处于不可用状态时，不可编辑，该表单域也不会参与表单的提交</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>state</b>
+		                                        如果传入true，则表示将组件置为不可用状态；如果传入false，则表示置为可用状态。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setReadonly</td>
+								<td>(state)</td>
+								<td>
+									<p>设置输入框的可编辑状态；表单处于不可编辑状态时，输入框不可用，如果存在图标，图标可以点击。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>state</b>
+		                                        如果传入true，则表示将组件置为不可编辑状态；如果传入false，则表示置为可编辑状态。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setSelectable</td>
+								<td>(selectable)</td>
+								<td>
+									<p>设置输入框是否可编辑，下拉图片是否可点击。selectable默认为true。setSelectable为false时，输入框不可编辑且下拉图片不可点击。参数： selectable : Boolean 返回值： void</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>selectable</b>
+		                                        类型:"Boolean"。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setShowOpts</td>
+								<td>()</td>
+								<td>
+									<p>设置组件的显示属性，下次显示时生效</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$("#form1").FForm("setShowOpts", {realDateFmt : "yyyyMMdd"});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setValue</td>
+								<td>(v, force)</td>
+								<td>
+									<p>设置表单输入框的值，如果传入了参数则表示设置；该方法会始终返回当前表单输入框的值；如果存在隐藏域则访问隐藏域，否则效果同方法displayValue(v)。<br/><span style="color:red">注意：</span>不建议绑定输入框的 change或者onChange事件，因为这些事件在通过js修改输入框的value之后<b>不会触发</b>（很奇妙的是，在IE6/7/8上居然触发了），所以在这种情况下请绑定 onValueChanged事件。<br/>另外在默认情况下，调用此方法对输入框赋值，会触发onValueChanged事件，可以通过传入force=true来关闭事件的触发。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>v</b>
+		                                        要设置的表单输入框的值
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>force</b>
+		                                        非必须，如果传入true则不会触发onValueChanged事件
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>show</td>
+								<td>(op)</td>
+								<td>
+									<p>显示日历组件</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>op</b>
+		                                        显示选项对象，如果无效，则采用showOpts属性的值；否则属性showOpts将被忽略。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

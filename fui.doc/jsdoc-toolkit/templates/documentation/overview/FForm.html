@@ -1,0 +1,111 @@
+
+<h3>Form</h3>
+<p>FForm，作为表单的容器，支持批量设值和获取表单的值，并可以与一个服务绑定，提供表单提交的API。</p>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>替代原生的form标签，并扩展了相关功能：批量设值和获取表单的值；通过submit方法触发表单提交等。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>FForm并不提供“form布局”，并不提供表单组件的布局样式；</li>
+	<li>不支持批量改变表单的状态：readonly或者disabled等；</li>
+</ul>
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FForm实例：</p>
+<textarea name="code-combobox" class="html" style="display: none;">
+<f:form id="form1" action="test.formSubmit1.fservice">
+	// ...
+	// 所有FUI的表单组件以及html原生的表单组件，这些表单组件都必须有有name属性
+	// ...
+</f:form>
+</textarea>
+
+<p>批量设值：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:form id="form2" action="test.formSubmit1.fservice">
+	// ...
+	<input type="text" name="id">
+	// ...
+	<input type="text" name="age">
+	// ...
+	<input type="text" name="name">
+	// ...
+</f:form>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		$("#form2").FForm("setValues", {id:"04002", age:"27", name:"霸天虎"});
+		// ...
+	});
+</script>
+</textarea>
+
+<p>批量取值：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:form id="form3" action="test.formSubmit1.fservice">
+	// ...
+	<input type="text" name="id" value="04002">
+	// ...
+	<input type="text" name="age" value="27">
+	// ...
+	<input type="text" name="name" value="霸天虎">
+	// ...
+</f:form>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		var values = $("#form3").FForm("getValues"); // values = {id:"04002", age:"27", name:"霸天虎"}
+		// ...
+	});
+</script>
+</textarea>
+
+<p>表单提交函数submit，第一个参数为附加的请求参数，第二个参数为ajax请求选项：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	// ...
+	function beforeSubmit1() {
+		alert("表单提交前处理");
+		// return false // 阻止表单提交！
+	}
+	function onSuccess1(data, textStatus) {
+		alert("form提交成功，返回数据：" + data);
+	}
+	function onFailure1(data, textStatus) {
+		alert("form提交失败");
+	}
+	function onError1(jqXHR, textStatus, errorThrown) {
+		alert("ajax请求失败");
+	}
+	// ...
+
+</script>
+	
+<f:form id="form4" action="test.formSubmit1.fservice" 
+	onSuccess="onSuccess1" onFailure="onFailure1" onError="onError1" beforeSubmit="beforeSubmit1">
+	// ...
+	// 所有FUI的表单组件以及html原生的表单组件，这些表单组件都必须有有name属性
+	// ...
+</f:form>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		$("#form4").FForm("submit", {param1: "value1"});
+		// ...
+	});
+</script>
+</textarea>

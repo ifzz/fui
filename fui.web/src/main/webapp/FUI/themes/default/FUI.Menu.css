@@ -1,0 +1,385 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Menu.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述: 菜单FUI.Menu组件的样式
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121023		hanyin	新增
+ * 20130108		hanyin  如果单词超过了菜单边界则截断
+ */
+
+.f-widget {
+	font-family: tahoma, arial, verdana, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	color: #222;
+}
+
+.f-state-disabled {
+	cursor: default !important;
+	opacity: .5;
+	filter: Alpha(Opacity=50);
+	background-image: none;
+}
+
+.f-state-readonly {
+	cursor: default !important;
+	opacity: .90;
+	filter: Alpha(Opacity=90);
+	background-image: none;
+}
+
+.f-state-hover, .f-state-focus, .f-state-active {
+	border: 1px solid #A9CBF5;
+	font-weight: normal;
+	color: #212121;
+}
+ 
+.f-corner-all, .f-corner-bottom, .f-corner-right, .f-corner-br {
+	-moz-border-radius-bottomright: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-khtml-border-bottom-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.f-corner-all, .f-corner-bottom, .f-corner-left, .f-corner-bl {
+	-moz-border-radius-bottomleft: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-khtml-border-bottom-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+.f-corner-all, .f-corner-top, .f-corner-right, .f-corner-tr {
+	-moz-border-radius-topright: 4px;
+	-webkit-border-top-right-radius: 4px;
+	-khtml-border-top-right-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.f-corner-all, .f-corner-top, .f-corner-left, .f-corner-tl {
+	-moz-border-radius-topleft: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-khtml-border-top-left-radius: 4px;
+	border-top-left-radius: 4px;
+}
+
+.f-border {
+	border: 1px solid #99BBE8;
+}
+
+
+/* 弹出层 */
+.f-menu {
+	width: 150px;
+	display: none;
+	overflow: hidden;
+}
+
+.f-menu {
+	list-style: none;
+	padding: 2px;
+	margin: 0;
+	outline: none;
+	border: 1px solid #99BCE8;
+	background-color: #F0F0F0;
+}
+
+.f-menu .f-menu-item {
+	margin: 0;
+	padding: 0;
+	zoom: 1;
+	width: 100%;
+}
+
+.f-menu .f-menu-item-seperator {
+	width: 100%;
+	height: 1px;
+	line-height: 1px;
+	display: block;
+
+	border-top: solid 1px #E0E0E0;
+	background-color: white;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	overflow: hidden;
+	font-size: 0; /* 解决在IE6/7下无法设置小高度的问题：IE不允许设置的高度小于字体高度 */
+}
+
+.f-menu .f-menu-icon-seperator {
+	position: absolute;
+	border-left: solid 1px #E0E0E0;
+	background-color: white;
+	width: 1px;
+	padding: 0;
+	left: 25px;
+	height: 10000px;
+}
+
+.f-menu-icons .f-menu-item a {
+	position: relative;
+	padding-left: 32px;
+}
+
+.f-menu-item a {
+	text-decoration: none;
+	display: block;
+	padding: 2px 4px;
+	line-height: 1.6;
+	zoom: 1;
+	font-weight: normal;
+	color: #222222;
+	
+	/* add 20130108 hanyin 如果单词超过了边界则截断*/
+	white-space: nowrap;
+	/* end add 20130108 hanyin */
+}
+
+.f-icon {
+	display: block;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+
+.f-icon {
+	width: 16px;
+	height: 16px;
+}
+
+.f-menu .f-icon {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+}
+
+.f-menu .f-menu-icon {
+	position: static;
+	float: right;
+}
+
+.f-menu .f-menu-item a.f-state-focus, .f-menu .f-menu-item a.f-state-active {
+	font-weight: normal;
+	margin: -1px;
+	/* 背景颜色渐变 */
+	background-image: none;
+	background-color: #D9E8FB;
+	background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#E7F0FC),color-stop(100%,#C7DDF9));
+	background-image: -webkit-linear-gradient(top,#E7F0FC,#C7DDF9);
+	background-image: -moz-linear-gradient(top,#E7F0FC,#C7DDF9);
+	background-image: -o-linear-gradient(top,#E7F0FC,#C7DDF9);
+	background-image: -ms-linear-gradient(top,#E7F0FC,#C7DDF9);
+	background-image: linear-gradient(top,#E7F0FC,#C7DDF9);
+}
+
+.f-menu .f-state-disabled {
+	font-weight: normal;
+	margin: .4em 0 .2em;
+	line-height: 1.6;
+}
+
+.f-menu .f-state-disabled a {
+	cursor: default;
+}
+
+.f-icon {
+	background-image: url(images/fmenu/f-icons_222222_256x240.png);
+}
+
+.f-icon-file {
+	background-position: -112px -112px;
+}
+
+.f-icon-item-arrow {
+	background-position: -32px 0;
+}
+
+/* checked */
+.f-widget .f-state-checked .f-icon {
+	background-image: url("images/fmenu/f-icon-checked.gif");
+}
+
+.f-widget .f-state-unchecked .f-icon {
+	background-image: url("images/fmenu/f-icon-unchecked.gif");
+}
+
+/* positioning */
+.f-icon-carat-1-n { background-position: 0 0; }
+.f-icon-carat-1-ne { background-position: -16px 0; }
+.f-icon-carat-1-e { background-position: -32px 0; }
+.f-icon-carat-1-se { background-position: -48px 0; }
+.f-icon-carat-1-s { background-position: -64px 0; }
+.f-icon-carat-1-sw { background-position: -80px 0; }
+.f-icon-carat-1-w { background-position: -96px 0; }
+.f-icon-carat-1-nw { background-position: -112px 0; }
+.f-icon-carat-2-n-s { background-position: -128px 0; }
+.f-icon-carat-2-e-w { background-position: -144px 0; }
+.f-icon-triangle-1-n { background-position: 0 -16px; }
+.f-icon-triangle-1-ne { background-position: -16px -16px; }
+.f-icon-triangle-1-e { background-position: -32px -16px; }
+.f-icon-triangle-1-se { background-position: -48px -16px; }
+.f-icon-triangle-1-s { background-position: -64px -16px; }
+.f-icon-triangle-1-sw { background-position: -80px -16px; }
+.f-icon-triangle-1-w { background-position: -96px -16px; }
+.f-icon-triangle-1-nw { background-position: -112px -16px; }
+.f-icon-triangle-2-n-s { background-position: -128px -16px; }
+.f-icon-triangle-2-e-w { background-position: -144px -16px; }
+.f-icon-arrow-1-n { background-position: 0 -32px; }
+.f-icon-arrow-1-ne { background-position: -16px -32px; }
+.f-icon-arrow-1-e { background-position: -32px -32px; }
+.f-icon-arrow-1-se { background-position: -48px -32px; }
+.f-icon-arrow-1-s { background-position: -64px -32px; }
+.f-icon-arrow-1-sw { background-position: -80px -32px; }
+.f-icon-arrow-1-w { background-position: -96px -32px; }
+.f-icon-arrow-1-nw { background-position: -112px -32px; }
+.f-icon-arrow-2-n-s { background-position: -128px -32px; }
+.f-icon-arrow-2-ne-sw { background-position: -144px -32px; }
+.f-icon-arrow-2-e-w { background-position: -160px -32px; }
+.f-icon-arrow-2-se-nw { background-position: -176px -32px; }
+.f-icon-arrowstop-1-n { background-position: -192px -32px; }
+.f-icon-arrowstop-1-e { background-position: -208px -32px; }
+.f-icon-arrowstop-1-s { background-position: -224px -32px; }
+.f-icon-arrowstop-1-w { background-position: -240px -32px; }
+.f-icon-arrowthick-1-n { background-position: 0 -48px; }
+.f-icon-arrowthick-1-ne { background-position: -16px -48px; }
+.f-icon-arrowthick-1-e { background-position: -32px -48px; }
+.f-icon-arrowthick-1-se { background-position: -48px -48px; }
+.f-icon-arrowthick-1-s { background-position: -64px -48px; }
+.f-icon-arrowthick-1-sw { background-position: -80px -48px; }
+.f-icon-arrowthick-1-w { background-position: -96px -48px; }
+.f-icon-arrowthick-1-nw { background-position: -112px -48px; }
+.f-icon-arrowthick-2-n-s { background-position: -128px -48px; }
+.f-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
+.f-icon-arrowthick-2-e-w { background-position: -160px -48px; }
+.f-icon-arrowthick-2-se-nw { background-position: -176px -48px; }
+.f-icon-arrowthickstop-1-n { background-position: -192px -48px; }
+.f-icon-arrowthickstop-1-e { background-position: -208px -48px; }
+.f-icon-arrowthickstop-1-s { background-position: -224px -48px; }
+.f-icon-arrowthickstop-1-w { background-position: -240px -48px; }
+.f-icon-arrowreturnthick-1-w { background-position: 0 -64px; }
+.f-icon-arrowreturnthick-1-n { background-position: -16px -64px; }
+.f-icon-arrowreturnthick-1-e { background-position: -32px -64px; }
+.f-icon-arrowreturnthick-1-s { background-position: -48px -64px; }
+.f-icon-arrowreturn-1-w { background-position: -64px -64px; }
+.f-icon-arrowreturn-1-n { background-position: -80px -64px; }
+.f-icon-arrowreturn-1-e { background-position: -96px -64px; }
+.f-icon-arrowreturn-1-s { background-position: -112px -64px; }
+.f-icon-arrowrefresh-1-w { background-position: -128px -64px; }
+.f-icon-arrowrefresh-1-n { background-position: -144px -64px; }
+.f-icon-arrowrefresh-1-e { background-position: -160px -64px; }
+.f-icon-arrowrefresh-1-s { background-position: -176px -64px; }
+.f-icon-arrow-4 { background-position: 0 -80px; }
+.f-icon-arrow-4-diag { background-position: -16px -80px; }
+.f-icon-extlink { background-position: -32px -80px; }
+.f-icon-newwin { background-position: -48px -80px; }
+.f-icon-refresh { background-position: -64px -80px; }
+.f-icon-shuffle { background-position: -80px -80px; }
+.f-icon-transfer-e-w { background-position: -96px -80px; }
+.f-icon-transferthick-e-w { background-position: -112px -80px; }
+.f-icon-folder-collapsed { background-position: 0 -96px; }
+.f-icon-folder-open { background-position: -16px -96px; }
+.f-icon-document { background-position: -32px -96px; }
+.f-icon-document-b { background-position: -48px -96px; }
+.f-icon-note { background-position: -64px -96px; }
+.f-icon-mail-closed { background-position: -80px -96px; }
+.f-icon-mail-open { background-position: -96px -96px; }
+.f-icon-suitcase { background-position: -112px -96px; }
+.f-icon-comment { background-position: -128px -96px; }
+.f-icon-person { background-position: -144px -96px; }
+.f-icon-print { background-position: -160px -96px; }
+.f-icon-trash { background-position: -176px -96px; }
+.f-icon-locked { background-position: -192px -96px; }
+.f-icon-unlocked { background-position: -208px -96px; }
+.f-icon-bookmark { background-position: -224px -96px; }
+.f-icon-tag { background-position: -240px -96px; }
+.f-icon-home { background-position: 0 -112px; }
+.f-icon-flag { background-position: -16px -112px; }
+.f-icon-calendar { background-position: -32px -112px; }
+.f-icon-cart { background-position: -48px -112px; }
+.f-icon-pencil { background-position: -64px -112px; }
+.f-icon-clock { background-position: -80px -112px; }
+.f-icon-disk { background-position: -96px -112px; }
+.f-icon-calculator { background-position: -112px -112px; }
+.f-icon-zoomin { background-position: -128px -112px; }
+.f-icon-zoomout { background-position: -144px -112px; }
+.f-icon-search { background-position: -160px -112px; }
+.f-icon-wrench { background-position: -176px -112px; }
+.f-icon-gear { background-position: -192px -112px; }
+.f-icon-heart { background-position: -208px -112px; }
+.f-icon-star { background-position: -224px -112px; }
+.f-icon-link { background-position: -240px -112px; }
+.f-icon-cancel { background-position: 0 -128px; }
+.f-icon-plus { background-position: -16px -128px; }
+.f-icon-plusthick { background-position: -32px -128px; }
+.f-icon-minus { background-position: -48px -128px; }
+.f-icon-minusthick { background-position: -64px -128px; }
+.f-icon-close { background-position: -80px -128px; }
+.f-icon-closethick { background-position: -96px -128px; }
+.f-icon-key { background-position: -112px -128px; }
+.f-icon-lightbulb { background-position: -128px -128px; }
+.f-icon-scissors { background-position: -144px -128px; }
+.f-icon-clipboard { background-position: -160px -128px; }
+.f-icon-copy { background-position: -176px -128px; }
+.f-icon-contact { background-position: -192px -128px; }
+.f-icon-image { background-position: -208px -128px; }
+.f-icon-video { background-position: -224px -128px; }
+.f-icon-script { background-position: -240px -128px; }
+.f-icon-alert { background-position: 0 -144px; }
+.f-icon-info { background-position: -16px -144px; }
+.f-icon-notice { background-position: -32px -144px; }
+.f-icon-help { background-position: -48px -144px; }
+.f-icon-check { background-position: -64px -144px; }
+.f-icon-bullet { background-position: -80px -144px; }
+.f-icon-radio-on { background-position: -96px -144px; }
+.f-icon-radio-off { background-position: -112px -144px; }
+.f-icon-pin-w { background-position: -128px -144px; }
+.f-icon-pin-s { background-position: -144px -144px; }
+.f-icon-play { background-position: 0 -160px; }
+.f-icon-pause { background-position: -16px -160px; }
+.f-icon-seek-next { background-position: -32px -160px; }
+.f-icon-seek-prev { background-position: -48px -160px; }
+.f-icon-seek-end { background-position: -64px -160px; }
+.f-icon-seek-start { background-position: -80px -160px; }
+/* f-icon-seek-first is deprecated, use f-icon-seek-start instead */
+.f-icon-seek-first { background-position: -80px -160px; }
+.f-icon-stop { background-position: -96px -160px; }
+.f-icon-eject { background-position: -112px -160px; }
+.f-icon-volume-off { background-position: -128px -160px; }
+.f-icon-volume-on { background-position: -144px -160px; }
+.f-icon-power { background-position: 0 -176px; }
+.f-icon-signal-diag { background-position: -16px -176px; }
+.f-icon-signal { background-position: -32px -176px; }
+.f-icon-battery-0 { background-position: -48px -176px; }
+.f-icon-battery-1 { background-position: -64px -176px; }
+.f-icon-battery-2 { background-position: -80px -176px; }
+.f-icon-battery-3 { background-position: -96px -176px; }
+.f-icon-circle-plus { background-position: 0 -192px; }
+.f-icon-circle-minus { background-position: -16px -192px; }
+.f-icon-circle-close { background-position: -32px -192px; }
+.f-icon-circle-triangle-e { background-position: -48px -192px; }
+.f-icon-circle-triangle-s { background-position: -64px -192px; }
+.f-icon-circle-triangle-w { background-position: -80px -192px; }
+.f-icon-circle-triangle-n { background-position: -96px -192px; }
+.f-icon-circle-arrow-e { background-position: -112px -192px; }
+.f-icon-circle-arrow-s { background-position: -128px -192px; }
+.f-icon-circle-arrow-w { background-position: -144px -192px; }
+.f-icon-circle-arrow-n { background-position: -160px -192px; }
+.f-icon-circle-zoomin { background-position: -176px -192px; }
+.f-icon-circle-zoomout { background-position: -192px -192px; }
+.f-icon-circle-check { background-position: -208px -192px; }
+.f-icon-circlesmall-plus { background-position: 0 -208px; }
+.f-icon-circlesmall-minus { background-position: -16px -208px; }
+.f-icon-circlesmall-close { background-position: -32px -208px; }
+.f-icon-squaresmall-plus { background-position: -48px -208px; }
+.f-icon-squaresmall-minus { background-position: -64px -208px; }
+.f-icon-squaresmall-close { background-position: -80px -208px; }
+.f-icon-grip-dotted-vertical { background-position: 0 -224px; }
+.f-icon-grip-dotted-horizontal { background-position: -16px -224px; }
+.f-icon-grip-solid-vertical { background-position: -32px -224px; }
+.f-icon-grip-solid-horizontal { background-position: -48px -224px; }
+.f-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
+.f-icon-grip-diagonal-se { background-position: -80px -224px; }

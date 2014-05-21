@@ -1,0 +1,328 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Tabs.css 选项卡组件的样式
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 选项卡组件的样式
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121214	  hanyin	解决tab超过tabs造成无法显示异常的问题
+ * 20121231   hanyin 	增加f-tabs的padding和margin为0
+ * 20130109   hanyin    修复Tabs嵌套，外层Tabs没有固定宽度，内层Tabs的header无法显示的问题
+ * 20130218   qudc      修复需求5010，新增样式：.f-tabs-active span .f-tabs-strip-text 修改样式 f-tabs-strip-text 中font为normal
+ */
+
+.f-tabs {
+	padding : 0;
+	margin : 0;
+	overflow: hidden;
+	position: relative; /* add 20130109 hanyin 修复Tabs嵌套，外层Tabs没有固定宽度，内层Tabs的header无法显示的问题 */
+}
+
+.f-tabs-header {
+	zoom: 1;
+	width: auto;
+
+	background-color: #DEECFD;
+	border: solid #8DB2E3;
+	border-width: 1px 1px 0px 1px;
+	padding: 1px 0 0 0;
+	overflow: hidden;
+	position: relative; /* 20121214 hanyin 解决tab超过tabs造成无法显示异常的问题 */
+}
+
+.f-tabs-bar-strip {
+	font-size: 0px;
+	width: 18px;
+	height : 2px;
+	border: solid #8DB2E3;
+	border-width: 1px 0;
+	background-color: #DEECFD;
+}
+
+.f-tabs-header a, .f-tabs-header span, .f-tabs-header em {
+	display: block;
+}
+
+.f-display-hide {
+	display: none !important;
+}
+
+.f-unselectable, .f-unselectable * {
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: ignore;
+}
+
+.f-tabs-clear {
+	clear: both;
+	height: 0;
+	overflow: hidden;
+	line-height: 0;
+	font-size: 0;
+}
+
+.f-tabs-header .f-tabs-header-list {
+	display: block;
+	width: 50000px;
+	zoom: 1;
+	
+	background-color: #CEDFF5;
+	margin: 0;
+	padding: 0;
+}
+
+.f-tabs-head-item {
+	margin: 0;
+	padding: 0;
+
+	float: left;
+	margin-left: 2px;
+}
+
+.f-tabs-edge {
+	float: left;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 none !important;
+	font-size: 1px !important;
+	line-height: 1px !important;
+	overflow: hidden;
+	zoom: 1;
+	background: transparent !important;
+}
+
+.f-tabs-right {
+	text-decoration: none !important;
+	cursor: pointer;
+	background: transparent no-repeat 0 -51px;
+	padding-left: 10px;
+	
+	/* 20121217 hanyin 给tab加上relative，以便增加close按钮 */
+	position: relative;
+	top: 0; /* 兼容Ie6下的tab页无法显示的问题 */
+}
+
+.f-tabs-right-ie6 {
+	_top: 1px; /* 兼容Ie6下的tab页无法显示的问题 */
+}
+
+.f-tabs-strip-inner {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.f-tabs-over .f-tabs-right {
+	background-position: 0 -101px;
+}
+
+.f-tabs-left {
+	background: transparent no-repeat right -351px;
+	padding-right: 10px;
+}
+
+.f-tabs-over .f-tabs-left {
+	background-position: right -401px;
+}
+
+.f-tabs-strip-inner {
+	background: transparent repeat-x 0 -201px;
+}
+
+.f-tabs-over .f-tabs-strip-inner {
+	background-position: 0 -251px;
+}
+
+.f-tabs-right, .f-tabs-left, .f-tabs-strip-inner {
+	background-image: url(images/ftabs/tabs-sprite.gif);
+}
+
+.f-tabs-strip-text {
+	white-space: nowrap;
+	cursor: pointer;
+	padding: 4px 0;
+	text-align: center;
+	overflow: hidden;
+}
+/*modify by qudc 2013-02-18 修复需求：5010 将front-weight属性由bold修改成normal */
+.f-tabs-strip-text {
+	font-size: 12px;
+	font-weight: normal ;
+	color: #416DA3;
+}
+
+.f-tabs-active, .f-tabs-active .f-tabs-right {
+	cursor: default;
+}
+
+.f-tabs-active .f-tabs-right {
+	margin-bottom: -1px;
+}
+
+.f-tabs-active .f-tabs-right {
+	background-position: 0 0;
+}
+
+.f-tabs-active .f-tabs-left {
+	background-position: right -301px;
+}
+
+.f-tabs-active .f-tabs-strip-inner {
+	background-position: 0 -151px;
+}
+
+.f-tabs-active span.f-tabs-strip-text {
+	color: #15498B;
+	cursor: default;
+}
+
+.f-tabs-body {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	overflow: hidden;
+	position: relative; /* add 20130109 hanyin 修复Tabs嵌套，外层Tabs没有固定宽度，内层Tabs的header无法显示的问题 */
+}
+
+.f-tabs-body-wrapper {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	overflow: hidden;
+	position: relative; /* add 20130109 hanyin 修复Tabs嵌套，外层Tabs没有固定宽度，内层Tabs的header无法显示的问题 */
+}
+
+.f-tab-closable em {
+	padding-right: 16px;
+}
+
+.f-tab-close-bnt {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	width: 11px;
+	height: 11px;
+	font-size: 0;
+	line-height: 0;
+	text-indent: -999px;
+	background: no-repeat;
+	background-image: url(images/ftabs/tab-default-close.gif);
+	filter: alpha(opacity=60);
+	opacity: .6;
+	*filter: alpha(opacity=100); /* 在Ie6下，取消动画和透明效果 */
+}
+
+span.f-tab-close-bnt:hover {
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+
+.f-tabs-header-ctl {
+	width: 100%;
+	overflow: hidden;
+	position: relative; /* 防止内部ul越出自己的范围 */
+	float : left;
+}
+
+.f-tabs-scroller-left-wrapper {
+	float: left;
+	/* 
+	height: 100%;
+	*/
+	width: 18px;
+	z-index: 5;
+}
+
+.f-tabs-scroll-left {
+	width: 18px;
+	position: relative;
+	cursor: pointer;
+	height: 20px;
+	background: transparent no-repeat -18px 0;
+	background-image: url(images/ftabs/tab-scroll-left.gif);
+}
+
+.f-tabs-scroller-left-wrapper .f-tabs-scroll-disabled {
+	background-position: -18px 0;
+	filter: alpha(opacity=50);
+	opacity: .5;
+	cursor: default;
+}
+
+.f-tabs-scroller-right-wrapper {
+	float: right;
+	/* 
+	height: 100%;
+	*/
+	z-index: 5;
+}
+
+.f-tabs-scroll-right {
+	width: 18px;
+	position: relative;
+	cursor: pointer;
+	height: 20px;
+	background: transparent no-repeat -18px 0;
+	background-image: url(images/ftabs/tab-scroll-right.gif);
+}
+
+.f-tabs-scroller-right-wrapper .f-tabs-scroll-disabled {
+	background-position: 0 0;
+	filter: alpha(opacity=50);
+	opacity: .5;
+	cursor: default;
+}
+
+.f-tabs-tabmenu-right {
+	width: 18px;
+	position: relative;
+	cursor: pointer;
+	height: 20px;
+	background: transparent url('images/ftabs/tab-scroller-menu.gif') no-repeat 0 0;
+	z-index: 6;
+}
+
+.f-tabs-tabmenu-right-hover {
+	background-position: -18px 0;
+}
+
+.f-tabs-small-tab .f-tabs-strip-text {
+	padding: 2px 0;
+}
+
+.f-tabs-active .f-tabs-small-tab .f-tabs-strip-text {
+	padding-bottom: 3px;
+}
+
+.f-tabs-normal-tab .f-tabs-strip-text {
+	padding: 5px 0;
+}
+
+.f-tabs-active .f-tabs-normal-tab .f-tabs-strip-text {
+	padding-bottom: 6px;
+}
+
+.f-tabs-big-tab .f-tabs-strip-text {
+	padding: 9px 0;
+}
+
+.f-tabs-active .f-tabs-big-tab .f-tabs-strip-text {
+	padding-bottom: 10px;
+}
+
+.f-tabs-large-tab .f-tabs-strip-text {
+	padding: 15px 0;
+}
+
+.f-tabs-active .f-tabs-large-tab .f-tabs-strip-text {
+	padding-bottom: 16px;
+}
+/*add by qudc 2013-02-18  修复需求：5010 */
+.f-tabs-active span .f-tabs-strip-text {
+    font-weight:bold ;
+}

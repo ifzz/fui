@@ -1,0 +1,118 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Tree.less
+ * 作者：qudc
+ * 邮箱：qudc@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 组件的结构样式
+ * 修改记录:
+ * 修改日期   修改人员   修改说明
+ * 20130216	   qudc 	删除f-tree a样式中：    border:1px solid white;  解决需求5003 ，ie8标准模式下不设置width和height属性（即width和height属性为auto）会出现纵向滚动条的问题。
+ */
+
+.f-tree * {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-family:tahoma, arial, helvetica, sans-serif;
+
+}
+.f-tree ul {
+    margin: 0;
+    padding: 0 0 0 18px;
+}
+.f-tree li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    line-height: 14px;
+    text-align: left;
+    white-space: nowrap
+}
+
+.f-tree a {
+    padding: 0px 3px 0px 0;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+    height: 16px;
+    line-height: 16px;
+    color: #333;
+    background-color: transparent;
+    text-decoration: none;
+    vertical-align: top;
+    display: inline-block
+}
+
+.f-tree-head {
+    height:15px;
+    padding:5px 0 4px 5px;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+}
+
+.f-tree-body {
+    border-width: 1px;
+    border-style: solid;
+    overflow:auto;
+}
+
+
+.f-tree-title {
+    color: #15428B;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: normal;
+    line-height: 15px;
+    overflow: hidden;
+    text-align: left;
+    vertical-align: baseline;
+}
+.f-tree .node-text {
+    line-height: 16px;
+    margin:0 2px 0 2px;
+
+}
+
+.f-tree-body span {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.f-tree-body span.f-tree-button {
+   display:inline-block;
+}
+
+.f-tree-body span.f-tree-elbow {
+    width:18px;
+    height:18px;
+}
+.f-tree-body span.f-tree-checkmark {
+    width:16px;
+    height:16px;
+}
+.f-tree-body span.f-tree-folder {
+    width:16px;
+    height:16px;
+}
+
+
+.f-tree-body span.f-tree-checkbox-unselected ,
+.f-tree-body span.f-tree-checkbox-selected,
+.f-tree-body span.f-tree-checkbox-selected-part,
+.f-tree-body span.f-tree-checkbox-unselected-part{
+    height: 13px;
+    line-height: 13px;
+    margin: 0 2px 0 0;
+    width: 13px;
+}
+
+
+
+
+

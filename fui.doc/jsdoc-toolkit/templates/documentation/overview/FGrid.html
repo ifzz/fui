@@ -1,0 +1,96 @@
+
+<h3>Grid</h3>
+<p>FGrid替换原生的table标签，支持分页展示，并统一样式；</p>
+<img src="../resource/images/grid.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>需要做数据table展现，并且需要分页功能。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>不支持行列可编辑功能；</li>
+	<li>不支持分组grid和treegrid；</li>
+	<li>不支持多列头；</li>
+	<li>不支持筛选列的功能；</li>
+	<li>不支持导出和打印功能；</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>在低端浏览器下不建议加载过多数据（总数据项超过1000），如果数据量过大，请采用分页或者减少pageSize；</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FGrid实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:grid id="grid1" width="600"  height="350" dataUrl="getGridPageData2.fservice">
+    <f:column title="姓名" dataIndex="name" width="250" headerAlign="left"  textAlign="left" renderer=""></f:column>
+    <f:column title="年龄" dataIndex="age" width="150" headerAlign="center" textAlign="center" renderer="" ></f:column>
+    <f:column title="详细地址" dataIndex="address" width="150" headerAlign="right" textAlign="right" wordWrap="true" renderer=""></f:column>
+
+    <f:pagingbar id="testbar" pageSize="25"></f:pagingbar>
+</f:grid>
+</textarea>
+
+<p>json数据格式示例:</p>
+<textarea name="code" class="html" style="display: none;">
+{ 
+  "totalCount":20, 
+  "listData":[
+  	{"id":"01","text":"研发","desc":"描述1","pid":"00"}, 
+  	{"id":"0101","text":"开发平台部","desc":"描述2","pid":"01"}, 
+  	{"id":"010101","text":"部门经理","desc":描述3,"pid":"0101"}, 
+  	{"id":"010102","text":"产品经理","desc":"描述4","pid":"0101"} 
+  ]
+}
+</textarea>
+
+<p>通过配置autoload属性为false，数据懒加载：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:grid id="grid2" autoload="false" width="600" height="350" dataUrl="getGridPageData2.fservice">
+	// 列信息、分页栏等信息
+</f:grid>
+</textarea>
+
+<p>通过设置multiSelect为复选，支持跨页选中，通过API获取被选中行的数据：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:grid id="grid3" selectModel="multiSelect" crossPageSelect="true" width="600" height="350" dataUrl="getGridPageData2.fservice">
+	// 列信息、分页栏等信息
+</f:grid>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		// 返回一个对象的数组，每个对象就是ajax请求回来的选中行的所有字段信息
+		var selectedData = $("#grid3").FGrid("getSelectedDatas");
+		// ...
+	});
+</script>
+</textarea>
+
+<p>自定义列渲染，配置column的renderer属性指定列渲染函数：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	function colRenderFunc(cellData, rowData, index) {
+		// cellData：当前单元格的数据
+		// rowData：当前行的数据
+		// index ：当前行的索引
+		if (index/2 === 1)
+			return "<span style='color:red'>" + cellData + "</span>";
+	}
+</script>
+
+<f:grid id="grid4" width="600"  height="350" dataUrl="getGridPageData2.fservice">
+    <f:column title="姓名" dataIndex="name" width="250" headerAlign="left"  textAlign="left" renderer="colRenderFunc"></f:column>
+    <f:column title="年龄" dataIndex="age" width="150" headerAlign="center" textAlign="center" renderer="colRenderFunc" ></f:column>
+    <f:column title="详细地址" dataIndex="address" width="150" headerAlign="right" textAlign="right" wordWrap="true" renderer="colRenderFunc"></f:column>
+
+    <f:pagingbar id="testbar" pageSize="25"></f:pagingbar>
+</f:grid>
+</textarea>

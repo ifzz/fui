@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Label.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 主要用于表单组件
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ */
+ 
+.f-label {
+	/* 字体 */
+	font-family: tahoma, arial, helvetica, sans-serif;
+	font-size: 12px;
+	/* 布局 */
+	overflow: hidden;
+	display: block;
+}
+
+
+.f-label-text-left {
+	text-align: left;
+}
+
+.f-label-text-center {
+	text-align: center;
+}
+
+.f-label-text-right {
+	text-align: right;
+}

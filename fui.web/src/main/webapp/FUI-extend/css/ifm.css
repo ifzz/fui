@@ -1,0 +1,950 @@
+@charset "utf-8";
+.icon_1 {
+    background-image: url("../../images/ifm/pub/PubPersonal.png") !important;
+}
+.icon_2 {
+    background-image: url("../../images/ifm/pub/pub.png") !important;
+}
+.icon_3 {
+    background-image: url("../../images/ifm/pub/T100001_orgs.png") !important;
+}
+.icon_4 {
+    background-image: url("../../images/ifm/pub/PubOragnization.gif") !important;
+}
+.icon_5 {
+    background-image: url("../../images/ifm/pub/T100002_orgs.png") !important;
+}
+.icon_6 {
+    background-image: url("../../images/ifm/pub/T100002_persons.png") !important;
+}
+.icon_7 {
+    background-image: url("../../images/ifm/pub/T100003_orgs.gif") !important;
+}
+
+.icon_8 {
+    background-image: url("../../images/ifm/pub/T100003_per.gif") !important;
+}
+
+.icon_9 {
+    background-image: url("../../images/ifm/pub/T100004.gif") !important;
+}
+.icon_10 {
+    background-image: url("../../images/ifm/pub/PubPubTrans.png") !important;
+}
+.icon_11 {
+    background-image: url("../../images/ifm/pub/T100010_orgs.gif") !important;
+}
+.icon_12 {
+    background-image: url("../../images/ifm/pub/T100010_per.gif") !important;
+}
+.icon_13 {
+    background-image: url("../../images/ifm/pub/T100013_orgs.gif") !important;
+}
+.icon_14 {
+    background-image: url("../../images/ifm/pub/T100013_personals.gif") !important;
+}
+.icon_15 {
+    background-image: url("../../images/ifm/pub/T100014_orgs.gif") !important;
+}
+.icon_16 {
+    background-image: url("../../images/ifm/pub/T100014_personals.gif") !important;
+}
+.icon_17 {
+    background-image: url("../../images/ifm/pub/T100015.gif") !important;
+}
+
+.icon_T100100_fund_orgs {
+    background-image: url("../../images/ifm/fund/T100100_fund_orgs.gif") !important;
+}
+.icon_CFundOrgCustomer {
+    background-image: url("../../images/ifm/fund/CFundOrgCustomer.gif") !important;
+}
+.icon_counter_fund {
+    background-image: url("../../images/ifm/fund/fund.png") !important;
+}
+.icon_T100100_fund_personals {
+    background-image: url("../../images/ifm/fund/T100100_fund_personals.gif") !important;
+}
+.icon_CFundPersonalCutomers {
+    background-image: url("../../images/ifm/fund/CFundPersonalCutomers.gif") !important;
+}
+.icon_T100100_inbank_orgs {
+    background-image: url("../../images/ifm/inbank/T100100_inbank_orgs.gif") !important;
+}
+.icon_CInbankOrgCustomer {
+    background-image: url("../../images/ifm/inbank/CInbankOrgCustomer.gif") !important;
+}
+.icon_counter_inbank {
+    background-image: url("../../images/ifm/inbank/inbank.png") !important;
+}
+.icon_T100100_inbank_personals {
+    background-image: url("../../images/ifm/inbank/T100100_inbank_personals.gif") !important;
+}
+.icon_CInbankPersonalCustomer {
+    background-image: url("../../images/ifm/inbank/CInbankPersonalCustomer.gif") !important;
+}
+.icon_T100101_fund_orgs {
+    background-image: url("../../images/ifm/fund/T100101_fund_orgs.gif") !important;
+}
+.icon_T100101_fund_personals {
+    background-image: url("../../images/ifm/fund/T100101_fund_personals.gif") !important;
+}
+.icon_T100101_inbank_orgs {
+    background-image: url("../../images/ifm/inbank/T100101_inbank_orgs.gif") !important;
+}
+.icon_T100101_inbank_personals {
+    background-image: url("../../images/ifm/inbank/T100101_inbank_personals.gif") !important;
+}
+.icon_T100102_fund_orgs {
+    background-image: url("../../images/ifm/fund/T100102_fund_orgs.gif") !important;
+}
+.icon_T100102_fund_personals {
+    background-image: url("../../images/ifm/fund/T100102_fund_personals.gif") !important;
+}
+.icon_T100103_fund_orgs {
+    background-image: url("../../images/ifm/fund/T100103_fund_orgs.gif") !important;
+}
+.icon_T100103_fund_personals {
+    background-image: url("../../images/ifm/fund/T100103_fund_personals.gif") !important;
+}
+.icon_T100104_orgs {
+    background-image: url("../../images/ifm/pub/T100104_orgs.gif") !important;
+}
+.icon_T100104_personals {
+    background-image: url("../../images/ifm/pub/T100104.gif") !important;
+}
+.icon_T100105_org {
+    background-image: url("../../images/ifm/pub/T100105_orgs.gif") !important;
+}
+.icon_T100105_per {
+    background-image: url("../../images/ifm/pub/T100105_personals.gif") !important;
+}
+.icon_T100106 {
+    background-image: url("../../images/ifm/fund/T100220.gif") !important;
+}
+.icon_T100200Fund_orgs {
+    background-image: url("../../images/ifm/fund/T100200Fund_orgs.png") !important;
+}
+.icon_orgTransMagF {
+    background-image: url("../../images/ifm/fund/orgTransMagF.gif") !important;
+}
+.icon_T100200Fund_per {
+    background-image: url("../../images/ifm/fund/T100200Fund_per.png") !important;
+}
+.icon_personalTransMag {
+    background-image: url("../../images/ifm/fund/personalTransMag.gif") !important;
+}
+.icon_T100200InBank_orgs {
+    background-image: url("../../images/ifm/inbank/T100200InBank_orgs.gif") !important;
+}
+.icon_orgTransMagB {
+    background-image: url("../../images/ifm/inbank/orgTransMagB.gif") !important;
+}
+.icon_T100200_per {
+    background-image: url("../../images/ifm/inbank/T100200_per.png") !important;
+}
+.icon_perTransMagB {
+    background-image: url("../../images/ifm/inbank/perTransMagB.gif") !important;
+}
+.icon_T100202_fund_orgs_def {
+    background-image: url("../../images/ifm/fund/T100202_fund_orgs_def.gif") !important;
+}
+.icon_T100202_fund_personals_def {
+    background-image: url("../../images/ifm/fund/T100202_fund_personals_def.gif") !important;
+}
+.icon_T100202_inbank_orgs_def {
+    background-image: url("../../images/ifm/inbank/T100202_inbank_orgs_def.gif") !important;
+}
+.icon_T100202_inbank_personals_def {
+    background-image: url("../../images/ifm/inbank/T100202_inbank_personals_def.gif") !important;
+}
+.icon_T100204Fund_orgs {
+    background-image: url("../../images/ifm/fund/T100204Fund_orgs.png") !important;
+}
+.icon_T100204Fund_per {
+    background-image: url("../../images/ifm/fund/T100204Fund_per.png") !important;
+}
+.icon_T100205_fund_orgs {
+    background-image: url("../../images/ifm/fund/T100205_fund_orgs.png") !important;
+}
+.icon_T100205_fund_personals {
+    background-image: url("../../images/ifm/fund/T100205_fund_personals.png") !important;
+}
+.icon_T100206_fund_orgs {
+    background-image: url("../../images/ifm/fund/T100206_fund_orgs.png") !important;
+}
+.icon_T100206_fund_personals {
+    background-image: url("../../images/ifm/fund/T100206_fund_personals.png") !important;
+}
+.icon_T100207_fund_orgs {
+    background-image: url("../../images/ifm/fund/T100207_fund_orgs.png") !important;
+}
+.icon_T100207_fund_personals {
+    background-image: url("../../images/ifm/fund/T100207_fund_personals.png") !important;
+}
+.icon_T100207_inbank_orgs {
+    background-image: url("../../images/ifm/inbank/T100207_inbank_orgs.png") !important;
+}
+.icon_T100207_inbank_personals {
+    background-image: url("../../images/ifm/inbank/T100207_inbank_personals.png") !important;
+}
+.icon_T100208Fund_orgs {
+    background-image: url("../../images/ifm/fund/T100208Fund_orgs.gif") !important;
+}
+
+.icon_T100208Fund_per {
+    background-image: url("../../images/ifm/fund/T100208Fund_per.gif") !important;
+}
+
+.icon_T100208InBank_orgs {
+    background-image: url("../../images/ifm/inbank/T100208InBank_orgs.gif") !important;
+}
+.icon_T100208InBank_per {
+    background-image: url("../../images/ifm/inbank/T100208InBank_per.gif") !important;
+}
+.icon_T100209Fund_orgs {
+    background-image: url("../../images/ifm/fund/T100209Fund_orgs.gif") !important;
+}
+.icon_T100209Fund_per {
+    background-image: url("../../images/ifm/fund/T100209Fund_per.gif") !important;
+}
+.icon_T100209InBank_orgs {
+    background-image: url("../../images/ifm/inbank/T100209InBank_orgs.gif") !important;
+}
+.icon_T100209InBank_per {
+    background-image: url("../../images/ifm/inbank/T100209InBank_per.gif") !important;
+}
+.icon_T100210Fund_orgs {
+    background-image: url("../../images/ifm/fund/T100210Fund_orgs.gif") !important;
+}
+.icon_T100210Fund_per {
+    background-image: url("../../images/ifm/fund/T100210Fund_per.gif") !important;
+}
+.icon_T100210InBank_orgs {
+    background-image: url("../../images/ifm/inbank/T100210InBank_orgs.gif") !important;
+}
+.icon_T100210InBank_per {
+    background-image: url("../../images/ifm/inbank/T100210InBank_per.gif") !important;
+}
+.icon_T100214Fund_orgs {
+    background-image: url("../../images/ifm/fund/T100214Fund_orgs.gif") !important;
+}
+.icon_T100214Fund_per {
+    background-image: url("../../images/ifm/fund/T100214Fund_per.gif") !important;
+}
+.icon_T100214InBank_orgs {
+    background-image: url("../../images/ifm/inbank/T100214InBank_orgs.gif") !important;
+}
+.icon_T100214InBank_per {
+    background-image: url("../../images/ifm/inbank/T100214InBank_per.gif") !important;
+}
+.icon_T100216_fund_orgs_def {
+    background-image: url("../../images/ifm/fund/T100216_fund_orgs_def.gif") !important;
+}
+.icon_T100216_fund_personals_def {
+    background-image: url("../../images/ifm/fund/T100216_fund_personals_def.gif") !important;
+}
+.icon_T100216_inbank_orgs_def {
+    background-image: url("../../images/ifm/inbank/T100216_inbank_orgs_def.gif") !important;
+}
+.icon_T100216_inbank_personals_def {
+    background-image: url("../../images/ifm/inbank/T100216_inbank_personals_def.gif") !important;
+}
+.icon_T100217_fund_orgs_def {
+    background-image: url("../../images/ifm/fund/T100217_fund_orgs_def.gif") !important;
+}
+.icon_T100217_fund_personals_def {
+    background-image: url("../../images/ifm/fund/T100217_fund_personals_def.gif") !important;
+}
+.icon_T100217_inbank_orgs_def {
+    background-image: url("../../images/ifm/inbank/T100217_inbank_orgs_def.gif") !important;
+}
+.icon_T100217_inbank_personals_def {
+    background-image: url("../../images/ifm/inbank/T100217_inbank_personals_def.gif") !important;
+}
+.icon_T100218_fund_orgs_def {
+    background-image: url("../../images/ifm/fund/T100218_fund_orgs_def.gif") !important;
+}
+.icon_T100218_fund_personals_def {
+    background-image: url("../../images/ifm/fund/T100218_fund_personals_def.gif") !important;
+}
+.icon_T100218_inbank_orgs_def {
+    background-image: url("../../images/ifm/inbank/T100218_inbank_orgs_def.gif") !important;
+}
+.icon_T100218_inbank_personals_def {
+    background-image: url("../../images/ifm/inbank/T100218_inbank_personals_def.gif") !important;
+}
+.icon_T100219_orgs {
+    background-image: url("../../images/ifm/pub/T100219_orgs.gif") !important;
+}
+.icon_T100219_personals {
+    background-image: url("../../images/ifm/pub/T100219.gif") !important;
+}
+.icon_T100220 {
+    background-image: url("../../images/ifm/fund/T100220.gif") !important;
+}
+.icon_authtrans {
+    background-image: url("../../images/ifm/fund/authtrans.gif") !important;
+}
+.icon_T100221 {
+    background-image: url("../../images/ifm/fund/T100221.gif") !important;
+}
+.icon_T100222 {
+    background-image: url("../../images/ifm/fund/T100222.gif") !important;
+}
+.icon_T100222_inbank {
+    background-image: url("../../images/ifm/inbank/T100222_inbank.gif") !important;
+}
+.icon_authtrans_inbank {
+    background-image: url("../../images/ifm/inbank/authtrans_inbank.gif") !important;
+}
+.icon_T100223 {
+    background-image: url("../../images/ifm/fund/T100223.gif") !important;
+}
+.icon_T100223_inbank {
+    background-image: url("../../images/ifm/inbank/T100223_inbank.gif") !important;
+}
+.icon_T100224 {
+    background-image: url("../../images/ifm/fund/T100224.gif") !important;
+}
+.icon_T100224_inbank {
+    background-image: url("../../images/ifm/inbank/T100224_inbank.gif") !important;
+}
+.icon_T100224_inbank_orgs {
+    background-image: url("../../images/ifm/inbank/T100224_inbank_orgs.gif") !important;
+}
+.icon_T100224_orgs {
+    background-image: url("../../images/ifm/fund/T100224_orgs.gif") !important;
+}
+.icon_T100232Fund_orgs {
+    background-image: url("../../images/ifm/fund/T100232Fund_orgs.gif") !important;
+}
+.icon_T100232Fund_per {
+    background-image: url("../../images/ifm/fund/T100232Fund_per.gif") !important;
+}
+.icon_T100232InBank_orgs {
+    background-image: url("../../images/ifm/inbank/T100232InBank_orgs.gif") !important;
+}
+.icon_T100232InBank_per {
+    background-image: url("../../images/ifm/inbank/T100232InBank_per.gif") !important;
+}
+.icon_T100233Fund_orgs {
+    background-image: url("../../images/ifm/fund/T100233Fund_orgs.gif") !important;
+}
+.icon_T100233Fund_per {
+    background-image: url("../../images/ifm/fund/T100233Fund_per.gif") !important;
+}
+.icon_T100233InBank_orgs {
+    background-image: url("../../images/ifm/inbank/T100233InBank_orgs.gif") !important;
+}
+.icon_T100233InBank_per {
+    background-image: url("../../images/ifm/inbank/T100233InBank_per.gif") !important;
+}
+.icon_T100234Fund_orgs {
+    background-image: url("../../images/ifm/fund/T100234Fund_orgs.gif") !important;
+}
+.icon_T100234Fund_per {
+    background-image: url("../../images/ifm/fund/T100234Fund_per.gif") !important;
+}
+.icon_T100234InBank_orgs {
+    background-image: url("../../images/ifm/inbank/T100234InBank_orgs.gif") !important;
+}
+.icon_T100234InBank_per {
+    background-image: url("../../images/ifm/inbank/T100234InBank_per.gif") !important;
+}
+.icon_T100254_fund_orgs_def {
+    background-image: url("../../images/ifm/fund/T100254_fund_orgs_def.png") !important;
+}
+.icon_T100254_fund_personals_def {
+    background-image: url("../../images/ifm/fund/T100254_fund_personals_def.png") !important;
+}
+.icon_T100254_inbank_orgs_def {
+    background-image: url("../../images/ifm/inbank/T100254_inbank_orgs_def.png") !important;
+}
+.icon_T100254_inbank_personals_def {
+    background-image: url("../../images/ifm/inbank/T100254_inbank_personals_def.png") !important;
+}
+.icon_T100256_fund_orgs_def {
+    background-image: url("../../images/ifm/fund/T100256_fund_orgs_def.png") !important;
+}
+.icon_T100256_fund_personals_def {
+    background-image: url("../../images/ifm/fund/T100256_fund_personals_def.png") !important;
+}
+.icon_T100256_inbank_orgs_def {
+    background-image: url("../../images/ifm/inbank/T100256_inbank_orgs_def.png") !important;
+}
+.icon_T100256_inbank_personals_def {
+    background-image: url("../../images/ifm/inbank/T100256_inbank_personals_def.png") !important;
+}
+.icon_T100257_org {
+    background-image: url("../../images/ifm/pub/T100257_orgs.gif") !important;
+}
+.icon_T100257_per {
+    background-image: url("../../images/ifm/pub/T100257_personals.gif") !important;
+}
+.icon_T100260_inbank_orgs {
+    background-image: url("../../images/ifm/inbank/T100260_inbank_orgs.gif") !important;
+}
+.icon_T100260_inbank_personals {
+    background-image: url("../../images/ifm/inbank/T100260_inbank_personals.gif") !important;
+}
+.icon_T100261_inbank_orgs {
+    background-image: url("../../images/ifm/inbank/T100261_inbank_orgs.gif") !important;
+}
+.icon_T100261_inbank_personals {
+    background-image: url("../../images/ifm/inbank/T100261_inbank_personals.gif") !important;
+}
+.icon_T100262_inbank_orgs {
+    background-image: url("../../images/ifm/inbank/T100262_inbank_orgs.gif") !important;
+}
+.icon_T100262_inbank_personals {
+    background-image: url("../../images/ifm/inbank/T100262_inbank_personals.gif") !important;
+}
+
+.icon_T100299 {
+    background-image: url("../../images/ifm/pub/T100299.gif") !important;
+}
+.icon_T100300 {
+    background-image: url("../../images/ifm/pub/T100300.gif") !important;
+}
+.icon_T100301_def {
+    background-image: url("../../images/ifm/pub/T100301_def.gif") !important;
+}
+.icon_T100302_def_fund {
+    background-image: url("../../images/ifm/fund/T100302_def_fund.gif") !important;
+}
+.icon_busizquery {
+    background-image: url("../../images/ifm/fund/busizquery.gif") !important;
+}
+.icon_T100302_def_inbank {
+    background-image: url("../../images/ifm/inbank/T100302_def_inbank.gif") !important;
+}
+.icon_inbankbusizquery {
+    background-image: url("../../images/ifm/inbank/inbankbusizquery.gif") !important;
+}
+.icon_T100304_def_fund {
+    background-image: url("../../images/ifm/fund/T100304_def_fund.png") !important;
+}
+.icon_T100304_def_inbank {
+    background-image: url("../../images/ifm/inbank/T100304_def_inbank.png") !important;
+}
+.icon_T100305 {
+    background-image: url("../../images/ifm/fund/T100305.png") !important;
+}
+.icon_T100305_inbank {
+    background-image: url("../../images/ifm/inbank/T100305_inbank.png") !important;
+}
+.icon_T100306_def_fund {
+    background-image: url("../../images/ifm/fund/T100306_def_fund.gif") !important;
+}
+.icon_T100306_def_inbank {
+    background-image: url("../../images/ifm/inbank/T100306_def_inbank.gif") !important;
+}
+.icon_T100307 {
+    background-image: url("../../images/ifm/fund/T100307.png") !important;
+}
+.icon_T100307_inbank {
+    background-image: url("../../images/ifm/inbank/T100307_inbank.gif") !important;
+}
+.icon_T100308_def_fun {
+    background-image: url("../../images/ifm/fund/T100308_def_fun.gif") !important;
+}
+.icon_T100308_def_inbank {
+    background-image: url("../../images/ifm/inbank/T100308_def_inbank.gif") !important;
+}
+.icon_T100309 {
+    background-image: url("../../images/ifm/fund/T100309.gif") !important;
+}
+.icon_T100309_inbank {
+    background-image: url("../../images/ifm/inbank/T100309_inbank.gif") !important;
+}
+.icon_T100310_fund_pub_def {
+    background-image: url("../../images/ifm/fund/T100310_fund_pub_def.gif") !important;
+}
+.icon_CFundVoucherPrint {
+    background-image: url("../../images/ifm/fund/CFundVoucherPrint.gif") !important;
+}
+.icon_T100310_inbank_pub_def {
+    background-image: url("../../images/ifm/inbank/T100310_inbank_pub_def.gif") !important;
+}
+.icon_CInbankVoucherPrint {
+    background-image: url("../../images/ifm/inbank/CInbankVoucherPrint.gif") !important;
+}
+
+.icon_T100320 {
+    background-image: url("../../images/ifm/pub/T100320.gif") !important;
+}
+.icon_T100321 {
+    background-image: url("../../images/ifm/fund/T100321.gif") !important;
+}
+.icon_T100321_inbank {
+    background-image: url("../../images/ifm/inbank/T100321_inbank.gif") !important;
+}
+.icon_T100323 {
+    background-image: url("../../images/ifm/fund/T100323.gif") !important;
+}
+.icon_T100323_inbank {
+    background-image: url("../../images/ifm/inbank/T100323_inbank.gif") !important;
+}
+.icon_T100330_def_fund {
+    background-image: url("../../images/ifm/fund/T100330_def_fund.png") !important;
+}
+.icon_T100330_def_inbank {
+    background-image: url("../../images/ifm/inbank/T100330_def_inbank.png") !important;
+}
+.icon_T100331 {
+    background-image: url("../../images/ifm/pub/T100331.gif") !important;
+}
+.icon_T100331_0 {
+    background-image: url("../../images/ifm/pub/T100331.gif") !important;
+}
+.icon_T100331_1 {
+    background-image: url("../../images/ifm/pub/T100331.gif") !important;
+}
+.icon_T100333 {
+    background-image: url("../../images/ifm/fund/T100333.gif") !important;
+}
+.icon_T100334_def_fund {
+    background-image: url("../../images/ifm/fund/T100334_def_fund.gif") !important;
+}
+.icon_T100334_def_inbank {
+    background-image: url("../../images/ifm/inbank/T100334_def_inbank.gif") !important;
+}
+.icon_T100336_def_fund {
+    background-image: url("../../images/ifm/fund/T100336_def_fund.gif") !important;
+}
+.icon_T100337 {
+    background-image: url("../../images/ifm/fund/T100337.gif") !important;
+}
+.icon_T100337_inbank {
+    background-image: url("../../images/ifm/inbank/T100337_inbank.gif") !important;
+}
+.icon_T100342_def_fund {
+    background-image: url("../../images/ifm/fund/T100342_def_fund.gif") !important;
+}
+.icon_T100342_def_inbank {
+    background-image: url("../../images/ifm/inbank/T100342_def_inbank.gif") !important;
+}
+
+.icon_T100344_pub_pub_def {
+    background-image: url("../../images/ifm/pub/T100344_pub_pub_def.gif") !important;
+}
+.icon_T100368 {
+    background-image: url("../../images/ifm/inbank/T100368.gif") !important;
+}
+.icon_T100373 {
+    background-image: url("../../images/ifm/fund/T100220.gif") !important;
+}
+
+.icon_T100378 {
+    background-image: url("../../images/ifm/pub/T100378.gif") !important;
+}
+
+.icon_T100379 {
+    background-image: url("../../images/ifm/pub/T100379.gif") !important;
+}
+.icon_T100380 {
+    background-image: url("../../images/ifm/pub/T100380.gif") !important;
+}
+
+
+.icon_T100501 {
+    background-image: url("../../images/ifm/fund/T100220.gif") !important;
+}
+.icon_T100502 {
+    background-image: url("../../images/ifm/pub/T100502.gif") !important;
+}
+.icon_T510001InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510001InsuPubMenu.gif") !important;
+}
+.icon_insutrans {
+    background-image: url("../../images/ifm/insurance/biztrans.gif") !important;
+}
+.icon_counter_insurance {
+    background-image: url("../../images/ifm/insurance/insurebiz.gif") !important;
+}
+.icon_T510003InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510003InsuPubMenu.gif") !important;
+}
+.icon_insuquery {
+    background-image: url("../../images/ifm/insurance/bizquery.gif") !important;
+}
+.icon_T510004InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510004InsuPubMenu.gif") !important;
+}
+.icon_T510005InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510005InsuPubMenu.gif") !important;
+}
+.icon_T510006_Insu_orgsMenu {
+    background-image: url("../../images/ifm/insurance/T510006InsuPubMenu.gif") !important;
+}
+.icon_T510006_Insu_perMenu {
+    background-image: url("../../images/ifm/insurance/T510006InsuPubMenu.gif") !important;
+}
+.icon_T510013InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510013InsuPubMenu.gif") !important;
+}
+.icon_T510016InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510016InsuPubMenu.gif") !important;
+}
+.icon_T510017InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510017InsuPubMenu.gif") !important;
+}
+.icon_T510019InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510019InsuPubMenu.gif") !important;
+}
+.icon_T510020InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510020InsuPubMenu.gif") !important;
+}
+.icon_T510101InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510001InsuPubMenu.gif") !important;
+}
+.icon_T510101_orgsInsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510001InsuPubMenu.gif") !important;
+}
+.icon_T510301InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510301InsuPubMenu.gif") !important;
+}
+.icon_T510302InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510302InsuPubMenu.gif") !important;
+}
+.icon_T510303InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T510303InsuPubMenu.gif") !important;
+}
+.icon_T510304InsuPubMenu {
+    background-image: url("../../images/ifm/pub/T100344_pub_pub_def.gif") !important;
+}
+.icon_T520003InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T520003InsuPubMenu.gif") !important;
+}
+.icon_insuvoucher {
+    background-image: url("../../images/ifm/insurance/vouchermanage.gif") !important;
+}
+.icon_T520004InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T520004InsuPubMenu.gif") !important;
+}
+.icon_T520005InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T520005InsuPubMenu.gif") !important;
+}
+.icon_T520006InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T520006InsuPubMenu.gif") !important;
+}
+.icon_T520008InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T520008InsuPubMenu.gif") !important;
+}
+.icon_T520009InsuPubMenu {
+    background-image: url("../../images/ifm/insurance/T520009InsuPubMenu.gif") !important;
+}
+.icon_T710001 {
+    background-image: url("../../images/ifm/gold/T710001.gif") !important;
+}
+.icon_GoldTrans {
+    background-image: url("../../images/ifm/gold/GoldTrans.gif") !important;
+}
+.icon_counter_gold {
+    background-image: url("../../images/ifm/gold/counter_gold.gif") !important;
+}
+.icon_T710003 {
+    background-image: url("../../images/ifm/gold/T710003.gif") !important;
+}
+.icon_T710018 {
+    background-image: url("../../images/ifm/gold/T710018.gif") !important;
+}
+.icon_T880120 {
+    background-image: url("../../images/ifm/gold/T880120_gold.gif") !important;
+}
+.icon_GoldAccount {
+    background-image: url("../../images/ifm/gold/GoldAccount.gif") !important;
+}
+.icon_T880121 {
+    background-image: url("../../images/ifm/gold/T880121_gold.gif") !important;
+}
+.icon_T880140 {
+    background-image: url("../../images/ifm/gold/T880140_gold.gif") !important;
+}
+.icon_T880141 {
+    background-image: url("../../images/ifm/gold/T880141_gold.gif") !important;
+}
+.icon_T880142 {
+    background-image: url("../../images/ifm/gold/T880142_gold.gif") !important;
+}
+.icon_T880150 {
+    background-image: url("../../images/ifm/gold/T880150_gold.gif") !important;
+}
+.icon_T880151 {
+    background-image: url("../../images/ifm/gold/T880151_gold.gif") !important;
+}
+.icon_T880160 {
+    background-image: url("../../images/ifm/gold/T880160_gold.gif") !important;
+}
+.icon_T880161 {
+    background-image: url("../../images/ifm/gold/T880161_gold.gif") !important;
+}
+.icon_T880301_Acc {
+    background-image: url("../../images/ifm/gold/T880301_Acc.gif") !important;
+}
+.icon_GodPub {
+    background-image: url("../../images/ifm/gold/goldPub.gif") !important;
+}
+.icon_T880301_Trans {
+    background-image: url("../../images/ifm/gold/T880301_Trans.gif") !important;
+}
+.icon_T890001 {
+    background-image: url("../../images/ifm/metal/T890001.png") !important;
+}
+
+.icon_counter_metal {
+    background-image: url("../../images/ifm/metal/counter_metal.gif") !important;
+}
+.icon_T890002 {
+    background-image: url("../../images/ifm/metal/T890002.png") !important;
+}
+
+.icon_T890003 {
+    background-image: url("../../images/ifm/metal/T890003.gif") !important;
+}
+.icon_T890004 {
+    background-image: url("../../images/ifm/metal/T890004.gif") !important;
+}
+.icon_T890005 {
+    background-image: url("../../images/ifm/metal/T890005.gif") !important;
+}
+.icon_T890006 {
+    background-image: url("../../images/ifm/metal/T890006.gif") !important;
+}
+.icon_T890007 {
+    background-image: url("../../images/ifm/metal/T890007.png") !important;
+}
+.icon_T890008 {
+    background-image: url("../../images/ifm/metal/T890008.gif") !important;
+}
+.icon_T890009 {
+    background-image: url("../../images/ifm/metal/T890009.gif") !important;
+}
+.icon_T890010_org {
+    background-image: url("../../images/ifm/metal/T890010.gif") !important;
+}
+
+.icon_T890010_per {
+    background-image: url("../../images/ifm/metal/T890010.gif") !important;
+}
+
+.icon_MetalPerTrans {
+    background-image: url("../../images/ifm/metal/MetalPerTrans.gif") !important;
+}
+.icon_T890011_org {
+    background-image: url("../../images/ifm/metal/T890011.gif") !important;
+}
+.icon_T890011_org_notself {
+    background-image: url("../../images/ifm/metal/T890011.gif") !important;
+}
+
+.icon_T890011_per {
+    background-image: url("../../images/ifm/metal/T890011.gif") !important;
+}
+.icon_T890011_per_notself {
+    background-image: url("../../images/ifm/metal/T890011.gif") !important;
+}
+
+.icon_T890012_org {
+    background-image: url("../../images/ifm/metal/T890012.gif") !important;
+}
+.icon_T890012_org_notself {
+    background-image: url("../../images/ifm/metal/T890012.gif") !important;
+}
+.icon_T890012_per {
+    background-image: url("../../images/ifm/metal/T890012.gif") !important;
+}
+.icon_T890012_per_notself {
+    background-image: url("../../images/ifm/metal/T890012.gif") !important;
+}
+.icon_T890013_org {
+    background-image: url("../../images/ifm/metal/T890013.gif") !important;
+}
+.icon_T890013_per {
+    background-image: url("../../images/ifm/metal/T890013.gif") !important;
+}
+.icon_T890014_org {
+    background-image: url("../../images/ifm/metal/T890014.png") !important;
+}
+
+.icon_T890014_per {
+    background-image: url("../../images/ifm/metal/T890014.png") !important;
+}
+
+.icon_T890015_org {
+    background-image: url("../../images/ifm/metal/T890015.gif") !important;
+}
+.icon_T890015_per {
+    background-image: url("../../images/ifm/metal/T890015.gif") !important;
+}
+.icon_T890016_org {
+    background-image: url("../../images/ifm/metal/T890016.gif") !important;
+}
+.icon_T890016_per {
+    background-image: url("../../images/ifm/metal/T890016.gif") !important;
+}
+.icon_T890017_org {
+    background-image: url("../../images/ifm/metal/T890017.gif") !important;
+}
+.icon_T890017_org_notself {
+    background-image: url("../../images/ifm/metal/T890017.gif") !important;
+}
+.icon_T890017_per {
+    background-image: url("../../images/ifm/metal/T890017.gif") !important;
+}
+.icon_T890017_per_notself {
+    background-image: url("../../images/ifm/metal/T890017.gif") !important;
+}
+.icon_T890018_cast_org {
+    background-image: url("../../images/ifm/metal/T890018.png") !important;
+}
+.icon_T890018_cast_per {
+    background-image: url("../../images/ifm/metal/T890018.png") !important;
+}
+.icon_T890018_def_org {
+    background-image: url("../../images/ifm/metal/T890018.png") !important;
+}
+.icon_T890018_def_per {
+    background-image: url("../../images/ifm/metal/T890018.png") !important;
+}
+.icon_T890019 {
+    background-image: url("../../images/ifm/metal/T890019.png") !important;
+}
+.icon_T890020_org {
+    background-image: url("../../images/ifm/metal/T890020.gif") !important;
+}
+.icon_T890020_per {
+    background-image: url("../../images/ifm/metal/T890020.gif") !important;
+}
+.icon_T890021_org {
+    background-image: url("../../images/ifm/metal/T890021.gif") !important;
+}
+.icon_T890021_per {
+    background-image: url("../../images/ifm/metal/T890021.gif") !important;
+}
+.icon_T890022_org {
+    background-image: url("../../images/ifm/metal/T890022.gif") !important;
+}
+.icon_T890022_per {
+    background-image: url("../../images/ifm/metal/T890022.gif") !important;
+}
+.icon_T890023_org {
+    background-image: url("../../images/ifm/metal/T890023.gif") !important;
+}
+
+.icon_T890023_per {
+    background-image: url("../../images/ifm/metal/T890023.gif") !important;
+}
+.icon_T890024_org {
+    background-image: url("../../images/ifm/metal/T890024.gif") !important;
+}
+.icon_T890024_per {
+    background-image: url("../../images/ifm/metal/T890024.gif") !important;
+}
+.icon_T890025_org {
+    background-image: url("../../images/ifm/metal/T890025.gif") !important;
+}
+.icon_T890025_per {
+    background-image: url("../../images/ifm/metal/T890025.gif") !important;
+}
+.icon_T890026 {
+    background-image: url("../../images/ifm/metal/T890026.gif") !important;
+}
+.icon_T890028 {
+    background-image: url("../../images/ifm/metal/T890028.gif") !important;
+}
+
+.icon_T893001 {
+    background-image: url("../../images/ifm/metal/T893001.gif") !important;
+}
+
+.icon_MetalQuery {
+    background-image: url("../../images/ifm/metal/MetalQuery.gif") !important;
+}
+.icon_T893002 {
+    background-image: url("../../images/ifm/metal/T893002.gif") !important;
+}
+.icon_T893003 {
+    background-image: url("../../images/ifm/metal/T893003.gif") !important;
+}
+.icon_T893004 {
+    background-image: url("../../images/ifm/metal/T893004.gif") !important;
+}
+.icon_T893005 {
+    background-image: url("../../images/ifm/metal/T893005.gif") !important;
+}
+
+.icon_T893006 {
+    background-image: url("../../images/ifm/metal/T893006.gif") !important;
+}
+.icon_T893007 {
+    background-image: url("../../images/ifm/metal/T893007.gif") !important;
+}
+.icon_T893008 {
+    background-image: url("../../images/ifm/metal/T893008.gif") !important;
+}
+.icon_T893010 {
+    background-image: url("../../images/ifm/metal/T893010.gif") !important;
+}
+.icon_T893011 {
+    background-image: url("../../images/ifm/metal/T893011.gif") !important;
+}
+.icon_T893012 {
+    background-image: url("../../images/ifm/metal/T893012.png") !important;
+}
+.icon_T893013 {
+    background-image: url("../../images/ifm/metal/T893013.gif") !important;
+}
+
+.icon_T893014 {
+    background-image: url("../../images/ifm/metal/T893014.gif") !important;
+}
+.icon_T893015 {
+    background-image: url("../../images/ifm/metal/T893015.png") !important;
+}
+.icon_T893016 {
+    background-image: url("../../images/ifm/metal/T893016.gif") !important;
+}
+.icon_T893017 {
+    background-image: url("../../images/ifm/metal/T893017.gif") !important;
+}
+.icon_T893018 {
+    background-image: url("../../images/ifm/metal/T893018.gif") !important;
+}
+.icon_T893019 {
+    background-image: url("../../images/ifm/metal/T893019.gif") !important;
+}
+.icon_T893020 {
+    background-image: url("../../images/ifm/metal/T893020.gif") !important;
+}
+.icon_T893021 {
+    background-image: url("../../images/ifm/metal/T893021.gif") !important;
+}
+.icon_T893022 {
+    background-image: url("../../images/ifm/metal/T893022.gif") !important;
+}
+.icon_T893023 {
+    background-image: url("../../images/ifm/metal/T893023.gif") !important;
+}
+.icon_T895001 {
+    background-image: url("../../images/ifm/metal/T895001.gif") !important;
+}
+.icon_T990008Fund_orgs {
+    background-image: url("../../images/ifm/fund/T990008Fund_orgs.png") !important;
+}
+.icon_T990008Fund_per {
+    background-image: url("../../images/ifm/fund/T990008Fund_per.png") !important;
+}
+.icon_T990008InBank_orgs {
+    background-image: url("../../images/ifm/inbank/T990008InBank_orgs.png") !important;
+}
+.icon_T990008InBank_per {
+    background-image: url("../../images/ifm/inbank/T990008InBank_per.png") !important;
+}
+.icon_refreshcache_def {
+    background-image: url("../../images/ifm/pub/refreshcache.png") !important;
+}
+.icon_refreshcache {
+    background-image: url("../../images/ifm/pub/refreshcache.png") !important;
+}

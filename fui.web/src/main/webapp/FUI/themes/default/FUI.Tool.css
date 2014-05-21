@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Tool.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 大小为15X15的工具按钮
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121225	  hanyin 	调整f-tool的样式，将float的margin移除
+ */
+ 
+.f-tool {
+	overflow: hidden;
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+	background: transparent no-repeat;
+}
+
+.f-collapsible .f-tool-toggle {
+	background-position: 0 -60px;
+}
+
+.f-collapsible .f-tool-toggle-over {
+    background-position:-15px -60px;
+}
+
+.f-collapsed .f-tool-toggle {
+    background-position:0 -75px;
+}
+
+.f-collapsed .f-tool-toggle-over {
+    background-position:-15px -75px;
+}
+
+.f-tool {
+	background-repeat: no-repeat;
+    background-image: url("images/ftool/tool-sprites.gif");
+}
+
+.f-tool-close {
+    background-position:0 0;
+}
+
+.f-tool-closethick {
+    background-position: -15px 0;
+}
+
+.f-tool-min {
+	background-position: 0 -15px;
+}
+
+.f-tool-minthick {
+	background-position: -15px -15px;
+}
+

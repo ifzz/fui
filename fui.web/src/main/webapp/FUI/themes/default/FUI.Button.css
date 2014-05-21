@@ -1,0 +1,757 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Button.css 按钮组件的css
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 按钮组件的css
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121228	   hanyin 	delete css attr:outline
+ * 20130129    hanyin	删除有关字体的样式
+ */
+ 
+.f-item-disabled {
+	cursor: default;
+	opacity: .6;
+	-moz-opacity: .6;
+	filter: alpha(opacity=60);
+}
+
+.f-item-disabled * {
+	cursor: default !important;
+}
+
+.f-btn {
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+/* 20130129 hanyin 删除
+.f-btn{
+	font:normal 11px tahoma, verdana, helvetica;
+}
+*/
+.f-btn .f-btn-text {
+	background: none repeat scroll 0 0 transparent;
+	border: 0 none;
+	cursor: pointer;
+	margin: 0;
+	overflow: visible;
+	padding-left: 3px;
+	padding-right: 3px;
+	width: auto;
+}
+
+.f-btn td {
+	padding: 0 !important;
+}
+
+.f-btn-text {
+	cursor: pointer;
+	padding: 0;
+	white-space: nowrap;
+}
+
+.f-btn-noicon .f-btn-small .f-btn-text {
+	height: 16px;
+}
+
+.f-btn-noicon .f-btn-medium .f-btn-text {
+	height: 24px;
+}
+
+.f-btn-noicon .f-btn-large .f-btn-text {
+	height: 32px;
+}
+
+.f-btn-icon .f-btn-text {
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.f-btn-icon .f-btn-small .f-btn-text {
+	height: 16px;
+	width: 16px;
+}
+
+.f-btn-icon .f-btn-medium .f-btn-text {
+	height: 24px;
+	width: 24px;
+}
+
+.f-btn-icon .f-btn-large .f-btn-text {
+	height: 32px;
+	width: 32px;
+}
+
+.f-btn-text-icon .f-btn-icon-small-left .f-btn-text {
+	background-position: 0 center;
+	background-repeat: no-repeat;
+	height: 16px;
+	padding-left: 18px;
+}
+
+.f-btn-text-icon .f-btn-icon-medium-left .f-btn-text {
+	background-position: 0 center;
+	background-repeat: no-repeat;
+	height: 24px;
+	padding-left: 26px;
+}
+
+.f-btn-text-icon .f-btn-icon-large-left .f-btn-text {
+	background-position: 0 center;
+	background-repeat: no-repeat;
+	height: 32px;
+	padding-left: 34px;
+}
+
+.f-btn-text-icon .f-btn-icon-small-top .f-btn-text {
+	background-position: center 0;
+	background-repeat: no-repeat;
+	padding-top: 18px;
+}
+
+.f-btn-text-icon .f-btn-icon-medium-top .f-btn-text {
+	background-position: center 0;
+	background-repeat: no-repeat;
+	padding-top: 26px;
+}
+
+.f-btn-text-icon .f-btn-icon-large-top .f-btn-text {
+	background-position: center 0;
+	background-repeat: no-repeat;
+	padding-top: 34px;
+}
+
+.f-btn-text-icon .f-btn-icon-small-right .f-btn-text {
+	background-position: right center;
+	background-repeat: no-repeat;
+	height: 16px;
+	padding-right: 18px;
+}
+
+.f-btn-text-icon .f-btn-icon-medium-right .f-btn-text {
+	background-position: right center;
+	background-repeat: no-repeat;
+	height: 24px;
+	padding-right: 26px;
+}
+
+.f-btn-text-icon .f-btn-icon-large-right .f-btn-text {
+	background-position: right center;
+	background-repeat: no-repeat;
+	height: 32px;
+	padding-right: 34px;
+}
+
+.f-btn-text-icon .f-btn-icon-small-bottom .f-btn-text {
+	background-position: center bottom;
+	background-repeat: no-repeat;
+	padding-bottom: 18px;
+}
+
+.f-btn-text-icon .f-btn-icon-medium-bottom .f-btn-text {
+	background-position: center bottom;
+	background-repeat: no-repeat;
+	padding-bottom: 26px;
+}
+
+.f-btn-text-icon .f-btn-icon-large-bottom .f-btn-text {
+	background-position: center bottom;
+	background-repeat: no-repeat;
+	padding-bottom: 34px;
+}
+
+.f-btn-tr i,.f-btn-tl i,.f-btn-mr i,.f-btn-ml i,.f-btn-br i,.f-btn-bl i {
+	display: block;
+	font-size: 1px;
+	line-height: 1px;
+	overflow: hidden;
+	width: 3px;
+}
+
+.f-btn-tr i,.f-btn-tl i,.f-btn-br i,.f-btn-bl i {
+	height: 3px;
+}
+
+.f-btn-tl {
+	background: none no-repeat scroll 0 0 transparent;
+	height: 3px;
+	width: 3px;
+}
+
+.f-btn-tr {
+	background: none no-repeat scroll -3px 0 transparent;
+	height: 3px;
+	width: 3px;
+}
+
+.f-btn-tc {
+	background: none repeat-x scroll 0 -6px transparent;
+	height: 3px;
+}
+
+.f-btn-ml {
+	background: none no-repeat scroll 0 -24px transparent;
+	width: 3px;
+}
+
+.f-btn-mr {
+	background: none no-repeat scroll -3px -24px transparent;
+	width: 3px;
+}
+
+.f-btn-mc {
+	background: none repeat-x scroll 0 -1096px transparent;
+	cursor: pointer;
+	padding: 0 5px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.f-btn-bl {
+	background: none no-repeat scroll 0 -3px transparent;
+	height: 3px;
+	width: 3px;
+}
+
+.f-btn-br {
+	background: none no-repeat scroll -3px -3px transparent;
+	height: 3px;
+	width: 3px;
+}
+
+.f-btn-bc {
+	background: none repeat-x scroll 0 -15px transparent;
+	height: 3px;
+}
+
+.f-btn-over .f-btn-tl {
+	background-position: -6px 0;
+}
+
+.f-btn-over .f-btn-tr {
+	background-position: -9px 0;
+}
+
+.f-btn-over .f-btn-tc {
+	background-position: 0 -9px;
+}
+
+.f-btn-over .f-btn-ml {
+	background-position: -6px -24px;
+}
+
+.f-btn-over .f-btn-mr {
+	background-position: -9px -24px;
+}
+
+.f-btn-over .f-btn-mc {
+	background-position: 0 -2168px;
+}
+
+.f-btn-over .f-btn-bl {
+	background-position: -6px -3px;
+}
+
+.f-btn-over .f-btn-br {
+	background-position: -9px -3px;
+}
+
+.f-btn-over .f-btn-bc {
+	background-position: 0 -18px;
+}
+
+.f-btn-click .f-btn-tl,.f-btn-menu-active .f-btn-tl,.f-btn-pressed .f-btn-tl
+	{
+	background-position: -12px 0;
+}
+
+.f-btn-click .f-btn-tr,.f-btn-menu-active .f-btn-tr,.f-btn-pressed .f-btn-tr
+	{
+	background-position: -15px 0;
+}
+
+.f-btn-click .f-btn-tc,.f-btn-menu-active .f-btn-tc,.f-btn-pressed .f-btn-tc
+	{
+	background-position: 0 -12px;
+}
+
+.f-btn-click .f-btn-ml,.f-btn-menu-active .f-btn-ml,.f-btn-pressed .f-btn-ml
+	{
+	background-position: -12px -24px;
+}
+
+.f-btn-click .f-btn-mr,.f-btn-menu-active .f-btn-mr,.f-btn-pressed .f-btn-mr
+	{
+	background-position: -15px -24px;
+}
+
+.f-btn-click .f-btn-mc,.f-btn-menu-active .f-btn-mc,.f-btn-pressed .f-btn-mc
+	{
+	background-position: 0 -3240px;
+}
+
+.f-btn-click .f-btn-bl,.f-btn-menu-active .f-btn-bl,.f-btn-pressed .f-btn-bl
+	{
+	background-position: -12px -3px;
+}
+
+.f-btn-click .f-btn-br,.f-btn-menu-active .f-btn-br,.f-btn-pressed .f-btn-br
+	{
+	background-position: -15px -3px;
+}
+
+.f-btn-click .f-btn-bc,.f-btn-menu-active .f-btn-bc,.f-btn-pressed .f-btn-bc
+{
+	background-position: 0 -21px;
+}
+
+.f-btn-disabled * {
+	cursor: default !important;
+}
+
+.f-btn-mc em.f-btn-arrow {
+	background: none no-repeat scroll right center transparent;
+	display: block;
+	padding-right: 10px;
+}
+
+.f-btn-mc em.f-btn-split {
+	background: none no-repeat scroll right center transparent;
+	display: block;
+	padding-right: 14px;
+}
+
+.f-btn-mc em.f-btn-arrow-bottom {
+	background: none no-repeat scroll center bottom transparent;
+	display: block;
+	padding-bottom: 14px;
+}
+
+.f-btn-mc em.f-btn-split-bottom {
+	background: none no-repeat scroll center bottom transparent;
+	display: block;
+	padding-bottom: 14px;
+}
+
+.f-btn-as-arrow .f-btn-mc em {
+	background: none repeat scroll 0 0 transparent;
+	display: block;
+	padding-bottom: 14px;
+}
+
+
+.f-btn button{
+	/* 20130129 hanyin 删除
+    font:normal 11px arial,tahoma,verdana,helvetica;
+    */
+    color:#333;
+}
+
+.f-btn em {
+    font-style:normal;
+    font-weight:normal;
+}
+
+.f-btn-tl, .f-btn-tr, .f-btn-tc, .f-btn-ml, .f-btn-mr, .f-btn-mc, .f-btn-bl, .f-btn-br, .f-btn-bc{
+	background-image:url(images/fbutton/btn.gif);
+}
+
+.f-btn-click .f-btn-text, .f-btn-menu-active .f-btn-text, .f-btn-pressed .f-btn-text{
+    color:#000;
+}
+
+.f-btn-disabled *{
+	color:gray !important;
+}
+
+.f-btn-mc em.f-btn-arrow {
+    background-image:url(images/fbutton/arrow.gif);
+}
+
+.f-btn-mc em.f-btn-split {
+    background-image:url(images/fbutton/s-arrow.gif);
+}
+
+.f-btn-over .f-btn-mc em.f-btn-split, .f-btn-click .f-btn-mc em.f-btn-split, .f-btn-menu-active .f-btn-mc em.f-btn-split, .f-btn-pressed .f-btn-mc em.f-btn-split {
+    background-image:url(images/fbutton/s-arrow-o.gif);
+}
+
+.f-btn-mc em.f-btn-arrow-bottom {
+    background-image:url(images/fbutton/s-arrow-b-noline.gif);
+}
+
+.f-btn-mc em.f-btn-split-bottom {
+    background-image:url(images/fbutton/s-arrow-b.gif);
+}
+
+.f-btn-over .f-btn-mc em.f-btn-split-bottom, .f-btn-click .f-btn-mc em.f-btn-split-bottom, .f-btn-menu-active .f-btn-mc em.f-btn-split-bottom, .f-btn-pressed .f-btn-mc em.f-btn-split-bottom {
+    background-image:url(images/fbutton/s-arrow-bo.gif);
+}
+
+
+.f-toolbar .f-item-disabled * {
+	cursor:default;
+}
+
+.f-toolbar .f-toolbar-cell {
+    vertical-align:middle;
+}
+
+.f-toolbar .f-btn-tl, .f-toolbar .f-btn-tr, .f-toolbar .f-btn-tc, .f-toolbar .f-btn-ml, .f-toolbar .f-btn-mr, 
+.f-toolbar .f-btn-mc, .f-toolbar .f-btn-bl, .f-toolbar .f-btn-br, .f-toolbar .f-btn-bc
+{
+	background-position: 500px 500px;
+}
+
+/* These rules are duplicated from button.css to give priority of x-toolbar rules above */
+.f-toolbar .f-btn-over .f-btn-tl{
+	background-position: -6px 0;
+}
+
+.f-toolbar .f-btn-over .f-btn-tr{
+	background-position: -9px 0;
+}
+
+.f-toolbar .f-btn-over .f-btn-tc{
+	background-position: 0 -9px;
+}
+
+.f-toolbar .f-btn-over .f-btn-ml{
+	background-position: -6px -24px;
+}
+
+.f-toolbar .f-btn-over .f-btn-mr{
+	background-position: -9px -24px;
+}
+
+.f-toolbar .f-btn-over .f-btn-mc{
+	background-position: 0 -2168px;
+}
+
+.f-toolbar .f-btn-over .f-btn-bl{
+	background-position: -6px -3px;
+}
+
+.f-toolbar .f-btn-over .f-btn-br{
+	background-position: -9px -3px;
+}
+
+.f-toolbar .f-btn-over .f-btn-bc{
+	background-position: 0 -18px;
+}
+
+.f-toolbar .f-btn-click .f-btn-tl, .f-toolbar .f-btn-menu-active .f-btn-tl, .f-toolbar .f-btn-pressed .f-btn-tl{
+	background-position: -12px 0;
+}
+
+.f-toolbar .f-btn-click .f-btn-tr, .f-toolbar .f-btn-menu-active .f-btn-tr, .f-toolbar .f-btn-pressed .f-btn-tr{
+	background-position: -15px 0;
+}
+
+.f-toolbar .f-btn-click .f-btn-tc, .f-toolbar .f-btn-menu-active .f-btn-tc, .f-toolbar .f-btn-pressed .f-btn-tc{
+	background-position: 0 -12px;
+}
+
+.f-toolbar .f-btn-click .f-btn-ml, .f-toolbar .f-btn-menu-active .f-btn-ml, .f-toolbar .f-btn-pressed .f-btn-ml{
+	background-position: -12px -24px;
+}
+
+.f-toolbar .f-btn-click .f-btn-mr, .f-toolbar .f-btn-menu-active .f-btn-mr, .f-toolbar .f-btn-pressed .f-btn-mr{
+	background-position: -15px -24px;
+}
+
+.f-toolbar .f-btn-click .f-btn-mc, .f-toolbar .f-btn-menu-active .f-btn-mc, .f-toolbar .f-btn-pressed .f-btn-mc{
+	background-position: 0 -3240px;
+}
+
+.f-toolbar .f-btn-click .f-btn-bl, .f-toolbar .f-btn-menu-active .f-btn-bl, .f-toolbar .f-btn-pressed .f-btn-bl{
+	background-position: -12px -3px;
+}
+
+.f-toolbar .f-btn-click .f-btn-br, .f-toolbar .f-btn-menu-active .f-btn-br, .f-toolbar .f-btn-pressed .f-btn-br{
+	background-position: -15px -3px;
+}
+
+.f-toolbar .f-btn-click .f-btn-bc, .f-toolbar .f-btn-menu-active .f-btn-bc, .f-toolbar .f-btn-pressed .f-btn-bc{
+	background-position: 0 -21px;
+}
+
+/******************************************************************************************************/
+/***************************   New Simple Button  *****************************************************/
+/******************************************************************************************************/
+
+.f-button {
+	float: left;
+}
+
+.f-button * {
+	cursor : pointer;
+	cursor : hand;
+}
+
+.f-button {
+	border-width: 1px 0;
+	border-color: #c7c7c7;
+	border-style: solid;
+}
+
+div.f-state-hover, div.f-state-focus {
+	border-width: 1px 0;
+	border-color: #b0c7e7;
+}
+
+div.f-state-active {
+	border-width: 1px 0;
+	border-color: #a2bde2;
+}
+
+.f-button-box {
+	height: 22px;
+	overflow : hidden;
+	margin: 0 -1px;
+	background: #dcdcdc;
+	position: relative;
+	float: left;
+}
+
+.f-button-box {
+	border-width: 0 1px;
+	border-color: #A6A6A6;
+	border-style: solid;
+}
+
+.f-state-hover .f-button-box, .f-state-focus .f-button-box {
+	border-width: 0 1px;
+	border-color: #b0c7e7;
+}
+
+.f-state-active .f-button-box {
+	border-width: 0 1px;
+	border-color: #7698c3;
+}
+
+.f-state-hover .f-button-box, .f-state-focus .f-button-box {
+	background: #c3d9f3;
+}
+
+.f-state-active .f-button-box {
+	background: #8ec0f5;
+}
+
+.f-button-t {
+	line-height: 10px;
+	background: #f1f1f1;
+	border-bottom: 2px solid #dadada;
+}
+
+.f-state-hover .f-button-t, .f-state-focus .f-button-t {
+	border-bottom-color: #c7ddf5;
+	background: #d8edff;
+}
+
+.f-state-active .f-button-t {
+	border-bottom-color: #99c4f1;
+	background: #bed1e6;
+}
+
+.f-button-text {
+	display : block;
+	position: relative;
+	padding : 0;
+	border: 0;
+	line-height: 22px;
+	margin: -12px 0 0 0;
+	clear: both;
+}
+
+.f-button-text {
+	background: transparent;
+	overflow: hidden;
+	vertical-align: bottom;
+	-webkit-appearance: none;
+	text-decoration: none;
+	outline: 0 none;
+}
+
+.f-state-disabled .f-button-text {
+	cursor : default !important;
+}
+
+.f-button-text:focus { outline-style:none; }
+
+/**********************************************************************************************************************/
+
+a.f-new-btn{
+	color:#444;
+	background:url('images/fbutton/button_a_bg.gif') no-repeat top right;
+	font-size:12px;
+	text-decoration:none;
+	display:inline-block;
+	zoom:1;
+	height:24px;
+	padding-right:18px;
+	cursor:pointer;
+	outline:none;
+}
+a.f-new-btn-plain{
+	background:transparent;
+	padding-right:5px;
+	border:1px solid transparent;
+	_border:0px solid #efefef;
+	_padding:1px 6px 1px 1px;
+}
+
+a.f-new-btn-disabled{
+	color:#ccc;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	cursor:default;
+}
+a.f-new-btn span.f-new-btn-left{
+	display:inline-block;
+	background:url('images/fbutton/button_span_bg.gif') no-repeat top left;
+	padding:4px 0px 4px 18px;
+	line-height:16px;
+	height:16px;
+}
+a.f-new-btn-plain span.f-new-btn-left{
+	background:transparent;
+	padding-left:5px;
+}
+
+a.f-new-btn span span.f-new-btn-text{
+	display:inline-block;
+	height:16px;
+	line-height:16px;
+	padding:0px;
+}
+a.f-new-btn span span span.f-new-btn-empty{
+	display:inline-block;
+	padding:0px;
+	width:16px;
+}
+/*
+a:hover.f-new-btn{
+	background-position: bottom right;
+	outline:none;
+}
+a:hover.f-new-btn span.f-new-btn-left{
+	background-position: bottom left;
+}
+
+a:hover.f-new-btn-plain{
+	border:1px solid #7eabcd;
+	background:url('images/fbutton/button_plain_hover.png') repeat-x left bottom;
+	_padding:0px 5px 0px 0px;
+	-moz-border-radius:3px;
+	-webkit-border-radius: 3px;
+}
+a:hover.f-new-btn-disabled{
+	background-position:top right;
+}
+a:hover.f-new-btn-disabled span.f-new-btn-left{
+	background-position:top left;
+}
+*/
+a.f-new-btn{
+	background-position: bottom right;
+	outline:none;
+}
+a.f-new-btn span.f-new-btn-left{
+	background-position: bottom left;
+}
+
+a.f-new-btn-plain{
+	border:1px solid #7eabcd;
+	background:url('images/fbutton/button_plain_hover.png') repeat-x left bottom;
+	_padding:0px 5px 0px 0px;
+	-moz-border-radius:3px;
+	-webkit-border-radius: 3px;
+}
+a.f-new-btn-disabled{
+	background-position:top right;
+}
+a.f-new-btn-disabled span.f-new-btn-left{
+	background-position:top left;
+}
+/*****/
+
+.f-new-toolbar a.f-new-btn{
+	color:#444;
+	background:url('images/fbutton/button_a_bg.gif') no-repeat top right;
+	font-size:12px;
+	text-decoration:none;
+	display:inline-block;
+	zoom:1;
+	height:24px;
+	padding-right:18px;
+	cursor:pointer;
+	outline:none;
+}
+.f-new-toolbar a.f-new-btn-plain{
+	background:transparent;
+	padding-right:5px;
+	border:1px solid transparent;
+	_border:0px solid #efefef;
+	_padding:1px 6px 1px 1px;
+}
+
+.f-new-toolbar a.f-new-btn-disabled{
+	color:#ccc;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	cursor:default;
+}
+.f-new-toolbar a.f-new-btn span.f-new-btn-left{
+	display:inline-block;
+	background:url('images/fbutton/button_span_bg.gif') no-repeat top left;
+	padding:4px 0px 4px 18px;
+	line-height:16px;
+	height:16px;
+}
+.f-new-toolbar a.f-new-btn-plain span.f-new-btn-left{
+	background:transparent;
+	padding-left:5px;
+}
+
+.f-new-toolbar a.f-new-btn span span.f-new-btn-text{
+	display:inline-block;
+	height:16px;
+	line-height:16px;
+	padding:0px;
+}
+.f-new-toolbar a.f-new-btn span span span.f-new-btn-empty{
+	display:inline-block;
+	padding:0px;
+	width:16px;
+}
+
+.f-new-toolbar a:hover.f-new-btn{
+	background-position: bottom right;
+	outline:none;
+}
+.f-new-toolbar a:hover.f-new-btn span.f-new-btn-left{
+	background-position: bottom left;
+}
+
+.f-new-toolbar a:hover.f-new-btn-plain{
+	border:1px solid #7eabcd;
+	background:url('images/fbutton/button_plain_hover.png') repeat-x left bottom;
+	_padding:0px 5px 0px 0px;
+	-moz-border-radius:3px;
+	-webkit-border-radius: 3px;
+}
+.f-new-toolbar a:hover.f-new-btn-disabled{
+	background-position:top right;
+}
+.f-new-toolbar a:hover.f-new-btn-disabled span.f-new-btn-left{
+	background-position:top left;
+}

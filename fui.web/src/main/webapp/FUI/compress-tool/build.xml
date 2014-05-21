@@ -1,0 +1,224 @@
+﻿<?xml version="1.0"?>
+<project name="compress" default="compressjs">
+    <description>uploader Build File</description>
+    <!--当前文件目录路径-->
+    <dirname property="current.dir" file="${ant.file.compress}"/>
+
+    <property name="compress.dir" location="${current.dir}/../js/"/>
+    <!--css路径 -->
+    <property name="css.dir" location="${compress.dir}/../themes/default"/>
+    <!--yuicompressor程序路径-->
+    <property name="yuicompressor.dir" location="${current.dir}/yuicompressor/yuicompressor-2.4.7.jar"/>
+    <!--压缩css	-->
+    <target name="minify-css">
+        <!--将文件存放到${compress.dir}/css-min/路径下面	-->
+        <apply executable="java" verbose="true" dest="${css.dir}" failonerror="true" parallel="false">
+            <!-- css文件存放的根路径-->
+            <fileset dir="${css.dir}">
+                <!--根路径下对应的css文件列表 -->
+                <include name="FUI.all.css"/>
+            </fileset>
+            <arg line="-jar"/>
+            <arg path="${yuicompressor.dir}"/>
+            <arg line="--charset utf-8"/>
+            <arg value="--type"/>
+            <arg value="css"/>
+            <arg value="-o"/>
+            <targetfile/>
+            <mapper type="glob" from="*.css" to="*-min.css"/>
+        </apply>
+    </target>
+    <!--合并css-->
+    <target name="concatcss">
+        <!--保存最终文件的路径-->
+        <concat destfile="${css.dir}/FUI.all.css" encoding="utf-8">
+            <!--需要合并文件的路径-->
+            <path path="${css.dir}/FUI.css"/>
+            <path path="${css.dir}/FUI.Button.css"/>
+            <path path="${css.dir}/FUI.Fieldset.css"/>
+            <path path="${css.dir}/FUI.Label.css"/>
+            <path path="${css.dir}/FUI.Panel.css"/>
+            <path path="${css.dir}/FUI.Tool.css"/>
+            <path path="${css.dir}/FUI.Toolbar.css"/>
+            <path path="${css.dir}/FUI.ToolGroup.css"/>
+            <path path="${css.dir}/FUI.Tabs.css"/>
+            <path path="${css.dir}/FUI.PopupBox.css"/>
+            <path path="${css.dir}/FUI.Menu.css"/>
+            <path path="${css.dir}/FUI.TextField.css"/>
+            <path path="${css.dir}/FUI.Form.css"/>
+            <path path="${css.dir}/FUI.Calendar.css"/>
+            <path path="${css.dir}/FUI.CheckBox.css"/>
+            <path path="${css.dir}/FUI.CheckBoxGroup.css"/>
+            <path path="${css.dir}/FUI.PopupMessage.css"/>
+            <path path="${css.dir}/FUI.Message.css"/>
+            <path path="${css.dir}/FUI.Accordion.css"/>
+
+        </concat>
+    </target>
+
+    <!--压缩js	-->
+    <target name="minify-js">
+        <apply executable="java" dest="${compress.dir}/src/widgets-min/">
+            <!--js文件存放的根路径-->
+            <fileset dir="${compress.dir}/src/">
+                <!--js文件在根路径下的路径-->
+                <include name="FUI.core.js"/>
+                <include name="FUI.widget.js"/>
+                <include name="FUI.Utils.js"/>
+                <include name="FUI.Validate.js"/>
+                <include name="FUI.Ajax.js"/>
+                <!-- 20130322 hanyin 停止发布
+                <include name="FUI.Cookie.js"/>
+                <include name="FUI.Theme.js"/>
+                <include name="FUI.BorderLayout.js"/>
+                <include name="FUI.FitLayout.js"/>
+                -->
+                <include name="FUI.Grid.js"/>
+                <include name="FUI.Panel.js"/>
+                <include name="FUI.Mask.js"/>
+                <include name="FUI.Combo.js"/>
+                <include name="FUI.Accordion.js"/>
+                <include name="FUI.Button.js"/>
+                <include name="FUI.ButtonGroup.js"/>
+                <include name="FUI.Calendar.js"/>
+                <include name="FUI.CheckboxGroup.js"/>
+                <!-- 20130418 hanyin 停止发布
+                <include name="FUI.ComboTree.js"/>
+                -->
+                <include name="FUI.Fieldset.js"/>
+                <include name="FUI.Upload.js"/>
+                <include name="FUI.Form.js"/>
+                <include name="FUI.EnterSwitch.js"/>
+                <include name="FUI.PopupBox.js"/>
+                <include name="FUI.Menu.js"/>
+                <include name="FUI.TextField.js"/>
+                <include name="FUI.PopupMessage.js"/>
+                <include name="FUI.Message.js"/>
+                <include name="FUI.Accordion.js"/>
+                <include name="FUI.NumberField.js"/>
+                <include name="FUI.Tabs.js"/>
+                <include name="FUI.TargetSelect.js"/>
+                <include name="FUI.Toolbar.js"/>
+                <include name="FUI.Tree.js"/>
+                <include name="FUI.Win.js"/>
+                <include name="FUI.action.js"/>
+                <include name="FUI.manager.js"/>
+                <include name="FUI.Pagingbar.js"/>
+                <include name="FUI.ComboGrid.js"/>
+            </fileset>
+            <arg line="-jar"/>
+            <arg path="${yuicompressor.dir}"/>
+            <arg line="--charset utf-8"/>
+            <arg value="--type"/>
+            <arg value="js"/>
+            <arg value="-o"/>
+            <targetfile/>
+            <mapper type="glob" from="*.js" to="*.min.js"/>
+        </apply>
+    </target>
+    <!--拷贝js-->
+    <target name="concat-debug-js">
+        <!--保存最终js文件的路径-->
+        <concat destfile="${compress.dir}/FUI.js" encoding="utf-8">
+            <!--需要合并文件的路径-->
+            <path path="${compress.dir}/src/FUI.core.js"/>
+            <path path="${compress.dir}/src/FUI.widget.js"/>
+            <path path="${compress.dir}/src/FUI.Utils.js"/>
+            <path path="${compress.dir}/src/FUI.Validate.js"/>
+            <path path="${compress.dir}/src/FUI.Ajax.js"/>
+            <!-- 20130322 hanyin 停止发布
+            <path path="${compress.dir}/src/FUI.Cookie.js"/>
+            <path path="${compress.dir}/src/FUI.Theme.js"/>
+            <path path="${compress.dir}/src/FUI.BorderLayout.js"/>
+            <path path="${compress.dir}/src/FUI.FitLayout.js"/>
+            -->
+            <path path="${compress.dir}/src/FUI.Grid.js"/>
+            <path path="${compress.dir}/src/FUI.Panel.js"/>
+            <path path="${compress.dir}/src/FUI.Mask.js"/>
+            <path path="${compress.dir}/src/FUI.Combo.js"/>
+            <path path="${compress.dir}/src/FUI.Accordion.js"/>
+            <path path="${compress.dir}/src/FUI.Button.js"/>
+            <path path="${compress.dir}/src/FUI.ButtonGroup.js"/>
+            <path path="${compress.dir}/src/FUI.Calendar.js"/>
+            <path path="${compress.dir}/src/FUI.CheckboxGroup.js"/>
+        	<!-- 20130418 取消发布
+            <path path="${compress.dir}/src/FUI.ComboTree.js"/>
+            -->
+            <path path="${compress.dir}/src/FUI.Fieldset.js"/>
+            <path path="${compress.dir}/src/FUI.Upload.js"/>
+            <path path="${compress.dir}/src/FUI.Form.js"/>
+            <path path="${compress.dir}/src/FUI.EnterSwitch.js"/>
+            <path path="${compress.dir}/src/FUI.PopupBox.js"/>
+            <path path="${compress.dir}/src/FUI.Menu.js"/>
+            <path path="${compress.dir}/src/FUI.TextField.js"/>
+            <path path="${compress.dir}/src/FUI.PopupMessage.js"/>
+            <path path="${compress.dir}/src/FUI.Message.js"/>
+            <path path="${compress.dir}/src/FUI.Accordion.js"/>
+            <path path="${compress.dir}/src/FUI.NumberField.js"/>
+            <path path="${compress.dir}/src/FUI.Tabs.js"/>
+            <path path="${compress.dir}/src/FUI.TargetSelect.js"/>
+            <path path="${compress.dir}/src/FUI.Toolbar.js"/>
+            <path path="${compress.dir}/src/FUI.Tree.js"/>
+            <path path="${compress.dir}/src/FUI.Win.js"/>
+            <path path="${compress.dir}/src/FUI.action.js"/>
+            <path path="${compress.dir}/src/FUI.manager.js"/>
+            <path path="${compress.dir}/src/FUI.Pagingbar.js"/>
+            <path path="${compress.dir}/src/FUI.ComboGrid.js"/>
+
+        </concat>
+    </target>
+    <!--拷贝js-->
+    <target name="concat-js">
+        <!--保存最终js文件的路径-->
+        <concat destfile="${compress.dir}/FUI.min.js" encoding="utf-8">
+            <!--需要合并文件的路径-->
+            <path path="${compress.dir}/src/widgets-min/FUI.core.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.widget.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Utils.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Validate.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Ajax.min.js"/>
+            <!-- 20130322 hanyin 停止发布
+            <path path="${compress.dir}/src/widgets-min/FUI.Cookie.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Theme.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.BorderLayout.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.FitLayout.min.js"/>
+            -->
+            <path path="${compress.dir}/src/widgets-min/FUI.Grid.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Panel.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Mask.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Combo.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Accordion.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Button.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.ButtonGroup.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Calendar.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.CheckboxGroup.min.js"/>
+        	<!-- 20130418 取消发布
+            <path path="${compress.dir}/src/widgets-min/FUI.ComboTree.min.js"/>
+            -->
+            <path path="${compress.dir}/src/widgets-min/FUI.Fieldset.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Upload.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Form.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.EnterSwitch.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.PopupBox.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Menu.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.TextField.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.PopupMessage.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Message.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Accordion.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.NumberField.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Tabs.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.TargetSelect.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Toolbar.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Tree.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Win.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.action.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.manager.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.Pagingbar.min.js"/>
+            <path path="${compress.dir}/src/widgets-min/FUI.ComboGrid.min.js"/>
+        </concat>
+    </target>
+    <!--压缩合并js文件-->
+    <target name="compressjs" depends="minify-js,concat-debug-js,concat-js,concatcss,minify-css"></target>
+    <!--压缩合并css文件-->
+    <target name="compresscss" depends="concatcss,minify-css"></target>
+</project>

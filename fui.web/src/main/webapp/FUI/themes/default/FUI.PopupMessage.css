@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.PopupMessage.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述: FUI.PopupMessage组件的样式
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121108		hanyin	新增
+ */
+
+.f-popupMessage {
+  padding: 4px 4px 4px 4px;
+  margin: 0;
+  outline: none;
+  border: 1px solid #A2B1C5;
+  background-color: #CED9E7;
+  display: none;
+  width: 280px;
+  position: absolute;
+}
+
+.f-popupMessage-header {
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.f-popupMessage-header {
+  color: #04468C;
+  font-weight: bold;
+  font-family: tahoma,arial,verdana,sans-serif;
+  font-size: 12px;
+}
+
+.f-popupMessage-icon {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+}
+
+.f-popupMessage-body {
+  outline: none;
+  border: 1px solid #99BBE8;
+  background-color: #DFE8F6;
+  overflow: auto;
+  position: relative;
+}

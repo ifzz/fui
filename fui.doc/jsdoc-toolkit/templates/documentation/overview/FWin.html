@@ -1,0 +1,63 @@
+
+<h3>Win</h3>
+<p>用于弹窗方式进行数据展示或交互，他是一个弹出式容器，但是不管内容的布局。
+</p>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>适用于弹窗式数据展示或者交互方式，典型的如增加，修改，查看的页面。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FWin实例</p>
+<textarea name="code" class="html" style="display: none;">
+<f:win id="test1" title="测试1" >
+	// ... 内容
+</f:win>
+</textarea>
+
+<p>弹出win</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		$("#bnt1").click(function() {
+			$("#win2").FWin("show");
+		});
+	};
+</script>
+<f:win id="win2" title="测试2" >
+	// ... 内容
+</f:win>
+</textarea>
+
+<p>绑定close、show事件：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	function onWinShow1() {
+		// 在关闭win之后的处理逻辑，比如清空表单等
+		alert("窗口显示出来了");
+	}
+	function onWinClose1() {
+		// 在关闭win之后的处理逻辑，比如清空表单等
+		alert("窗口关闭了");
+	}
+</script>
+<f:win id="win3" title="测试3" onClose="onWinClose1" onShow="onWinShow1">
+	// ... 内容
+</f:win>
+</textarea>
+

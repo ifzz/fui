@@ -1,0 +1,66 @@
+
+<h3>Menu</h3>
+<p>FMenu适用于菜单方式链接导航或右键菜单</p>
+<img src="../resource/images/menu.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>右键菜单和功能列表
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>菜单被关闭的条件：① 菜单/子菜单被点击；② document捕捉到click事件。</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>如果点击某区域菜单无法被关闭，请检查是否是该区域的click事件冒泡被阻止。</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FCombo实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:menu id="playBackMenu" onClick="menuClick">
+  <f:menuItem iconCls="f-icon-seek-start" onClick="prevClick">Prev</f:menuItem>
+  <f:menuItem iconCls="f-icon-stop">Stop</f:menuItem>
+  <f:menuItem iconCls="f-icon-play">Play</f:menuItem>
+  <f:menuItem iconCls="f-icon-seek-end">Next</f:menuItem>
+</f:menu>
+</textarea>
+
+<p>右键菜单：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(document).bind("contextmenu", function(e) {
+		$("#playBackMenu").FMenu("show", {position:{left:e.pageX, top:e.pageY}});
+		e.stopImmediatePropagation(); // 组织浏览器默认行为，弹出浏览器的右键菜单
+		return false;
+	});
+	
+	function menuClick(item, event) {
+		alert("id: " + item.id + "\nurl: " + item.url + "\nmenuId: " + item.menuId + "\nparentMenuId: " + item.parentMenuId);
+	}
+</script>
+
+<f:menu id="playBackMenu" onClick="menuClick">
+  <f:menuItem iconCls="f-icon-seek-start" onClick="prevClick">Prev</f:menuItem>
+  <f:menuItem iconCls="f-icon-stop">Stop</f:menuItem>
+  <f:menuItem iconCls="f-icon-play">Play</f:menuItem>
+  <f:menuItem iconCls="f-icon-seek-end">Next</f:menuItem>
+</f:menu>
+</textarea>
+
+<p>绑定静态菜单数据：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var data1 = [{id:"item1", text:"Fruit", url:"www.baidu.com", children:[{id:"subItem1", text:"Apple"},{id:"subItem2", text:"Grape"}]},
+      	    {id:"item2", text:"Electrical Equipment", children:[{id:"subItem21", text:"T.V."},{id:"subItem22", text:"Air-conditioning"}]}];
+</script>
+
+<f:menu id="listbox11" onClick="menuClick" staticData="data1"></f:menu>
+</textarea>

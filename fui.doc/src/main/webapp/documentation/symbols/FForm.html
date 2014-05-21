@@ -1,0 +1,773 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Form</h3>
+<p>FForm，作为表单的容器，支持批量设值和获取表单的值，并可以与一个服务绑定，提供表单提交的API。</p>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>替代原生的form标签，并扩展了相关功能：批量设值和获取表单的值；通过submit方法触发表单提交等。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>FForm并不提供“form布局”，并不提供表单组件的布局样式；</li>
+	<li>不支持批量改变表单的状态：readonly或者disabled等；</li>
+</ul>
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FForm实例：</p>
+<textarea name="code-combobox" class="html" style="display: none;">
+<f:form id="form1" action="test.formSubmit1.fservice">
+	// ...
+	// 所有FUI的表单组件以及html原生的表单组件，这些表单组件都必须有有name属性
+	// ...
+</f:form>
+</textarea>
+
+<p>批量设值：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:form id="form2" action="test.formSubmit1.fservice">
+	// ...
+	<input type="text" name="id">
+	// ...
+	<input type="text" name="age">
+	// ...
+	<input type="text" name="name">
+	// ...
+</f:form>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		$("#form2").FForm("setValues", {id:"04002", age:"27", name:"霸天虎"});
+		// ...
+	});
+</script>
+</textarea>
+
+<p>批量取值：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:form id="form3" action="test.formSubmit1.fservice">
+	// ...
+	<input type="text" name="id" value="04002">
+	// ...
+	<input type="text" name="age" value="27">
+	// ...
+	<input type="text" name="name" value="霸天虎">
+	// ...
+</f:form>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		var values = $("#form3").FForm("getValues"); // values = {id:"04002", age:"27", name:"霸天虎"}
+		// ...
+	});
+</script>
+</textarea>
+
+<p>表单提交函数submit，第一个参数为附加的请求参数，第二个参数为ajax请求选项：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	// ...
+	function beforeSubmit1() {
+		alert("表单提交前处理");
+		// return false // 阻止表单提交！
+	}
+	function onSuccess1(data, textStatus) {
+		alert("form提交成功，返回数据：" + data);
+	}
+	function onFailure1(data, textStatus) {
+		alert("form提交失败");
+	}
+	function onError1(jqXHR, textStatus, errorThrown) {
+		alert("ajax请求失败");
+	}
+	// ...
+
+</script>
+	
+<f:form id="form4" action="test.formSubmit1.fservice" 
+	onSuccess="onSuccess1" onFailure="onFailure1" onError="onError1" beforeSubmit="beforeSubmit1">
+	// ...
+	// 所有FUI的表单组件以及html原生的表单组件，这些表单组件都必须有有name属性
+	// ...
+</f:form>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		$("#form4").FForm("submit", {param1: "value1"});
+		// ...
+	});
+</script>
+</textarea>
+
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td><ins>action</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>表单提交的url。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>enterSwitch</ins></td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>设置控件是否使用回车键来切换输入类子控件的焦点。如果该属性为true，那么按回车时焦点会根据控件的tabIndex属性值从小到大进行依次切换。<br/>开启此功能对性能会有影响：一方面由于表单元素增加造成要绑定的事件增加，造成组件初始化的时间线性增加；另一方面随着表单个数的增加，按照tabIndex实时建立的列表长度性能直线增加；经过测试，在低配的机器IE6下，表单元素超过100个的时候会出现顿卡的情况。<br/>大表单不建议开启此功能。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>id</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>标识(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>随机生成</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>isUpload</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>是否包含文件上传组件</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>params</td>
+	        					<td>JSON</td>
+	        					<td>
+	        						<p>ajax提交中的附加数据，以JSON的形式组成(key/value) <br/></p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>params: { key1: 'value1', key2: 'value2' }</pre>
+		        						
+		        					
+	        					</td>
+	        					<td></td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>uploadType</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>上传文件的类型，默认值为 memory ， 将文件上传至内存。 如果该值为tempFile，则上传到指定的路径。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>memory</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+          		<!-- doc_events_begin -->
+          		<h4>事件</h4>
+          		<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+          						<td>beforeSubmit</td>
+          						<td>function(data, jqXHR, settings)</td>
+          						<td>
+          							<p>在表单提交前被调用，该函数提供了一个时机来执行预提交的逻辑，或者可以用来进行校验表单元素，带事件返回false，会中止表单提交。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        此次ajax请求的参数
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        jquery的XMLHttpRequest对象
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>settings</b>
+		                                        ajax请求的配置
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onError</td>
+          						<td>function(jqXHR, textStatus, errorThrown)</td>
+          						<td>
+          							<p>表单提交失败，常见于ajax请求超时（不是服务端业务超时）、请求的url无效、服务器已经停止等。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        jquery的XMLHttpRequest对象
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        HTTP状态码，比如404,500等
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>errorThrown</b>
+		                                        如果底层抛出了异常
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre>//定义一个函数function showResponse(jqXHR, textStatus, errorThrown) { alert('submit error!');}//提交成功取到响应时的回调函数$('#formId').FForm({onError: showResponse});</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onFailure</td>
+          						<td>function(data, textStatus, jqXHR)</td>
+          						<td>
+          							<p>服务端返回错误应答包的情况下会触发此事件，即返回的returnCode!=0的情况。但是此时Ajax请求是正常的，错误出现在中间件或者业务逻辑上的错误，常见于业务错误，或者cep的超时异常等。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        响应的数据
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        HTTP的状态
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        jquery的XMLHttpRequest对象
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre>//定义一个函数function showResponse(data, textStatus, jqXHR) { alert('submit failure!');}//提交成功取到响应时的回调函数$('#formId').FForm({onFailure: showResponse});</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onFileUploadEvent</td>
+          						<td>function(result)</td>
+          						<td>
+          							<p>当文件上传组件提交后执行的回调函数。用户根据返回值中的returnCode的值来处理相应的业务逻辑。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>result</b>
+		                                        响应的数据 ，包括 returnCode，errorNo，errorInfo
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre>//定义一个函数function fileUploadEvent(result) { if(result.returnCode == 0){     alert('upload success!'); }}//上传回调函数$('#formId').FForm({"onFileUploadEvent": fileUploadEvent});</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onSuccess</td>
+          						<td>function(data, textStatus, jqXHR)</td>
+          						<td>
+          							<p>当表单提交成功并取到响应时，并获得正确数据时（returnCode为0），执行的回调函数。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        响应的数据
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        HTTP的状态
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        jquery的XMLHttpRequest对象
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre>//定义一个函数function showResponse(data, textStatus, jqXHR) { alert('submit success!');}//提交成功取到响应时的回调函数$('#formId').FForm({onSuccess: showResponse});</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          			</tbody>
+          		</table>
+          	  	<!-- doc_events_end -->
+       		
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>destroy</td>
+								<td>()</td>
+								<td>
+									<p>销毁组件</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>doFileUpload</td>
+								<td>(params)</td>
+								<td>
+									<p>上传文件提交</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>params</b>
+		                                        附加的数据，以json对象表示
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$F('form').FForm("doFileUpload",{"key":"value"});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getParams</td>
+								<td>()</td>
+								<td>
+									<p>ajax请求的附加参数</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$I('form').FForm("getParams");</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getSubmitOpts</td>
+								<td>()</td>
+								<td>
+									<p>获取当前表单ajax请求配置项</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$I('form').FForm("getSubmitOpts");</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getValues</td>
+								<td>()</td>
+								<td>
+									<p>获取Form内有name属性且非disabled状态表单域，以对象的形式返回。 <br/>对同名域的处理：<pre>① 如果是radio的话，则在同名表单域中选取被选中的radio对应的value，比如&lt;input type="radio" name="sex" value="1"&gt;&lt;input type="radio" name="sex" value="2"&gt;&lt;input type="radio" name="sex" value="3"&gt;如果value=2的radio被选中，那么最后生成的表单域为 sex:"2"，其他几个radio会被忽略② 非radio表单域，两个及两个以上的同名表单组装为数组，比如&lt;input type="text" name="favor" value="2"&gt;&lt;input type="text" name="favor" value="3"&gt;&lt;input type="checkbox" name="favor" value="4"&gt;如上所示，最后生成的表单域为 favor:["2", "3", "4"]，被表示为数组。需要特别说明的是：原生的checkbox，如果没有被勾选，则也不会参与表单提交，比如三个原生的checkbox，name分别为name1,name2,name2，值分别为1,2,3：a. 第一个被勾选，那么getValues返回{name1:"1"}b. 第一个第二个被勾选，返回 {name1:"1",name2:"2"}c. 都被勾选，那么返回 {name1:"1", name2:["2","3"]}d. 都不勾选，那么返回 {}，即都不参与表单提交。</pre></p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$I('form').FForm("getValues");</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>reset</td>
+								<td>()</td>
+								<td>
+									<p>尝试调用所有表单域的reset方法，如果没有相应的方法，则只是简单的将表单域置为""</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$I('form').FForm("reset");</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setAction</td>
+								<td>()</td>
+								<td>
+									<p>设置请求的url</p>
+									
+									 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setParams</td>
+								<td>(params)</td>
+								<td>
+									<p>ajax请求的附加参数</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>params</b>
+		                                        附加的请求参数 对象
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$I('form').FForm("setParams", {userId:"0102334"});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setSubmitOpts</td>
+								<td>(opts)</td>
+								<td>
+									<p>设置ajax请求配置项。在一般情况下不需要设置此值，除非默认的选项已经不能满足要求。ajax请求配置项请将FAjax组件。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>opts</b>
+		                                        请求配置项，详细选项请见
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$I('form').FForm("setSubmitOpts", {type:"post"});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setValues</td>
+								<td>(values)</td>
+								<td>
+									<p>设置Form内有name属性且非disabled状态表单域，假设传入的对象为 {key1:"value1", key2:"value2"}，那么此操作会设置name为key1和key2的表单域分别为value1和value2，其他的表单域不会被修改。如果需要清空所有的表单域，请先调用 reset 方法来重置所有的表单域。<b>对同名域的处理</b>：<pre>① 如果是radio的话，则在同名表单域中选取被选中的radio对应的value，比如&lt;input type="radio" name="sex" value="1"&gt;&lt;input type="radio" name="sex" value="2"&gt;&lt;input type="radio" name="sex" value="3"&gt;如果value=2的radio被选中，那么最后生成的表单域为 sex:"2"，其他几个radio会被忽略② 非radio表单域，两个及两个以上的同名表单组装为数组，比如&lt;input type="text" name="favor" value="2"&gt;&lt;input type="text" name="favor" value="3"&gt;&lt;input type="checkbox" name="favor" value="4"&gt;如上所示，最后生成的表单域为 favor:["2", "3", "4"]，被表示为数组。</pre></p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>values</b>
+		                                        表单域值对象
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$I('form').FForm("setValues", {key:"value1", key2:"value2"});</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>submit</td>
+								<td>(params, options)</td>
+								<td>
+									<p>form提交</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>params</b>
+		                                        附加的数据，以json对象表示
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>options</b>
+		                                        ajax请求的选项，除了success、error、beforeSend等属性外，都延用了FUI的FAjax组件，更详细的内容请见<a href='./FAjax.html' target='_blank'>FAjax组件</a>
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$F('form').FForm("submit");</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

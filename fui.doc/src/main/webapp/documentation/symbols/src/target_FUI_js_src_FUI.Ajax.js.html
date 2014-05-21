@@ -1,0 +1,200 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/* *
+<span class='line'>  2</span>  * 版本：1.0.0.1
+<span class='line'>  3</span>  * 系统名称: FUI
+<span class='line'>  4</span>  * 模块名称: JRES
+<span class='line'>  5</span>  * 文件名称: FUI.Ajax.js
+<span class='line'>  6</span>  * 作者：qudc
+<span class='line'>  7</span>  * 邮箱：qudc@hundsun.com
+<span class='line'>  8</span>  * 软件版权: 恒生电子股份有限公司
+<span class='line'>  9</span>  * 功能描述：FAjax组件对应的代码。
+<span class='line'> 10</span>  * 修改记录:
+<span class='line'> 11</span>  * 修改日期      修改人员                     修改说明
+<span class='line'> 12</span>  * 2012-11-15   qudc     修改ajax的默认发生模式，默认为”post“方法发送请求。
+<span class='line'> 13</span>  * 20130219    hanyin    增加数据模型“jres”和ajax数据模型的完整描述说明
+<span class='line'> 14</span>  */</span><span class="WHIT">
+<span class='line'> 15</span> 
+<span class='line'> 16</span> </span><span class="COMM">/**
+<span class='line'> 17</span>  * @name FAjax
+<span class='line'> 18</span>  * @class 
+<span class='line'> 19</span>  * 异步交互，提供简化的与后台交互的方法。并为其它组件提供远程交互能力。
+<span class='line'> 20</span>  */</span><span class="WHIT">
+<span class='line'> 21</span> 
+<span class='line'> 22</span> </span><span class="COMM">/**@lends FAjax# */</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">$</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 24</span> 
+<span class='line'> 25</span> </span><span class="WHIT">    </span><span class="NAME">$.FUI.FAjax</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">        </span><span class="NAME">_errorHandlerMap</span><span class="PUNC">:</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">        </span><span class="NAME">_defaultErrorHandler</span><span class="PUNC">:</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> 
+<span class='line'> 30</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'> 31</span>          * 统一的AJAX操作接口,如果FAjax设置了_errorHandlerMap或者_defaultErrorHandler，failure回调函数的返回值不為true，则不执行默认的错误处理函数，认为用户自行处理错误处理。&lt;br/>
+<span class='line'> 32</span>          * 用户请求不同的数据类型时，需要在data参数中传递_respType参数，_respType参数需要指定需要的数据类型。类型有：list，page等。
+<span class='line'> 33</span>          * 另外，还支持的参数有：
+<span class='line'> 34</span>          * &lt;ol>
+<span class='line'> 35</span>          * &lt;li>_respType : 应答的数据模型，支持list、listsimple、pojo、page、tree和jres，其中数据模型“jres”支持多数据集IDataset；&lt;/li>
+<span class='line'> 36</span>          * &lt;li>_respMapping : 应答结果字段的映射关系，比如返回的结果集有字段“userId”和“upperId”，但是需要的是“id”和“pid”，
+<span class='line'> 37</span>          * 那么可以设置此值为"id=userId,pid=upperId"，每个字段使用英文逗号","分隔，FUI的Servlet会自动做字段转换。&lt;/li>
+<span class='line'> 38</span>          * &lt;/ol>
+<span class='line'> 39</span>          * @name FAjax#remote
+<span class='line'> 40</span>          * @function
+<span class='line'> 41</span>          * @param options FAjax的配置参数，结构是{url:服务,data:{请求参数},success:function(data，textStatus, jqXHR){//returnCode==0的情况},failure:function(data,textStatus, jqXHR){//returnCode为 1或者 -1的情况 },error:function(jqXHR, textStatus, errorThrown){//请求错误时，例如请求超时}}
+<span class='line'> 42</span>          * @example
+<span class='line'> 43</span>          * $.FAjax.remote({
+<span class='line'> 44</span>          *             url:"com.hundsun.user.add",
+<span class='line'> 45</span>          *             data:$('#formId').getValues(),
+<span class='line'> 46</span>          *          success:function(data,textStatus, jqXHR){
+<span class='line'> 47</span>          *              //请求正常，returnCode ==0 时触发
+<span class='line'> 48</span>          *           },
+<span class='line'> 49</span>          *          failure:function(data,textStatus, jqXHR){
+<span class='line'> 50</span>          *               //请求正常，returnCode !=0时触发
+<span class='line'> 51</span>          *          },
+<span class='line'> 52</span>          *          error : function(jqXHR, textStatus, errorThrown){
+<span class='line'> 53</span>          *              //请求失败时错发，例如请求超时。
+<span class='line'> 54</span>          *          }
+<span class='line'> 55</span>          *          //其他一些参数。
+<span class='line'> 56</span>          *          );
+<span class='line'> 57</span>          */</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">        </span><span class="NAME">remote</span><span class="PUNC">:</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">UTILS</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">window</span><span class="PUNC">[</span><span class="STRN">'$Utils'</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">url</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">options.url</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">success</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">options.success</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">failure</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">options.failure</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ME</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">            </span><span class="NAME">options.success</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">jqXHR</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">                </span><span class="COMM">//ajax执行成功的前提下，如果有returnCode,则说明是JRES服务，那么按照retrunCode是不是为1来执行成功还是会掉函数。</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.returnCode</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">data.returnCode</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">failure</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">                        </span><span class="COMM">//判断用户是否退出指定错误号的处理</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">failure</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">jqXHR</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">                            </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">errorNo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.errorNo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">errorHandler</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ME._errorHandlerMap</span><span class="PUNC">[</span><span class="NAME">data.errorNo</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">                    </span><span class="COMM">//如果用户有制定对应错误号的处理函数，则调用对应的处理函数</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$.isFunction</span><span class="PUNC">(</span><span class="NAME">errorHandler</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">                        </span><span class="NAME">errorHandler</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">jqXHR</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"string"</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">$.type</span><span class="PUNC">(</span><span class="NAME">errorHandler</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">                        </span><span class="COMM">// 按照默认的方式提示信息</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">                        </span><span class="NAME">data.errorInfo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">errorHandler</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">                        </span><span class="NAME">ME._defaultErrorHandler</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">                        </span><span class="NAME">ME._defaultErrorHandler</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">                    </span><span class="COMM">/**
+<span class='line'> 87</span>                      * 这里有两种情况：
+<span class='line'> 88</span>                      * 1、一种情况是返回值中returnCode为0，表示jres的业务执行成功。
+<span class='line'> 89</span>                      * 2、一种情况是返回值中returnCode为undefined，表示非jres的服务
+<span class='line'> 90</span>                      */</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">success</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">                        </span><span class="NAME">success</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">jqXHR</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">options.error</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">                </span><span class="NAME">options.error</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">jqXHR</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">errorThrown</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">                    </span><span class="COMM">//todo 说明是真正的ajax超时，提示默认的超时信息。</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">                    </span><span class="NAME">alert</span><span class="PUNC">(</span><span class="STRN">"ajax超时："</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">            </span><span class="COMM">//判断是否需要加上上下文路径，规则是，以“/”开头不加，否则加</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">url.indexOf</span><span class="PUNC">(</span><span class="STRN">"/"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">                </span><span class="NAME">options.url</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">UTILS.getContextPath</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"/"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">options.dataType</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">                </span><span class="NAME">options.dataType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'json'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">            </span><span class="COMM">//默认以post的方式发送请求。</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">options.type</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">               </span><span class="NAME">options.type</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'post'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">            </span><span class="NAME">$.ajax</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>116</span>          * 获取应答中的对象，FAjax请求的数据类型需要为pojo和page，在success回调中的data参数为object类型。&lt;br/>
+<span class='line'>117</span>          * 用户请求不同的数据类型时，需要在data参数中传递_respType参数，_respType参数需要指定需要的数据类型。类型有：pojo，page。
+<span class='line'>118</span>          * @name FAjax#getObject
+<span class='line'>119</span>          * @function
+<span class='line'>120</span>          * @param options FAjax的配置参数，结构是{url:服务,data:{请求参数},success:function(data，textStatus, jqXHR){//returnCode==0的情况},failure:function(data,textStatus, jqXHR){//returnCode为 1或者 -1的情况 },error:function(jqXHR, textStatus, errorThrown){//请求错误时，例如请求超时}}
+<span class='line'>121</span>          * @example
+<span class='line'>122</span>          * $.FAjax.getObject({
+<span class='line'>123</span>          *              url:'com.hundusn.user.object.fservice',
+<span class='line'>124</span>          *              data:params,
+<span class='line'>125</span>          *              success:function(data,textStatus, jqXHR){
+<span class='line'>126</span>          *                  //请求正常，returnCode ==0 时触发
+<span class='line'>127</span>          *              },
+<span class='line'>128</span>          *              failure:function(data,textStatus, jqXHR){
+<span class='line'>129</span>          *                  //请求正常，returnCode !=0时触发
+<span class='line'>130</span>          *              },
+<span class='line'>131</span>          *              error : function(jqXHR, textStatus, errorThrown){
+<span class='line'>132</span>          *                  //请求失败时错发，例如请求超时。
+<span class='line'>133</span>          *              });
+<span class='line'>134</span>          */</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">        </span><span class="NAME">getObject</span><span class="PUNC">:</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">UTILS</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">window</span><span class="PUNC">[</span><span class="STRN">'$Utils'</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">options</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">                </span><span class="COMM">//todo debug 模式下，提示错误信息。</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">success</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">options.success</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>142</span> 
+<span class='line'>143</span> </span><span class="WHIT">            </span><span class="NAME">options.success</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">success</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">object</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">UTILS.getJRESObject</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">                    </span><span class="NAME">success</span><span class="PUNC">(</span><span class="NAME">object</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">            </span><span class="NAME">this.remote</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>151</span> 
+<span class='line'>152</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>153</span>          * 获取应答中的列表对象，FAjax请求的数据类型需要为list、listsimple、tree，在success回调中的data参数为Array类型。&lt;br/>
+<span class='line'>154</span>          * 用户请求不同的数据类型时，需要在data参数中传递_respType参数，_respType参数需要指定需要的数据类型。类型有：list，listsimple，tree。
+<span class='line'>155</span>          * @name FAjax#getList
+<span class='line'>156</span>          * @function
+<span class='line'>157</span>          * @param options FAjax的配置参数，结构是{url:服务,data:{请求参数},success:function(data，textStatus, jqXHR){//returnCode==0的情况},failure:function(data,textStatus, jqXHR){//returnCode为 1或者 -1的情况 },error:function(jqXHR, textStatus, errorThrown){//请求错误时，例如请求超时}}
+<span class='line'>158</span>          * @example
+<span class='line'>159</span>          * $.FAjax.getList({
+<span class='line'>160</span>          *              url:'com.hundusn.user.list.fservice',
+<span class='line'>161</span>          *              data:params,
+<span class='line'>162</span>          *              success:function(data,textStatus, jqXHR){
+<span class='line'>163</span>          *                  //请求正常，returnCode ==0 时触发
+<span class='line'>164</span>          *              },
+<span class='line'>165</span>          *              failure:function(data,textStatus, jqXHR){
+<span class='line'>166</span>          *                  //请求正常，returnCode !=0时触发
+<span class='line'>167</span>          *              },
+<span class='line'>168</span>          *              error : function(jqXHR, textStatus, errorThrown){
+<span class='line'>169</span>          *                  //请求失败时错发，例如请求超时。
+<span class='line'>170</span>          *              }
+<span class='line'>171</span>          *              );
+<span class='line'>172</span>          */</span><span class="WHIT">
+<span class='line'>173</span> </span><span class="WHIT">        </span><span class="NAME">getList</span><span class="PUNC">:</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">UTILS</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">window</span><span class="PUNC">[</span><span class="STRN">'$Utils'</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">options</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">                </span><span class="COMM">//todo debug 模式下，提示错误信息。</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">success</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">options.success</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>180</span> 
+<span class='line'>181</span> </span><span class="WHIT">            </span><span class="NAME">options.success</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">success</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">list</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">UTILS.getJRESList</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">                    </span><span class="NAME">success</span><span class="PUNC">(</span><span class="NAME">list</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>185</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">            </span><span class="NAME">this.remote</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>190</span> 
+<span class='line'>191</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>192</span> 
+<span class='line'>193</span> </span><span class="WHIT">	</span></pre></body></html>

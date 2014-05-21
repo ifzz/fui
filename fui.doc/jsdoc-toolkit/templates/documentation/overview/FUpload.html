@@ -1,0 +1,79 @@
+
+<h3>Upload</h3>
+<p>包装原生的 &lt;input type="upload"/&gt; ，并有后台配合
+</p>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>适用于使用原生 &lt;input type="upload"/&gt;的使用场景，并在此基础上FUI做了后台支撑。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>比如放在FForm中后台的功能才起作用</li>
+	<li>不支持多文件上传，表单提交时不能携带除文件以外其他的请求参数；</li>
+	<li>由于只做了后台的支撑，没有做组件的样式的规范，因此在不同浏览器下的展现方式可能不一样；</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>内存文件上传：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+     var memoryUploadFn = function() {
+       $I('form3').FForm('doFileUpload');
+   }
+   var tempFielUploadSuccessFn = function() {
+       $I('form4').FForm('doFileUpload');
+   }
+   var tempFielUploadFailureFn = function() {
+       $I('form1').FForm('doFileUpload');
+   }
+    var submitFn = function(){
+       $I('form2').FForm('submit');
+    }
+
+    var memorySuccess = function(result){
+        alert(result.returnCode);
+    }
+    var tempFileSuccess = function(result){
+        alert(result.returnCode);
+    }
+    var tempFileFailure = function(result){
+        alert(result.returnCode);
+    }
+</script>
+<button onclick="memoryUploadFn()"> 内存文件上传</button>
+<f:form action="fileUploadMemory.fservice"  isUpload="true" uploadType="memory" onFileUploadEvent="memorySuccess"  id="form3">
+    <input name="test1" >
+    <f:upload name="upload" classes="testst" tabIndex="3" size="50" width="200" id="testere" ></f:upload>
+</f:form>
+</textarea>
+
+<p>临时文件上传成功：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+<button onclick="tempFielUploadSuccessFn()"> 临时文件上传成功</button>
+<f:form action="fileUploadTempFile.fservice" isUpload="true" uploadType="tempFile" onFileUploadEvent="tempFileSuccess" id="form4">
+    <input name="test2" >
+    <f:upload name="upload" ></f:upload>
+</f:form>
+</textarea>
+
+<p>临时文件上传失败：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+<button onclick="tempFielUploadFailureFn()"> 临时文件上传失败</button>
+<f:form action="fileUploadTempFileError.fservice" isUpload="true" uploadType="tempFile" onFileUploadEvent="tempFileFailure" id="form1">
+    <input name="test3" >
+    <f:upload name="upload" ></f:upload>
+</f:form>
+</textarea>

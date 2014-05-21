@@ -1,0 +1,105 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Accordion.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述：手风琴组件
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121225	  hanyin 	创建
+ * 20130110	  hanyin 	删除样式 .f-panel .f-accordion=border-width:0px，如果需要在页面中特殊指定
+ */
+
+.f-accordion {
+	background: white;
+	border-color: #99BCE8;
+	border-width: 1px;
+	border-style: solid;
+}
+
+/* del 20130110 hanyin 删除样式，内嵌在右边框的组件内部，需要通过ID来指定Accordion的边框为0
+.f-panel .f-accordion {
+	border-width : 0;
+}
+*/
+
+.f-accordion {
+	overflow : hidden;
+	position : relative;
+}
+
+.f-accordion-header {
+	position : relative;
+}
+
+.f-accordion-header {
+	border-style : solid;
+	border-width: 1px 0 1px 0;
+	border-top-color: #F3F7FB;
+	border-bottom-color: #99BCE8;
+	padding: 4px 5px 5px 5px;
+	background: #D9E7F8;
+}
+
+.f-accordion-header .f-icon {
+	position : absolute;
+}
+
+.f-accordion-icon {
+	position: absolute;
+	left: 5px;
+	top: 5px;
+}
+
+.f-accordion-icons {
+	padding-left: 0px;
+}
+
+.f-accordion-icons .f-accordion-header-text {
+	margin-left : 25px;
+}
+
+.f-accordion-header-text {
+	display : block;
+	line-height : 17px;
+}
+
+.f-accordion-content {
+	overflow: auto;
+}
+
+.f-accordion-header-sibling-expanded {
+	border-top-color: #99BCE8;
+}
+
+.f-accordion-header-last-collapsed {
+	border-bottom-color: #D9E7F8;
+}
+
+.f-accordion-tool {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+
+.f-accordion-header .f-tool-expand {
+	background-position: 0 -240px;
+}
+
+.f-accordion-header .f-state-hover .f-tool-expand {
+	background-position: -15px -240px;
+}
+
+.f-accordion-header .f-tool-collapse {
+	background-position: 0 -255px;
+}
+
+.f-accordion-header .f-state-hover .f-tool-collapse {
+	background-position: -15px -255px;
+}
+ 

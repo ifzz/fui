@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hundsun.jres.fui</groupId>
+		<artifactId>all</artifactId>
+		<version>1.0.9-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>fui.web</artifactId>
+
+	<packaging>war</packaging>
+	<name>FUI Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+
+		<dependency>
+			<groupId>com.hundsun.jres.fui</groupId>
+			<artifactId>fui.core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hundsun.jres.fui</groupId>
+			<artifactId>fui.template</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hundsun.jres.fui</groupId>
+			<artifactId>fui.template.jsp</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+ 
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency> 
+		  <groupId>commons-fileupload</groupId>  
+		  <artifactId>commons-fileupload</artifactId>  
+		  <version>1.2.1</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<testOutputDirectory>src/main/webapp/WEB-INF/classes</testOutputDirectory>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>src/main/webapp/WEB-INF/lib</outputDirectory>
+							<excludeGroupIds>javax.servlet.jsp,javax.servlet</excludeGroupIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src/main/webapp/WEB-INF/lib</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>validate</phase>
+						<configuration>
+							<tasks>
+								<ant antfile="${basedir}/src/main/webapp/FUI/compress-tool/build.xml" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+<!--
+					<execution>
+						<id>jsdoc</id>
+						<phase>prepare-package</phase>
+						<configuration>
+							<tasks>
+								<exec executable="${basedir}/src/main/jsdoc-toolkit/jsdoc.bat">
+								</exec>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+-->
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<version>1.5.0</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<includes>
+						 <include>src/main/webapp/FUI/js/FUI.js</include>
+						 <include>src/main/webapp/FUI/js/FUI.min.js</include>
+						 <include>src/main/webapp/FUI/themes/**/FUI.all.css</include>
+						 <include>src/main/webapp/FUI/themes/**/FUI.all-min.css</include>
+						 <include>src/main/webapp/FUI/templates/**/*.ftl</include>
+					</includes>
+				
+					<regex>true</regex>
+					<replacements>
+						<replacement>
+							<token>FVersion@((\d+\.)+\d*(-SNAPSHOT)?)?</token>
+							<value>FVersion@${project.version}</value>
+						</replacement>
+					</replacements>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<warSourceIncludes>WEB-INF/web.xml,FUI/js/*.js,FUI/js/lang/fui*.js,FUI/templates/**,FUI/themes/default/FUI.all.css,FUI/themes/default/FUI.all-min.css,FUI/themes/default/images/**,FUI/docs/**,FUI/plugins/**</warSourceIncludes>
+					<warSourceExcludes>WEB-INF/classes/**</warSourceExcludes>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2.1</version>
+				<configuration>
+					<descriptors>
+						<descriptor>package.xml</descriptor>
+						<descriptor>package_nolib.xml</descriptor>
+						<descriptor>package_js.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

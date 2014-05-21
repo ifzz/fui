@@ -1,0 +1,57 @@
+
+<h3>Ajax</h3>
+<p>在需要进行点击交互（如数据提交等），可以通过button来作为事件触发的载体，统一button和button在toolbar中的展现样式。</p>
+<p>button的样式：</p>
+<img src="../resource/images/button.png"/>
+<p>button在toolbar中：</p>
+<img src="../resource/images/toolbar-button.png"/>
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>适用于需要点击交互的场景，比如表单提交、操作取消、弹出win等等
+</p>
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>默认不提供button按钮hover和click的样式变化（主要是性能的考虑）；</li>
+		<li>提供了比较常用onClick的事件，其他的事件（hover、mousedown等）没有提供，
+			项目组可以根据需要使用jquery绑定，比如$("#button1").mousedown(function() {/* do something */})；</li>
+		<li>button只支持文本前有图标，并且没有提供API在初始化完毕之后修改或者去除图标；</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li>无</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FButton实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<style type="text/css">
+	.search_icon {
+		background-image: url(images/icons/search_icon.png);
+		background-repeat: no-repeat;
+	}
+</style>
+
+<f:button text="确定"/>
+<f:button text="查找" iconCls="search_icon"/>
+
+</textarea>
+
+<p>响应点击事件：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	function onClick1() {
+		alert("Me Clicked!");
+	}
+</script>
+
+<f:button text="确定" onClick="onClick1"/>
+</textarea>
+

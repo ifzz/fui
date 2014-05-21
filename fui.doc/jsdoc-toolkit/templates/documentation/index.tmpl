@@ -1,0 +1,32 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		{+include("static/outHeader.html")+}
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <h3>控件清单</h3>
+        <div style="text-align:right;">{+new Link().toFile("files.html").withText("查看源文件清单")+}</div>
+        <!-- ============================== class overview ============================ -->
+
+       <div id="menu-container">
+        <for each="thisClass" in="data">
+        {!
+        	var thisText="";
+        !}
+        {!
+            if (thisClass.alias == "_global_"||thisClass.alias == "String") {
+                
+            }
+            else {
+            	thisText=
+                "<a href='symbols/"+thisClass.alias+".html'><img src='./resource/images/"+thisClass.alias+".png' /><div><h3>"+thisClass.alias+"</h3>"+thisClass.classDesc+"</div></a>";
+            }
+        !}
+		{+thisText+}
+		</for>
+		</div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+{+include("static/foot.html")+}

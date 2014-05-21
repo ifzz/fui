@@ -1,0 +1,57 @@
+
+<h3>ButtonGroup</h3>
+<p>自动撑开父元素的宽度，将button居中、居左或者居右排布。</p>
+<p>默认情况（buttongroup不包含图示的蓝色边框）：</p>
+<img src="../resource/images/buttongroup.png"/>
+<p>button居右（buttongroup不包含图示的蓝色边框）：</p>
+<img src="../resource/images/buttongroup-right.png"/>
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>适用于panel、Fieldset和win等容器中排布button，并独占一行。
+</p>
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>buttonGroup容器没有提供边框，项目组可以根据需要设置边框样式</li>
+		<li>独占一行，宽度撑满父容器</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li>无</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FButtonGroup实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:buttonGroup>
+	<f:toolItem><f:button text="确定" style="width:70px"/></f:toolItem>
+	<f:toolItem><f:button text="取消" style="width:70px"/></f:toolItem>
+</f:buttonGroup>
+</textarea>
+
+<p>设置buttonAlign属性为"center"、"right"或者"left"，改变button居中、居右或者居左：</p>
+<textarea name="code" class="html" style="display: none;">
+<div style="border:1px solid #7EABCD">
+	<f:buttonGroup buttonAlign="right">
+		<f:toolItem>
+			<f:button text="确定" style="width:70px"/>
+		</f:toolItem>
+		<f:toolItem>
+			<span>&nbsp;&nbsp;</span>
+		</f:toolItem>
+		<f:toolItem>
+			<f:button text="取消" style="width:70px"/>
+		</f:toolItem>
+	</f:buttonGroup>
+</div>
+
+</textarea>
+
+

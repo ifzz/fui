@@ -1,0 +1,100 @@
+
+<h3>Combo</h3>
+<p>FUI的下拉选择框组件与HTML中的&lt;select&gt;类似，并能够加载远程数据内容，支持下拉框内容复选和输入检索过滤等功能</p>
+ <img src="../resource/images/combo.jpg"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>替换html标签&lt;select&gt;，解决其在IE6下mask时浮动的问题，并对功能进行扩展：支持单选和多选两种模式；支持输入过滤筛选等。</p>
+
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>目前的实现虽然支持静态数据生成，但是dom结构还是在前台生成；</li>
+		<li>经过测试在低端配置（512M内存Celeron单核2G CPU）机器使用IE6，当下拉选项达到300左右时，第一次打开需要3s时间；<span style="color:red;">强烈建议</span>在大数据量的情况下改变用户体验方式。</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li>如果数据项超过300，并存在IE6的使用场景，建议更改为其他的用户体验方式，否则可能会出现性能问题；</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FCombo实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var staticData1 = [
+		{ID: "id1", name: "name1"},{ID: "id2", name: "name2"},{ID: "id3", name: "name3"},
+		{ID: "id4", name: "name4"},
+		{ID: "id5", name: "name5"},
+		{ID: "id6", name: "name6"}
+	];
+</script>
+<f:combo id="combo1" valueField="ID" displayField="name" staticData="staticData1"/>
+</textarea>
+
+<p>json数据格式示例，"value"字段是提交的值，"text"字段为描述，默认情况下显示的格式为"value:text"
+	"value"和"text"对应的字段必须在combo初始化的时候指定，对应属性为"valueField"和："displayField":</p>
+<textarea name="code" class="html" style="display: none;">
+[
+	{"value":"value1","text":"text1"},
+	{"value":"value2","text":"text2"},
+	{"value":"value3","text":"text3"}
+]
+</textarea>
+
+<p>combo绑定后台服务，假设某个jres服务"test.getComboData"返回上面例子的json格式：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:combo id="combo2" valueField="id" displayField="name" dataUrl="test.getComboData.fservice"/>
+</textarea>
+
+<p>支持复选（静态数据和绑定后台服务皆可）：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var staticData1 = [
+		{ID: "id1", name: "name1"},
+		{ID: "id2", name: "name2"},
+		{ID: "id3", name: "name3"},
+		{ID: "id4", name: "name4"},
+		{ID: "id5", name: "name5"},
+		{ID: "id6", name: "name6"}
+	];
+</script>
+<f:combo id="combo3" valueField="ID" displayField="name" staticData="staticData1" multiSelect="true"/>
+</textarea>
+
+<p>通过设置displayFormat属性将显示值格式化，该属性值可以是字符串，也可以是函数：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	function displayFormat1(item) {
+		return item.valueField +"-"+item.displayField;
+	}
+</script>
+<f:combo id="combo4" valueField="ID" displayField="name" displayFormat="{valueField}-{displayField}"/>
+
+<script type="text/javascript">
+	function displayFormat1(item) {
+		return item.valueField +"-"+item.displayField;
+	}
+</script>
+<f:combo id="combo5" valueField="ID" displayField="name" displayFormat="displayFormat1"/>
+</textarea>
+
+<p>通过API刷新combo中的数据，传递额外的请求参数并改变服务：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:combo id="combo6" valueField="id" displayField="name" dataUrl="test.getComboData1.fservice"/>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		$("#combo6").FCombo({param1:"value1", param2:"value2", ...}, "test.getComboData2.fservice");
+		// ...
+	});
+</script>
+</textarea>

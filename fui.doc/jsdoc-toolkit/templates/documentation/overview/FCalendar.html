@@ -1,0 +1,92 @@
+
+<h3>Calendar</h3>
+<p>FCalendar日历组件，供用户选择日期或者时间；
+FCalendar集成第三方 "<a href="http://www.my97.net/dp/demo/index.htm" target="_blank">My97DatePicker</a>" 插件，支持显示值和提交值不一样。</p>
+<img src="../resource/images/calendar.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li><a href="http://www.my97.net/dp/demo/index.htm" target="_blank">My97DatePicker</a></li>
+</ul>
+
+<h4>适用范围</h4>
+<p>选择日期或者时间，并且显示值和提交值的日期格式不一定相同的情况</p>
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>FUI集成My97插件，FUI只能保证<span style="color:red">已经经过验证</span>的功能是可用的并建议使用的，详情请见示例</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li>无</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FCalendar实例：</p>
+<textarea name="code-combobox" class="html" style="display: none;">
+<f:calendar name="date1"/>
+</textarea>
+
+<p>定制日期的显示格式（dateFmt）和提交格式（realDateFmt）， 用得比较多的日期格式包括 "yyyy"、"MM"、"dd"等，分别代表年、月、日；
+ 如果需要显示时间，"HH"表示小时，"mm"表示分钟，"ss"表示秒（<a href="http://www.my97.net/dp/demo/resource/2.2.asp#m224" target="_blank">更多日期格式</a>）：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts2 = {
+	    dateFmt : "yyyy年MM月dd日",
+	    realDateFmt : "yyyyMMdd"
+	};
+</script>
+
+<f:calendar name="date2" showOpts="showOpts2"/>
+</textarea>
+
+<p>定制无效天，可以使用此功能禁用周日至周六所对应的日期,相关属性:disabledDays (0至6 分别代表 周日至周六)：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts3 = {
+	    disabledDays:[0,6]
+	};
+</script>
+<f:calendar name="date3" showOpts="showOpts3"/>
+</textarea>
+
+<p>定制有效日期区间，minDate和maxDate分别指定有效日期的最小和最大日期，格式以dateFmt为准：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts4 = {
+		realDateFmt : "yyyyMMdd",
+	  dateFmt : "yyyy年MM月dd日",
+		minDate : "2013年01月01日",
+		maxDate : "2013年06月01日"
+	};
+</script>
+<f:calendar name="date4" showOpts="showOpts4"/>
+</textarea>
+
+<p>日期范围限制：两个日历，前面的日期+1天 不能大于 后面的日期：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts5 = {
+		maxDate:'#F{$dp.$D(\'date6\',{d:-1});}'
+	};
+	var showOpts6 = {
+		minDate:'#F{$dp.$D(\'date5\',{d:1});}'
+	};
+</script>
+<f:calendar id="date5" name="date51" showOpts="showOpts5"/>
+<f:calendar id="date6" name="date52" showOpts="showOpts6"/>
+</textarea>
+
+<p>时间选择：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var showOpts6 = {
+		dateFmt: "HH时mm分",
+		realTimeFmt: "HH:mm"
+	};
+</script>
+<f:calendar name="date6" showOpts="showOpts6"/>
+</textarea>

@@ -1,0 +1,1144 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Combo</h3>
+<p>FUI的下拉选择框组件与HTML中的&lt;select&gt;类似，并能够加载远程数据内容，支持下拉框内容复选和输入检索过滤等功能</p>
+ <img src="../resource/images/combo.jpg"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>替换html标签&lt;select&gt;，解决其在IE6下mask时浮动的问题，并对功能进行扩展：支持单选和多选两种模式；支持输入过滤筛选等。</p>
+
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>目前的实现虽然支持静态数据生成，但是dom结构还是在前台生成；</li>
+		<li>经过测试在低端配置（512M内存Celeron单核2G CPU）机器使用IE6，当下拉选项达到300左右时，第一次打开需要3s时间；<span style="color:red;">强烈建议</span>在大数据量的情况下改变用户体验方式。</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li>如果数据项超过300，并存在IE6的使用场景，建议更改为其他的用户体验方式，否则可能会出现性能问题；</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FCombo实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var staticData1 = [
+		{ID: "id1", name: "name1"},{ID: "id2", name: "name2"},{ID: "id3", name: "name3"},
+		{ID: "id4", name: "name4"},
+		{ID: "id5", name: "name5"},
+		{ID: "id6", name: "name6"}
+	];
+</script>
+<f:combo id="combo1" valueField="ID" displayField="name" staticData="staticData1"/>
+</textarea>
+
+<p>json数据格式示例，"value"字段是提交的值，"text"字段为描述，默认情况下显示的格式为"value:text"
+	"value"和"text"对应的字段必须在combo初始化的时候指定，对应属性为"valueField"和："displayField":</p>
+<textarea name="code" class="html" style="display: none;">
+[
+	{"value":"value1","text":"text1"},
+	{"value":"value2","text":"text2"},
+	{"value":"value3","text":"text3"}
+]
+</textarea>
+
+<p>combo绑定后台服务，假设某个jres服务"test.getComboData"返回上面例子的json格式：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:combo id="combo2" valueField="id" displayField="name" dataUrl="test.getComboData.fservice"/>
+</textarea>
+
+<p>支持复选（静态数据和绑定后台服务皆可）：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	var staticData1 = [
+		{ID: "id1", name: "name1"},
+		{ID: "id2", name: "name2"},
+		{ID: "id3", name: "name3"},
+		{ID: "id4", name: "name4"},
+		{ID: "id5", name: "name5"},
+		{ID: "id6", name: "name6"}
+	];
+</script>
+<f:combo id="combo3" valueField="ID" displayField="name" staticData="staticData1" multiSelect="true"/>
+</textarea>
+
+<p>通过设置displayFormat属性将显示值格式化，该属性值可以是字符串，也可以是函数：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	function displayFormat1(item) {
+		return item.valueField +"-"+item.displayField;
+	}
+</script>
+<f:combo id="combo4" valueField="ID" displayField="name" displayFormat="{valueField}-{displayField}"/>
+
+<script type="text/javascript">
+	function displayFormat1(item) {
+		return item.valueField +"-"+item.displayField;
+	}
+</script>
+<f:combo id="combo5" valueField="ID" displayField="name" displayFormat="displayFormat1"/>
+</textarea>
+
+<p>通过API刷新combo中的数据，传递额外的请求参数并改变服务：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:combo id="combo6" valueField="id" displayField="name" dataUrl="test.getComboData1.fservice"/>
+
+<script type="text/javascript">
+	$(function() {
+		// ...
+		$("#combo6").FCombo({param1:"value1", param2:"value2", ...}, "test.getComboData2.fservice");
+		// ...
+	});
+</script>
+</textarea>
+
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td><b>disabled</b></td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>表示组件是否可用 ,false表示组件可用，true表示组件不可用(即在form表单中不能做submit提交)。默认值为false。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><b>id</b></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>组件的唯一标识。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><b>name</b></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>对应html中的表单元素的name属性。默认值为：""。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><b>readonly</b></td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>设置组件的输入框是否可编辑，默认为true。即输入框不可编辑。该属性不能和selectable属性共用.</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><b>tabIndex</b></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>按钮的DOM焦点序号即tab键时候得到焦点的序号</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>null</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>autoload</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>ajax异步模式加载数据时，设置组件是否初始化加载数据。默认值为false，即初始化组件时不加载数据。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>baseParams</td>
+	        					<td>Object</td>
+	        					<td>
+	        						<p>设置组件的初始化参数，默认为{}。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td></td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>dataUrl</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>设置组件的url，用于AJAX加载数据。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td></td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>defaultValue</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>输入栏的初始值,即value值。如果该组件有emptyText属性，则不允许与emptyText属性的值一样，否则该属性值无效。 该值在数据加载之后生效。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>displayField</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>对应后台服务返回值中的某个字段，该字段对应的值将作为显示值。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"text"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>displayFormat</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>展现列表的格式设置，用于设置下拉框显示list的格式。该属性可以为字符串，也可以为一个函数。默认为字符串格式，例如：“{valueField}：{displayField}”，函数格式如下：function(item){ return item.valueField +":"+item.displayField} ;</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>displaySeparate</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>显示值中valueField字段值和displayField字段值的分隔符,默认值为":"。注意：1、该属性只有在multiSelect属性为false的情况下才有效。2、如果displayFormat采用字符串形式来设值，那么该分割符号必须与displayFormat属性值中的分割符一致。3、如果displayFormat采用函数方式来设值，那么需要通过该属性告知组件使用的分隔符。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>""</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>filterCallback</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>过滤回调方法</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre><pre>// value为字段的真实值，inputValue为当前输入框的值filterCallback : function(value, inputValue) {	return value.startWith(inputValue);}</pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>无</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>filterTarget</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>指定要进行筛选的字段名，默认与valueField指定的字段相同</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>无</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>forceSelection</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>true表示输入框中的值必须是下拉列表中的值，false表示允许用户输入不在下拉列表中的值。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>multiSelect</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>设置组件是否多选。默认值为false，即组件为单选。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>multiSeparator</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>支持多选时的多个选项之间的分隔符，默认为 ','.</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>","</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>selectable</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>设置组件是否只读。false表示输入框不可编辑，下拉图片不可点击 。默认值为“true”.该属性不能和readOnly属性共用.</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>true</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>selectFirst</td>
+	        					<td>Boolean</td>
+	        					<td>
+	        						<p>用于设置下拉框是否默认选中第一条数据</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>false</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>staticData</td>
+	        					<td>Array</td>
+	        					<td>
+	        						<p>下拉框中的内容可以使用本地静态数据源,如果设置了dataSource属性，则该属性无效。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td></td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>valueField</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>对应后台服务返回值中的某个字段，该字段对应的值将作为提交值。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"value"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>width</td>
+	        					<td>Number</td>
+	        					<td>
+	        						<p>组件的宽度</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"150"</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+          		<!-- doc_events_begin -->
+          		<h4>事件</h4>
+          		<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+          						<td>onBeforesend</td>
+          						<td>function()</td>
+          						<td>
+          							<p>请求发送之前触发。用户可以在该事件中设置请求参数。如果该事件返回false，则不发送ajax请求。</p>
+          							
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onBlur</td>
+          						<td>function()</td>
+          						<td>
+          							<p>在输入框失去焦点的时候触发</p>
+          							
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onError</td>
+          						<td>function(jqXHR, textStatus, errorThrown)</td>
+          						<td>
+          							<p>请求超时时触发</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        XMLHttpRequest对象
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        返回状态
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>errorThrown</b>
+		                                        （可能）捕获的错误对象
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onFilter</td>
+          						<td>function(item)</td>
+          						<td>
+          							<p>在加载完数据时触发该事件，用户可以在该事件中进行数据过滤。参数items为下拉列表的数据，用户可以对items进行遍历筛选。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>item</b>
+		                                        类型：Object  下拉列表中的单条数据
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> var onFilterFn =  function(items){     var result = [];     var itemLen = items.length;     for(var i =0 ; i&lt;itemLen ; i++){         if(items[i]['value'] !== '1'){           result.push(items[i]);         }     }     return  result ; }</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onLoadfailure</td>
+          						<td>function(data, textStatus, jqXHR)</td>
+          						<td>
+          							<p>returnCode为1或者-1的时候时触发，</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        类型：Array[Object] 。请求返回的数据。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        返回状态
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        XMLHttpRequest对象
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onLoadsuccess</td>
+          						<td>function(data, textStatus, jqXHR)</td>
+          						<td>
+          							<p>请求成功时触发</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        类型：Array[Object] 。请求返回的数据。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>textStatus</b>
+		                                        返回状态
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>jqXHR</b>
+		                                        XMLHttpRequest对象
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onSelect</td>
+          						<td>function(record, lastRecord, data)</td>
+          						<td>
+          							<p>在选中一条记录时触发 事件参数: record : object,array 将要被选中的记录(multiSelect为true时，为array类型) ， lastRecord：object 上次选择的数据对象(multiSelect为true时，为array类型)  ，data：object 下拉框的数据对象</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>record</b>
+		                                        类型："object,array"
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>lastRecord</b>
+		                                        类型："object,array"
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>data</b>
+		                                        类型："object"
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          			</tbody>
+          		</table>
+          	  	<!-- doc_events_end -->
+       		
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>doLoad</td>
+								<td>(params, dataUrl)</td>
+								<td>
+									<p>刷新下拉列表中的数据,重置状态 参数： 无 返回值： void</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>params</b>
+		                                        参数（类型：Object）
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>dataUrl</b>
+		                                        请求路径（类型：String）
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getData</td>
+								<td>()</td>
+								<td>
+									<p>获取下拉框中所有下拉内容 参数： 无 返回值： Array</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getSelectedDatas</td>
+								<td>()</td>
+								<td>
+									<p>获取被选中值相关的记录数据。 参数： 无 返回值: Object[]</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getValue</td>
+								<td>()</td>
+								<td>
+									<p>获取输入框的值。 参数： 无 返回值: String</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>isDisabled</td>
+								<td>()</td>
+								<td>
+									<p>返回组件是否无效。返回值为false，表示该组件有效。若返回值为true，表示该组件无效。 参数： 无 返回值: Boolean 组件是否无效</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>isMatch</td>
+								<td>(v)</td>
+								<td>
+									<p>判断传入的值是否在下拉中有对应，如果没有则返回false，否则返回true；如果是多选模式，只有在所有的值都匹配的时候才返回true，否则返回false。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>v</b>
+		                                        参数（类型：Object）
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>isReadonly</td>
+								<td>()</td>
+								<td>
+									<p>判断组件是否可编辑 参数： 无 返回值： Boolean</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>isSelectable</td>
+								<td>()</td>
+								<td>
+									<p>判断组件下拉图片是否可点击 参数： 无 返回值： Boolean</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>reset</td>
+								<td>()</td>
+								<td>
+									<p>重置表单域的值为空，如果存在隐藏域，隐藏域也会被清空。但是不会去除表单域的校验信息，如果需要去除表单域的校验信息，请调用FForm的reset方法。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setBaseParams</td>
+								<td>(params)</td>
+								<td>
+									<p>重新设置组件的基本参数。返回值： void</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>params</b>
+		                                        类型:"object"。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setDisabled</td>
+								<td>(disabled)</td>
+								<td>
+									<p>使用布尔值设置组件有效或无效。 参数： disabled ：Boolean false表示设置组件有效。true表示设置组件无效。 返回值: void</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>disabled</b>
+		                                        类型:"Boolean"。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setReadonly</td>
+								<td>(readonly)</td>
+								<td>
+									<p>设置组件是否可编辑 参数： readonly 。 返回值： void</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>readonly</b>
+		                                        类型:"Boolean"。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setSelectable</td>
+								<td>(selectable)</td>
+								<td>
+									<p>设置输入框是否可编辑，下拉图片是否可点击。selectable默认为true。setSelectable为false时，输入框不可编辑且下拉图片不可点击。参数： selectable : Boolean 返回值： void</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>selectable</b>
+		                                        类型:"Boolean"。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setStaticData</td>
+								<td>(staticData)</td>
+								<td>
+									<p>用于动态设置组件的静态数据, 返回值： void</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>staticData</b>
+		                                        类型： array 组件的静态数据。格式例如：[{'text':'恒生电子','value':'600570'}]
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setValue</td>
+								<td>(value, fireSelectEvent)</td>
+								<td>
+									<p>设置组件的值。 返回值: void</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>value</b>
+		                                        需要设置的值。 类型:"String/Boolean/Number/Float"。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>fireSelectEvent</b>
+		                                        设值时是否触发select事件。值为true，设值时会触发onSelect事件。 类型:"Boolean"。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

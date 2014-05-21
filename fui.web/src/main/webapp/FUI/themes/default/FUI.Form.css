@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Form.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 表单组件公共样式定义
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121114		hanyin	 创建
+ */
+
+.f-form-field {
+	margin: 0;
+	font: normal 12px tahoma, arial, verdana, sans-serif;;
+	color: black;
+	outline: none;
+}
+
+.f-form-clear {
+	display: block;
+	clear: both;
+	border: 0 none;
+	padding: 0;
+	margin: 0;
+	font-size: 0px;
+	height: 0;
+	*overflow:hidden;
+}
+
+.f-trigger {
+	cursor: pointer;
+	cursor: hand;
+}
+
+.f-form-trigger {
+	background-image: url('images/form/trigger.gif');
+	background-position: 0 0;
+	width: 17px;
+	height: 21px;
+	border-width: 0px 0px 0px 0px;
+	border-bottom-color: #B5B8C8;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+
+.f-state-hide {
+	position: absolute;
+	left: -10000px;
+	top : -10000px;
+}
+
+.f-state-hover .f-form-trigger, .f-form-trigger-hover {
+	background-position: -17px 0;
+	border-bottom-color: #7EADD9;
+}
+
+.f-form-trigger-active {
+	background-position: -34px 0;
+	border-bottom-color: #7EADD9;
+}
+
+.f-state-focus .f-form-trigger, .f-state-active .f-form-trigger {
+	background-position: -51px 0;
+	border-bottom-color: #7EADD9;
+}
+
+.f-state-disabled .f-form-trigger {
+	cursor: auto;
+}
+
+.f-form-select-trigger {
+	background-image: url('images/form/select-trigger.gif');
+}
+
+.f-form-search-trigger {
+	background-image: url('images/form/search-trigger.gif');
+}
+
+.f-form-clear-trigger {
+	background-image: url('images/form/clear-trigger.gif');
+}
+
+.f-form-unselectable, .f-unselectable {
+	user-select: none;
+	-o-user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	cursor: default;
+}

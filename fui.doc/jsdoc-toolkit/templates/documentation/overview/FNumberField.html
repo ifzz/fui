@@ -1,0 +1,46 @@
+
+<h3>NumberField</h3>
+<p>用户需要一个只能输入数字（允许有小数点）的输入框组件。该组件禁止输入字符，且可以设置小数点的精度。</p>
+<img src="../resource/images/numberfield.jpg"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>限制用户只能输入数值或者带有小数点的数值，并限定输入的小数位数；支持以金额方式显示。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>仅提供了两种方式展现：普通方式和金额方式；比如提交值为 "12345.67"，那么可以通过配置moneyFormat属性来指定采用"12345.67"还是"12,345.67"的方式显示；</li>
+	<li>能够允许输入的有效位个数（不含有小数点）为15，即无小数最大值为"999999999999999"，带两位小数的最大值为"9999999999999.99"。</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>本组件只能输入数字和小数点</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FNumberField实例（金额方式、两位小数）：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:numberField name="user_money" moneyFormat="true"/>
+</textarea>
+
+<p>没有小数点的普通方式展现：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:numberField name="user_money1" decimals="0" moneyFormat="false"/>
+</textarea>
+
+<p>afterChange回调：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	function afterChange1(value, prevValue) {
+		alert("[" + value + ":" + prevValue + "]");
+	}
+</script>
+<f:numberField name="user_money2" afterChange="afterChange1"/>
+</textarea>
+

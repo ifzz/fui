@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components>
+	<!-- component i18n -->
+	<i18n>
+		<locale />
+	</i18n>
+	
+	<!-- FUI Core Components -->
+	<group>
+		<name>core</name>
+		<desc>Core Component</desc>
+		<component ref="FUI.core" />
+		<component ref="FUI.widget" />
+		<component ref="FUI.Utils" />
+		<component ref="FUI.Ajax" />
+	</group>
+
+	<component>
+		<name>FUI.core</name>
+		<version>1.0</version>
+		<dependencies>jquery-1.7.2</dependencies>
+	</component>
+
+	<!-- FUI Container Components -->
+	<group>
+		<name>container</name>
+		<desc>Container Components</desc>
+		<component ref="FUI.Panel" />
+		<component ref="FUI.Fieldset" />
+		<component ref="FUI.Tabs" />
+	</group>
+
+	<component>
+		<name>FUI.Panel</name>
+		<version>1.0</version>
+		<dependencies>core</dependencies>
+	</component>
+
+	<!-- FUI Form Components -->
+	<group>
+		<name>form</name>
+		<desc>Form Components</desc>
+		<component ref="FUI.Button" />
+		<component ref="FUI.TextField" />
+		<component ref="FUI.TextArea" />
+		<component ref="FUI.TimeField" />
+		<component ref="FUI.Combo" />
+		<component ref="FUI.ComboTree" />
+		<component ref="FUI.Calendar" />
+	</group>
+
+	<component>
+		<name>FUI.TextField</name>
+		<version>1.0</version>
+		<dependencies>FUI.core</dependencies>
+	</component>
+
+	<component>
+		<name>FUI.TextArea</name>
+		<version>1.0</version>
+		<dependencies>core</dependencies>
+	</component>
+
+	<!-- FUI Button Components -->
+	<group>
+		<name>button</name>
+		<desc>Button Components</desc>
+		<component ref="FUI.Button" />
+	</group>
+
+</components>

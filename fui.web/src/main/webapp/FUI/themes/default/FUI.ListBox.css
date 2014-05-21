@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.ListBox.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述: 菜单FUI.ListBox组件的样式
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121023		hanyin	新增
+ */
+
+.f-listBox {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #98C0F4;
+	background: white;
+}
+
+.f-listBox-wrapper {
+	position: relative; /* 防止在IE6/7下出现item无法随着滚动头条滚动条的问题 */
+}
+
+.f-listBox-wrapper ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.f-listBox-item {
+	padding: 2px;
+	user-select: none;
+	-o-user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	cursor: default;
+	cursor: pointer;
+	cursor: hand;
+	position: relative;
+	border-width: 1px;
+	border-style: dotted;
+	border-color: white;
+}
+
+.f-listBox-item-selected {
+	background: #CBDAF0;
+	border-color: #8EABE4;
+}
+
+.f-listBox-item-over {
+	background: #DFE8F6;
+	border-color: #A3BAE9;
+}
+
+li.f-listBox-item-over.f-listBox-item-selected {
+	background: #A3BAE9;
+	border-color: #264390;
+}
+
+.f-listBox-item-hidden {
+	display: none;
+}

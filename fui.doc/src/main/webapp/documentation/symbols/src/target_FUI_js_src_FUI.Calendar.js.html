@@ -1,0 +1,462 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/*
+<span class='line'>  2</span>  * 版本：1.0.0.1
+<span class='line'>  3</span>  * 系统名称: FUI
+<span class='line'>  4</span>  * 模块名称: JRES
+<span class='line'>  5</span>  * 文件名称: FUI.FCalendar.js
+<span class='line'>  6</span>  * 作者：hanyin
+<span class='line'>  7</span>  * 邮箱：hanyin@hundsun.com
+<span class='line'>  8</span>  * 软件版权: 恒生电子股份有限公司
+<span class='line'>  9</span>  * 功能描述：FCalendar组件对应的代码。
+<span class='line'> 10</span>  * 修改记录:
+<span class='line'> 11</span>  * 修改日期      修改人员             修改说明
+<span class='line'> 12</span>  * 20130116  hanyin		按照新的form表单标准：增加方法setDisable、isDisable、getValue、setValue等
+<span class='line'> 13</span>  * 2013-03-18   qudc    修复需求5490，修复设置readonly属性为true，输入框仍然可以通过按数字键修改日期的问题。
+<span class='line'> 14</span>  * 20130416  hanyin		需求5756 ，解决在通过api设值之后，手动清空Calendar的值会造成隐藏域清不掉的问题
+<span class='line'> 15</span>  * 20130528	hanyin		需求STORY #6054，增加setSelectable等方法，设置为false的时候，不可以通过点击按钮下来日历
+<span class='line'> 16</span>  */</span><span class="WHIT">
+<span class='line'> 17</span> 
+<span class='line'> 18</span> </span><span class="COMM">/**
+<span class='line'> 19</span>  * @name FCalendar
+<span class='line'> 20</span>  * @class 
+<span class='line'> 21</span>  * 日历组件，供用户选择日期和时间的输入以及格式化。
+<span class='line'> 22</span>  */</span><span class="WHIT">
+<span class='line'> 23</span> 
+<span class='line'> 24</span> </span><span class="COMM">/** @lends FCalendar# */</span><span class="WHIT">
+<span class='line'> 25</span> 
+<span class='line'> 26</span> </span><span class="COMM">/**
+<span class='line'> 27</span>  * 标识(仅标签使用)
+<span class='line'> 28</span>  * @name FCalendar#&lt;ins>id&lt;/ins>
+<span class='line'> 29</span>  * @type String
+<span class='line'> 30</span>  * @default 随机生成
+<span class='line'> 31</span>  * @example
+<span class='line'> 32</span>  * 无
+<span class='line'> 33</span>  */</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="COMM">/**
+<span class='line'> 36</span>  * 表单组件的名字，用于表单提交是文本表单域的名字(仅标签使用)
+<span class='line'> 37</span>  * @name FCalendar#&lt;ins>name&lt;/ins>
+<span class='line'> 38</span>  * @type String
+<span class='line'> 39</span>  * @default ""
+<span class='line'> 40</span>  * @example
+<span class='line'> 41</span>  * 无
+<span class='line'> 42</span>  */</span><span class="WHIT">
+<span class='line'> 43</span> 
+<span class='line'> 44</span> </span><span class="COMM">/**
+<span class='line'> 45</span>  * 鼠标悬浮于输入框之上时，跟随鼠标弹出显示tip的文本(仅标签使用)
+<span class='line'> 46</span>  * @name FCalendar#&lt;ins>title&lt;/ins>
+<span class='line'> 47</span>  * @type String
+<span class='line'> 48</span>  * @default ""
+<span class='line'> 49</span>  * @example
+<span class='line'> 50</span>  * 无
+<span class='line'> 51</span>  */</span><span class="WHIT">
+<span class='line'> 52</span> 
+<span class='line'> 53</span> </span><span class="COMM">/**
+<span class='line'> 54</span>  * 设置在使用Tab键切换表单时的顺序，同一个表单中，tabIndex的值越大，顺序越靠后；如果tabIndex相同，DOM结构位于后面的顺序越靠后(仅标签使用)
+<span class='line'> 55</span>  * @name FCalendar#&lt;ins>tabIndex&lt;/ins>
+<span class='line'> 56</span>  * @type String
+<span class='line'> 57</span>  * @default 0
+<span class='line'> 58</span>  * @example
+<span class='line'> 59</span>  * 无
+<span class='line'> 60</span>  */</span><span class="WHIT">
+<span class='line'> 61</span> 
+<span class='line'> 62</span> </span><span class="COMM">/**
+<span class='line'> 63</span>  * 表单域的初始可用状态，如果为true则表示不可用，也不会参与表单提交；否则可以正常使用(仅标签使用)
+<span class='line'> 64</span>  * @name FCalendar#&lt;ins>disabled&lt;/ins>
+<span class='line'> 65</span>  * @type Boolean
+<span class='line'> 66</span>  * @default false
+<span class='line'> 67</span>  * @example
+<span class='line'> 68</span>  * 无
+<span class='line'> 69</span>  */</span><span class="WHIT">
+<span class='line'> 70</span> 
+<span class='line'> 71</span> </span><span class="COMM">/**
+<span class='line'> 72</span>  * 表单域的初始可编辑状态，如果为true则表示输入框不可用，如果存在图标，图标可以点击；否则可以正常使用(仅标签使用)
+<span class='line'> 73</span>  * @name FCalendar#&lt;ins>readonly&lt;/ins>
+<span class='line'> 74</span>  * @type Boolean
+<span class='line'> 75</span>  * @default false
+<span class='line'> 76</span>  * @example
+<span class='line'> 77</span>  * 无
+<span class='line'> 78</span>  */</span><span class="WHIT">
+<span class='line'> 79</span> 
+<span class='line'> 80</span> </span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">$</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">	</span><span class="NAME">$.FUI.FDate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">		</span><span class="COMM">// 年 月 日 时 分 秒</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">		</span><span class="NAME">this.y</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.M</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NAME">this.d</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NAME">this.H</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NAME">this.m</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NAME">this.s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">		</span><span class="NAME">this.lastFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">		</span><span class="NAME">this.lastDateStr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="WHIT">		</span><span class="NAME">this._reset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">			</span><span class="NAME">this.y</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.M</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.d</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.H</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.m</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">		</span><span class="COMM">// 将传入的字符串按照fmt格式转换</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">		</span><span class="NAME">this.parseStr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">str</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">fmt</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">year</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">month</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">day</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">hour</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">minite</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">second</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">			</span><span class="NAME">fmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fmt</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"yyyy-MM-dd"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 97</span> 
+<span class='line'> 98</span> </span><span class="WHIT">			</span><span class="NAME">self.lastFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">			</span><span class="NAME">self.lastDateStr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">str</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">			</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">			</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">fmt.length</span><span class="PUNC">;</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">literal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self._parseLiteral</span><span class="PUNC">(</span><span class="NAME">fmt</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">literal.literal</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">					</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">index</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">literal.startIndex</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">count</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">literal.count</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">				</span><span class="COMM">// 不能用parseInt，他无法正确转换 "09"、"01"等0开头的字符串</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">				</span><span class="NAME">self</span><span class="PUNC">[</span><span class="NAME">literal.literal</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Number</span><span class="PUNC">(</span><span class="NAME">str.substr</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">count</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">10</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">				</span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">index</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">count</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">		</span><span class="NAME">this._parseLiteral</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">fmt</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">start</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">literal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">count</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">startIndex</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">			</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NAME">start</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">fmt.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fmt.charAt</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">literal</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">					</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">literal</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">						</span><span class="NAME">count</span><span class="WHIT"> </span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">						</span><span class="NAME">value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">value</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">						</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">					</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ch</span><span class="PUNC">==</span><span class="STRN">"y"</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">==</span><span class="STRN">"M"</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">==</span><span class="STRN">"d"</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">==</span><span class="STRN">"H"</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">==</span><span class="STRN">"m"</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">==</span><span class="STRN">"s"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">						</span><span class="NAME">literal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">						</span><span class="NAME">count</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">						</span><span class="NAME">value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">value</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">						</span><span class="NAME">startIndex</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">literal</span><span class="PUNC">:</span><span class="NAME">literal</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">count</span><span class="PUNC">:</span><span class="NAME">count</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">startIndex</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">startIndex</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">value</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">value</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>139</span> 
+<span class='line'>140</span> </span><span class="WHIT">		</span><span class="COMM">// 将日期组件按照指定的格式转换为字符串</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">		</span><span class="NAME">this.toString</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">fmt</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">			</span><span class="NAME">fmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fmt</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"yyyy-MM-dd"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">self.lastFmt</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">fmt</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">self.lastDateStr</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">			</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">fmt.length</span><span class="PUNC">;</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lit</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self._parseLiteral</span><span class="PUNC">(</span><span class="NAME">fmt</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">lit.literal</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="WHIT">					</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">literal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">lit.literal</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">count</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">lit.count</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">fmtValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">lit.value</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self._getLiteralValue</span><span class="PUNC">(</span><span class="NAME">literal</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">count</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">				</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">result.replace</span><span class="PUNC">(</span><span class="NAME">fmtValue</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">value</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>158</span> 
+<span class='line'>159</span> </span><span class="WHIT">				</span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">lit.startIndex</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">count</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">result</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>163</span> 
+<span class='line'>164</span> </span><span class="WHIT">		</span><span class="NAME">this._getLiteralValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">literal</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">self</span><span class="PUNC">[</span><span class="NAME">literal</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">gap</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">value.length</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">gap</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="WHIT">				</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">gap</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="WHIT">					</span><span class="NAME">value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"0"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">value</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>173</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">value</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">	</span><span class="NAME">$.widget</span><span class="PUNC">(</span><span class="STRN">"FUI.FCalendar"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">	    </span><span class="NAME">options</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="WHIT">	    	</span><span class="NAME">id</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="WHIT">	    	</span><span class="COMM">/**
+<span class='line'>181</span> 	    	 * 显示的选项
+<span class='line'>182</span> 	    	 * @name FCalendar#showOpts
+<span class='line'>183</span> 	    	 * @type Object
+<span class='line'>184</span> 	    	 * @default ""
+<span class='line'>185</span> 	    	 * @example
+<span class='line'>186</span> 	    	 * 无
+<span class='line'>187</span> 	    	 */</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="WHIT">	    	</span><span class="NAME">showOpts</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="WHIT">	    	</span><span class="COMM">// 是否可以通过点击图片下拉日历</span><span class="WHIT">
+<span class='line'>190</span> </span><span class="WHIT">	    	</span><span class="NAME">selectable</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT">
+<span class='line'>191</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>192</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">	    </span><span class="NAME">_create</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">UTILS</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">window</span><span class="PUNC">[</span><span class="STRN">'$Utils'</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="NAME">options</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">,</span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">	    	</span><span class="NAME">options.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.attr</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">	    	</span><span class="COMM">// 20130507 end add by hanyin 修复BUG #4993，日历控件如果没有传入showOpts造成后续使用报错的问题</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">	    	</span><span class="NAME">options.showOpts</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">options.showOpts</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">	    	</span><span class="COMM">// 20130507 end add by hanyin</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">readonly</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el.next</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"readonly"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">readonly</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>201</span> </span><span class="WHIT">                </span><span class="NAME">this.options.showOpts</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">UTILS.apply</span><span class="PUNC">(</span><span class="NAME">this.options.showOpts</span><span class="PUNC">||</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="PUNC">{</span><span class="STRN">'readOnly'</span><span class="PUNC">:</span><span class="KEYW">true</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>204</span> 
+<span class='line'>205</span> </span><span class="WHIT">	    </span><span class="NAME">_init</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">	    	</span><span class="NAME">this._bindEvent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">	    </span><span class="NAME">_bindEvent</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">displayEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"getInputEl"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="WHIT">	    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">displayEl.is</span><span class="PUNC">(</span><span class="STRN">"input"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="COMM">// 如果不是输入框则不绑定默认事件</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">	    		</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">triggerEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">op.id</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-trigger"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>217</span> </span><span class="WHIT">	    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">triggerEl.size</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">	    		</span><span class="NAME">triggerEl.click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">	    			</span><span class="COMM">// 20130528 hanyin 需求STORY #6054，当设定为selecable=false，不可通过按钮下拉日历</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">	    			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">op.id</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">FTextField</span><span class="PUNC">(</span><span class="STRN">"disabled"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">self.isSelectable</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">	    				</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">	    			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">	    			</span><span class="COMM">// 防止先点击按钮造成输入框二次展现</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">	    			</span><span class="NAME">displayEl.unbind</span><span class="PUNC">(</span><span class="STRN">"focus.FCalendar"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">	    			</span><span class="NAME">self.show</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>226</span> </span><span class="WHIT">	    		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">	    	</span><span class="COMM">// begin 20130416 hanyin 需求5756 ，解决在通过api设值之后，手动清空Calendar的值会造成隐藏域清不掉的问题</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">    		</span><span class="NAME">displayEl.bind</span><span class="PUNC">(</span><span class="STRN">"focus.FCalendar"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">    			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">op.id</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">FTextField</span><span class="PUNC">(</span><span class="STRN">"disabled"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">self.isReadonly</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">    				</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">    			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">    			</span><span class="COMM">// 防止先点击按钮造成输入框二次展现</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">    			</span><span class="NAME">displayEl.unbind</span><span class="PUNC">(</span><span class="STRN">"focus.FCalendar"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">    			</span><span class="NAME">self.show</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span> </span><span class="WHIT">    		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="WHIT">	    	</span><span class="COMM">// begin 20130416 hanyin</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">	    	</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">	    	</span><span class="NAME">self.element.bind</span><span class="PUNC">(</span><span class="STRN">"onValueChanged"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">v</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">	    		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">fmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">	    		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">	    		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">v</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="COMM">// 如果传入的日期为""</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="WHIT">		    		</span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">op.id</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-input"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>244</span> </span><span class="WHIT">	    		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>245</span> </span><span class="WHIT">		    		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">date</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">$.FUI.FDate</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>246</span> </span><span class="WHIT">		    		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">realDateFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.realDateFmt</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">op.showOpts</span><span class="PUNC">||</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">realDateFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="WHIT">		    		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">realTimeFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.realTimeFmt</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">op.showOpts</span><span class="PUNC">||</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">realTimeFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">		    		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">realFullFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.realFullFmt</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">op.showOpts</span><span class="PUNC">||</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">realFullFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="WHIT">		    		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">dateFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.dateFmt</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">op.showOpts</span><span class="PUNC">||</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">dateFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">		    		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">realDateFmt</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">		    			</span><span class="NAME">fmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">realDateFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">		    		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">realTimeFmt</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">		    			</span><span class="NAME">fmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">realTimeFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">		    		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">		    			</span><span class="NAME">fmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">realFullFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="WHIT">		    		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="WHIT">		    		</span><span class="NAME">date.parseStr</span><span class="PUNC">(</span><span class="NAME">v</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">fmt</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">		    		</span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">op.id</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-input"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="NAME">date.toString</span><span class="PUNC">(</span><span class="NAME">dateFmt</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">	    		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>262</span> 
+<span class='line'>263</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>264</span> 	     * 设置表单输入框的值，如果传入了参数则表示设置；该方法会始终返回当前表单输入框的值；如果存在隐藏域则访问隐藏域，否则效果同方法displayValue(v)。&lt;br/>
+<span class='line'>265</span> 	     * &lt;span style="color:red">注意：&lt;/span>不建议绑定输入框的 change或者onChange事件，因为这些事件
+<span class='line'>266</span> 	     * 在通过js修改输入框的value之后&lt;b>不会触发&lt;/b>（很奇妙的是，在IE6/7/8上居然触发了），所以在这种情况下请绑定 onValueChanged事件。&lt;br/>
+<span class='line'>267</span> 	     * 另外在默认情况下，调用此方法对输入框赋值，会触发onValueChanged事件，可以通过传入force=true来关闭事件的触发。
+<span class='line'>268</span> 	     * @name FCalendar#setValue
+<span class='line'>269</span> 	     * @function
+<span class='line'>270</span> 	     * @param v 要设置的表单输入框的值
+<span class='line'>271</span> 	     * @param force 非必须，如果传入true则不会触发onValueChanged事件
+<span class='line'>272</span> 	     * @return 当前表单输入框的值，如果进行了设置，那么返回设置之后表单输入框的值
+<span class='line'>273</span> 	     * @example
+<span class='line'>274</span> 	     */</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">	    </span><span class="NAME">setValue</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">v</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">force</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"value"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">v</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">force</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>278</span> 
+<span class='line'>279</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>280</span> 	     * 获取表单域的值
+<span class='line'>281</span> 	     * @name FCalendar#getValue
+<span class='line'>282</span> 	     * @function
+<span class='line'>283</span> 	     * @return 当前表单域的值
+<span class='line'>284</span> 	     * @example
+<span class='line'>285</span> 	     */</span><span class="WHIT">
+<span class='line'>286</span> </span><span class="WHIT">	    </span><span class="NAME">getValue</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>287</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"value"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>288</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>289</span> 
+<span class='line'>290</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>291</span> 	     * 重置表单域的值为空，如果存在隐藏域，隐藏域也会被清空。但是不会去除表单域的校验信息，如果需要去除表单域的校验信息，请调用FForm的reset方法。
+<span class='line'>292</span> 	     * @name FCalendar#reset
+<span class='line'>293</span> 	     * @function
+<span class='line'>294</span> 	     * @return void
+<span class='line'>295</span> 	     * @example
+<span class='line'>296</span> 	     */</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="WHIT">	    </span><span class="NAME">reset</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"reset"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>300</span> 
+<span class='line'>301</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>302</span> 	     * 设置输入框的可用状态；表单处于不可用状态时，不可编辑，该表单域也不会参与表单的提交
+<span class='line'>303</span> 	     * @name FCalendar#setDisabled
+<span class='line'>304</span> 	     * @function
+<span class='line'>305</span> 	     * @param state 如果传入true，则表示将组件置为不可用状态；如果传入false，则表示置为可用状态。
+<span class='line'>306</span> 	     * @return 当前表单的可用状态，true表示表单不可用，false表示表单可用
+<span class='line'>307</span> 	     * @example
+<span class='line'>308</span> 	     */</span><span class="WHIT">
+<span class='line'>309</span> </span><span class="WHIT">	    </span><span class="NAME">setDisabled</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">state</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"disabled"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">state</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>312</span> 
+<span class='line'>313</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>314</span> 	     * 获取输入框的可用状态；表单处于不可用状态时，不可编辑，该表单域也不会参与表单的提交
+<span class='line'>315</span> 	     * @name FCalendar#isDisabled
+<span class='line'>316</span> 	     * @function
+<span class='line'>317</span> 	     * @return 当前表单的可用状态，true表示表单不可用，false表示表单可用
+<span class='line'>318</span> 	     * @example
+<span class='line'>319</span> 	     */</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">	    </span><span class="NAME">isDisabled</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"disabled"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>323</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>324</span>          * 设置输入框是否可编辑，下拉图片是否可点击。selectable默认为true。setSelectable为false时，输入框不可编辑且下拉图片不可点击。参数： selectable : Boolean 返回值： void
+<span class='line'>325</span>          * @name FCalendar#setSelectable
+<span class='line'>326</span>          * @function
+<span class='line'>327</span>          * @param selectable  类型:"Boolean"。
+<span class='line'>328</span>          * @example
+<span class='line'>329</span>          */</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="WHIT">        </span><span class="NAME">setSelectable</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">selectable</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>331</span> </span><span class="WHIT">        	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">selectable</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">selectable</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="WHIT">        		</span><span class="NAME">this.options.selectable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">selectable</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>333</span> </span><span class="WHIT">        	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>336</span>          * 判断组件下拉图片是否可点击 参数： 无 返回值： Boolean
+<span class='line'>337</span>          * @name FCalendar#isSelectable
+<span class='line'>338</span>          * @function
+<span class='line'>339</span>          * @return Boolean
+<span class='line'>340</span>          * @example
+<span class='line'>341</span>          */</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="WHIT">        </span><span class="NAME">isSelectable</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.options.selectable</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>346</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>347</span> 	     * 设置输入框的可编辑状态；表单处于不可编辑状态时，输入框不可用，如果存在图标，图标可以点击。
+<span class='line'>348</span> 	     * @name FCalendar#setReadonly
+<span class='line'>349</span> 	     * @function
+<span class='line'>350</span> 	     * @param state 如果传入true，则表示将组件置为不可编辑状态；如果传入false，则表示置为可编辑状态。
+<span class='line'>351</span> 	     * @return 当前表单的可编辑状态，true表示表单输入框不可编辑，false表示表单可编辑。
+<span class='line'>352</span> 	     * @example
+<span class='line'>353</span> 	     */</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">	    </span><span class="NAME">setReadonly</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">state</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>355</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">undefined</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">state</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>356</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">state</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"true"</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">state</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="WHIT">                </span><span class="NAME">this.options.showOpts.readOnly</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">                </span><span class="NAME">this.options.showOpts.readOnly</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="WHIT"> </span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"readonly"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">state</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>364</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>365</span> 
+<span class='line'>366</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>367</span> 	     * 获取输入框的可编辑状态；表单处于不可编辑状态时，输入框不可用，如果存在图标，图标可以点击。
+<span class='line'>368</span> 	     * @name FCalendar#isReadonly
+<span class='line'>369</span> 	     * @function
+<span class='line'>370</span> 	     * @return 当前表单的可编辑状态，true表示表单输入框不可编辑，false表示表单可编辑。
+<span class='line'>371</span> 	     * @example
+<span class='line'>372</span> 	     */</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">	    </span><span class="NAME">isReadonly</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.element.FTextField</span><span class="PUNC">(</span><span class="STRN">"readonly"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>376</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>378</span> 	     * 显示日历组件
+<span class='line'>379</span> 	     * @name FCalendar#show
+<span class='line'>380</span> 	     * @function
+<span class='line'>381</span> 	     * @param op 显示选项对象，如果无效，则采用showOpts属性的值；否则属性showOpts将被忽略。
+<span class='line'>382</span> 	     * @return void
+<span class='line'>383</span> 	     * @example
+<span class='line'>384</span> 	     */</span><span class="WHIT">
+<span class='line'>385</span> </span><span class="WHIT">	    </span><span class="NAME">show</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">op</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>386</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>387</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">opts</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">	    	</span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">opts.showOpts</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">	    	</span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$.extend</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">op</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="WHIT">	    		</span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">opts.id</span><span class="PUNC">+</span><span class="STRN">"-input"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="WHIT">	    		</span><span class="NAME">vel</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">opts.id</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>392</span> </span><span class="WHIT">	    		</span><span class="NAME">position</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">self._calPosition</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>393</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>394</span> 
+<span class='line'>395</span> </span><span class="WHIT">	    	</span><span class="NAME">opts.dateFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.dateFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>396</span> </span><span class="WHIT">	    	</span><span class="NAME">opts.realDateFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.realDateFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>397</span> </span><span class="WHIT">	    	</span><span class="NAME">opts.realTimeFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.realTimeFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>398</span> </span><span class="WHIT">	    	</span><span class="NAME">opts.realFullFmt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.realFullFmt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>399</span> 
+<span class='line'>400</span> </span><span class="WHIT">	    	</span><span class="NAME">WdatePicker</span><span class="PUNC">(</span><span class="NAME">op</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 调用My97的API，显示日历控件</span><span class="WHIT">
+<span class='line'>401</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>402</span> 
+<span class='line'>403</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>404</span> 	     * 隐藏组件
+<span class='line'>405</span> 	     * @name FCalendar#hide
+<span class='line'>406</span> 	     * @function
+<span class='line'>407</span> 	     * @return void
+<span class='line'>408</span> 	     * @example
+<span class='line'>409</span> 	     * $("#form1").FForm("hide");
+<span class='line'>410</span> 	     */</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="WHIT">	    </span><span class="NAME">hide</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="WHIT">	    	</span><span class="NAME">$dp.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>413</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>414</span> 
+<span class='line'>415</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>416</span> 	     * 设置组件的显示属性，下次显示时生效
+<span class='line'>417</span> 	     * @name FCalendar#setShowOpts
+<span class='line'>418</span> 	     * @function
+<span class='line'>419</span> 	     * @opts Object
+<span class='line'>420</span> 	     * @return void
+<span class='line'>421</span> 	     * @example
+<span class='line'>422</span> 	     * $("#form1").FForm("setShowOpts", {realDateFmt : "yyyyMMdd"});
+<span class='line'>423</span> 	     */</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="WHIT">	    </span><span class="NAME">setShowOpts</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">opts</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">	    	</span><span class="NAME">this.options.showOpts</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">opts</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">	    </span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">	    </span><span class="NAME">_calPosition</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>429</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">selfEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>430</span> </span><span class="WHIT">	    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">boxEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">selfEl.FTextField</span><span class="PUNC">(</span><span class="STRN">"getBoxEl"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>431</span> </span><span class="WHIT">	    	</span><span class="COMM">// 修复由于图标造成的input位置偏移的问题</span><span class="WHIT">
+<span class='line'>432</span> </span><span class="WHIT">	    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">boxEl.hasClass</span><span class="PUNC">(</span><span class="STRN">"f-textField-icon-right"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>433</span> </span><span class="WHIT">	    			</span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">boxEl.hasClass</span><span class="PUNC">(</span><span class="STRN">"f-textField-icon-left"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>434</span> </span><span class="WHIT">	    			</span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">boxEl.hasClass</span><span class="PUNC">(</span><span class="STRN">"f-textField-icon-inner-right"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>435</span> </span><span class="WHIT">	    		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">left</span><span class="PUNC">:</span><span class="PUNC">-</span><span class="NUMB">4</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">top</span><span class="PUNC">:</span><span class="NUMB">1</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>436</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">boxEl.hasClass</span><span class="PUNC">(</span><span class="STRN">"f-textField-icon-inner-left"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>437</span> </span><span class="WHIT">	    		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">left</span><span class="PUNC">:</span><span class="PUNC">-</span><span class="NUMB">19</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">top</span><span class="PUNC">:</span><span class="NUMB">1</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>438</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>439</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>440</span> 
+<span class='line'>441</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>442</span> 	     * 销毁组件
+<span class='line'>443</span> 	     * @name FCalendar#destroy
+<span class='line'>444</span> 	     * @function
+<span class='line'>445</span> 	     * @example
+<span class='line'>446</span> 	     */</span><span class="WHIT">
+<span class='line'>447</span> </span><span class="WHIT">	    </span><span class="NAME">destroy</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>448</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>449</span> </span><span class="WHIT">		    </span><span class="COMM">// 调用父类的销毁方法</span><span class="WHIT">
+<span class='line'>450</span> </span><span class="WHIT">		    </span><span class="NAME">$.Widget.prototype.destroy.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>451</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>452</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>453</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>454</span> 
+<span class='line'>455</span> </span><span class="WHIT"> </span></pre></body></html>

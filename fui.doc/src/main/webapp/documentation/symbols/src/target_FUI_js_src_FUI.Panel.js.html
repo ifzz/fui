@@ -1,0 +1,462 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * @name FPanel
+<span class='line'>  3</span>  * @class 
+<span class='line'>  4</span>  * 面板容器，是一种面向用户界面构建应用程序最佳的单元块，一种特定功能和结构化组件。
+<span class='line'>  5</span>  * 面板包含有底部和顶部的工具条，连同单独的头部、底部和body部分。它提供内建都得可展开和可闭合的行为，
+<span class='line'>  6</span>  * 连同多个内建的可制定的行为的工具按钮。面板可简易地置入任意的容器或布局。
+<span class='line'>  7</span>  */</span><span class="WHIT">
+<span class='line'>  8</span> 
+<span class='line'>  9</span> </span><span class="COMM">/**@lends FPanel# */</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="COMM">/**
+<span class='line'> 11</span>  * 标识(仅标签使用)
+<span class='line'> 12</span>  * @name FPanel#&lt;ins>id&lt;/ins>
+<span class='line'> 13</span>  * @type String
+<span class='line'> 14</span>  * @default 随机生成
+<span class='line'> 15</span>  * @example
+<span class='line'> 16</span>  * 无
+<span class='line'> 17</span>  */</span><span class="WHIT">
+<span class='line'> 18</span> 
+<span class='line'> 19</span> </span><span class="COMM">/**
+<span class='line'> 20</span>  * 是否隐藏(仅标签使用)。该属性取消，可以通过设置panel的样式来达到相同的效果
+<span class='line'> 21</span>  * @name FPanel#&lt;ins>&lt;del>visible&lt;/del>&lt;/ins>
+<span class='line'> 22</span>  * @type boolean
+<span class='line'> 23</span>  * @default 随机生成
+<span class='line'> 24</span>  * @example
+<span class='line'> 25</span>  * 无
+<span class='line'> 26</span>  */</span><span class="WHIT">
+<span class='line'> 27</span> 
+<span class='line'> 28</span> </span><span class="COMM">/**
+<span class='line'> 29</span>  * 是否自动出现滚动条，当内容溢出时(仅标签使用)
+<span class='line'> 30</span>  * @name FPanel#&lt;ins>autoscroll&lt;/ins>
+<span class='line'> 31</span>  * @type boolean
+<span class='line'> 32</span>  * @default true
+<span class='line'> 33</span>  * @example
+<span class='line'> 34</span>  * 无
+<span class='line'> 35</span>  */</span><span class="WHIT">
+<span class='line'> 36</span> 
+<span class='line'> 37</span> </span><span class="COMM">/**
+<span class='line'> 38</span>  * 标题设置(仅标签使用)
+<span class='line'> 39</span>  * @name FPanel#&lt;ins>title&lt;/ins>
+<span class='line'> 40</span>  * @type String
+<span class='line'> 41</span>  * @default ""
+<span class='line'> 42</span>  * @example
+<span class='line'> 43</span>  * 无
+<span class='line'> 44</span>  */</span><span class="WHIT">
+<span class='line'> 45</span> 
+<span class='line'> 46</span> </span><span class="COMM">/**
+<span class='line'> 47</span>  * 组件创建后是否处于收起状态，可调用expand()方法动态展开组件主体内容。(仅标签使用)
+<span class='line'> 48</span>  * @name FPanel#&lt;ins>collapsed&lt;/ins>
+<span class='line'> 49</span>  * @type boolean
+<span class='line'> 50</span>  * @default false
+<span class='line'> 51</span>  * @example
+<span class='line'> 52</span>  * 无
+<span class='line'> 53</span>  */</span><span class="WHIT">
+<span class='line'> 54</span> 
+<span class='line'> 55</span> </span><span class="COMM">/**
+<span class='line'> 56</span>  * 组件创建时是否显示收起工具按钮(位于头部右边)。(仅标签使用)
+<span class='line'> 57</span>  * @name FPanel#&lt;ins>collapsible&lt;/ins>
+<span class='line'> 58</span>  * @type boolean
+<span class='line'> 59</span>  * @default true
+<span class='line'> 60</span>  * @example
+<span class='line'> 61</span>  * 无
+<span class='line'> 62</span>  */</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">$</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">	</span><span class="NAME">$.registerWidgetEvent</span><span class="PUNC">(</span><span class="STRN">"onExpand,onCollapse"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">	</span><span class="NAME">$.widget</span><span class="PUNC">(</span><span class="STRN">"FUI.FPanel"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">	    </span><span class="NAME">options</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'> 68</span> 	         * 此组件的整体宽度（包括border和padding，单位象素），默认为"auto"。&lt;br/>
+<span class='line'> 69</span> 	         * 支持数字形式的字符串或者带px单位的数字字符串，比如"40"、"40px"，都表示40个像素，字符串如"px50"、"abcpx"等其他非法形式的字符串则被忽略；
+<span class='line'> 70</span> 	         * width也支持百分比，比如"10%"，则表示占用外层容器(div,td等)宽度的比率，此时请慎重设置左右margin、border和padding，否则会造成在不同浏览器下表现不一致不准确。&lt;br/>
+<span class='line'> 71</span> 	         * @name FPanel#width
+<span class='line'> 72</span> 	         * @type String
+<span class='line'> 73</span> 	         * @default "auto"
+<span class='line'> 74</span> 	         * @example
+<span class='line'> 75</span> 	         * 无
+<span class='line'> 76</span> 	         */</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">	        </span><span class="NAME">width</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"auto"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'> 79</span> 	         * 此组件的整体高度（包括border和padding，单位像素），默认为auto。&lt;br/>
+<span class='line'> 80</span> 	         * 仅支持数字形式的字符串或者带px单位的数字字符串，比如"40"、"40px"，都是表示40个像素；其他非法形式的字符串则被忽略。&lt;br/>
+<span class='line'> 81</span> 	         * 请慎重设置组件的margin的top和bottom值，在不同浏览器下可能是不同的显示效果。
+<span class='line'> 82</span> 	         * height属性不支持百分比。
+<span class='line'> 83</span> 	         * @name FPanel#height
+<span class='line'> 84</span> 	         * @type String
+<span class='line'> 85</span> 	         * @default "auto"
+<span class='line'> 86</span> 	         * @example
+<span class='line'> 87</span> 	         * 无
+<span class='line'> 88</span> 	         */</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">	        </span><span class="NAME">height</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"auto"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'> 91</span> 	         * 异步加载内容的址
+<span class='line'> 92</span> 	         * @name FPanel#pageUrl
+<span class='line'> 93</span> 	         * @type String
+<span class='line'> 94</span> 	         * @default ""
+<span class='line'> 95</span> 	         * @example
+<span class='line'> 96</span> 	         * 无
+<span class='line'> 97</span> 	         */</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">	        </span><span class="NAME">pageUrl</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'>100</span> 	         * 是否采用iframe模式加载
+<span class='line'>101</span> 	         * @name FPanel#isIframe
+<span class='line'>102</span> 	         * @type boolean
+<span class='line'>103</span> 	         * @default false
+<span class='line'>104</span> 	         * @example
+<span class='line'>105</span> 	         * 无
+<span class='line'>106</span> 	         */</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">	        </span><span class="NAME">isIFrame</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'>109</span> 	         * panel的图标样式，位于头部左边的位置。(仅标签使用)
+<span class='line'>110</span> 	         * @name FPanel#&lt;ins>iconCls&lt;/ins>
+<span class='line'>111</span> 	         * @type String
+<span class='line'>112</span> 	         * @default ""
+<span class='line'>113</span> 	         * @example
+<span class='line'>114</span> 	         * 无
+<span class='line'>115</span> 	         */</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">	        </span><span class="NAME">iconCls</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'>118</span> 	         * 收起panel组件后触发的函数
+<span class='line'>119</span> 	         * @event
+<span class='line'>120</span> 	         * @name FPanel#onCollapse
+<span class='line'>121</span> 	         * @example
+<span class='line'>122</span> 	         * onCollapse : function(){
+<span class='line'>123</span> 	         *    //do something
+<span class='line'>124</span> 	         * }
+<span class='line'>125</span> 	         */</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	        </span><span class="NAME">onCollapse</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'>128</span> 	         * 展开panel组件后触发的函数
+<span class='line'>129</span> 	         * @event
+<span class='line'>130</span> 	         * @name FPanel#onExpand
+<span class='line'>131</span> 	         * @example
+<span class='line'>132</span> 	         * onExpand : function(){
+<span class='line'>133</span> 	         *    //do something
+<span class='line'>134</span> 	         * }
+<span class='line'>135</span> 	         */</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">	        </span><span class="NAME">onExpand</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'>138</span> 	         * 请求成功时触发
+<span class='line'>139</span> 	         * @event
+<span class='line'>140</span> 	         * @name FPanel#onLoadSuccess
+<span class='line'>141</span> 	         * @param data  类型：Array[Object] 。请求返回的数据。
+<span class='line'>142</span> 	         * @param textStatus   返回状态
+<span class='line'>143</span> 	         * @param jqXHR   XMLHttpRequest对象
+<span class='line'>144</span> 	         * @example
+<span class='line'>145</span> 	         */</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">	        </span><span class="NAME">onLoadSuccess</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">	        </span><span class="COMM">/**
+<span class='line'>148</span> 	         * 请求超时时触发
+<span class='line'>149</span> 	         * @event
+<span class='line'>150</span> 	         * @name FPanel#onError
+<span class='line'>151</span> 	         * @param jqXHR      XMLHttpRequest对象
+<span class='line'>152</span> 	         * @param textStatus   返回状态
+<span class='line'>153</span> 	         * @param  errorThrown  （可能）捕获的错误对象
+<span class='line'>154</span> 	         * @example
+<span class='line'>155</span> 	         */</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">	        </span><span class="NAME">onError</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>157</span> 
+<span class='line'>158</span> </span><span class="WHIT">	        </span><span class="COMM">// 保存面板的当前状态：面板是否收起来</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">	        </span><span class="NAME">_isCollapsed</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">	        </span><span class="COMM">// 缓存jQuery对象：header</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">	        </span><span class="NAME">_objHeader</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">	        </span><span class="COMM">// 缓存jQuery对象：toggle</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">	        </span><span class="NAME">_objHeaderToggle</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">	        </span><span class="COMM">// 缓存jQuery对象： title</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">	        </span><span class="NAME">_objHeaderTitle</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="WHIT">	        </span><span class="COMM">// 缓存jQuery对象： icon</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="WHIT">	        </span><span class="NAME">_objHeaderIcon</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="WHIT">	        </span><span class="COMM">// 缓存jQuery对象：wrapper</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="WHIT">	        </span><span class="NAME">_objWrapper</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="WHIT">	        </span><span class="COMM">// 缓存jQuery对象：body</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">	        </span><span class="NAME">_objWrapperBody</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>173</span> </span><span class="WHIT">	    </span><span class="NAME">_create</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="WHIT">		    </span><span class="COMM">// 初始化ID</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ID</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element.attr</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">		    </span><span class="NAME">this.options.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ID</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">		    </span><span class="COMM">// 初始化header对象</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">		    </span><span class="NAME">this.options._objHeader</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">ID</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-header"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="WHIT">		    </span><span class="NAME">this.options._objHeaderToggle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">ID</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-toggle"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="WHIT">		    </span><span class="NAME">this.options._objHeaderTitle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">ID</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-title"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="WHIT">		    </span><span class="NAME">this.options._objHeaderIcon</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">ID</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-icon"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">		    </span><span class="COMM">// 初始化wrapper对象</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">		    </span><span class="NAME">this.options._objWrapper</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">ID</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-wrapper"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">		    </span><span class="NAME">this.options._objWrapperBody</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$I</span><span class="PUNC">(</span><span class="NAME">ID</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-body"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>185</span> 
+<span class='line'>186</span> </span><span class="WHIT">		    </span><span class="COMM">// 是否折叠</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">		    </span><span class="NAME">this.options._isCollapsed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element.hasClass</span><span class="PUNC">(</span><span class="STRN">"f-collapsed"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="WHIT">		    </span><span class="COMM">// 绑定事件</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="WHIT">		    </span><span class="NAME">this._bindEvent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>190</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>191</span> </span><span class="WHIT">	    </span><span class="NAME">_init</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>192</span> </span><span class="WHIT">		    </span><span class="COMM">// 如果是动态数据，并且开启自动加载，则加载数据</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">		    </span><span class="NAME">this.reload</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="WHIT">		    </span><span class="COMM">// 设置大小</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">		    </span><span class="NAME">this.setSize</span><span class="PUNC">(</span><span class="NAME">this.options.width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.options.height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">	    </span><span class="NAME">_bindEvent</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">toggleEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options._objHeaderToggle</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>200</span> 
+<span class='line'>201</span> </span><span class="WHIT">		    </span><span class="COMM">// toggle绑定hover事件</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">		    </span><span class="NAME">toggleEl.hover</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="WHIT">			    </span><span class="NAME">toggleEl.addClass</span><span class="PUNC">(</span><span class="STRN">"f-tool-toggle-over"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>204</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">			    </span><span class="NAME">toggleEl.removeClass</span><span class="PUNC">(</span><span class="STRN">"f-tool-toggle-over"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>207</span> 
+<span class='line'>208</span> </span><span class="WHIT">		    </span><span class="COMM">// 绑定点击事件</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">		    </span><span class="NAME">toggleEl.click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">			    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">self.options._isCollapsed</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">				    </span><span class="NAME">self.expand</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">				    </span><span class="NAME">self.collapse</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">			    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>217</span> </span><span class="WHIT">		    </span><span class="COMM">// 暂不支持</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">		    </span><span class="COMM">/*
+<span class='line'>219</span> 		     * $(window).resize(function() { setTimeout(function() { self.resize(); }, 500); });
+<span class='line'>220</span> 		     */</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>223</span> 	     * 销毁组件
+<span class='line'>224</span> 	     * @name FPanel#destroy
+<span class='line'>225</span> 	     * @function
+<span class='line'>226</span> 	     * @example
+<span class='line'>227</span> 	     */</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">	    </span><span class="NAME">destroy</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">		    </span><span class="COMM">// 取消绑定的事件</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">		    </span><span class="NAME">op._objHeaderToggle.unbind</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">		    </span><span class="COMM">// 销毁jQuery对象</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">		    </span><span class="NAME">op._objHeader</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">		    </span><span class="NAME">op._objHeaderToggle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">		    </span><span class="NAME">op._objHeaderTitle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span> </span><span class="WHIT">		    </span><span class="NAME">op._objHeaderIcon</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="WHIT">		    </span><span class="NAME">op._objWrapper</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">		    </span><span class="NAME">op._objWrapperBody</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">		    </span><span class="COMM">// 调用父类的销毁方法</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">		    </span><span class="NAME">$.Widget.prototype.destroy.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>243</span> 	     * 重新加载指定的URL，如果传入的URL为空，则使用上一次使用的URL，如果没有配置URL，则直接返回，无任何效果
+<span class='line'>244</span> 	     * @name FPanel#reload
+<span class='line'>245</span> 	     * @function
+<span class='line'>246</span> 	     * @param url 要加载的页面URL。在isFrame=true的情况下，url需要满足iframe的规范，在非iframe模式下，url不能跨域访问。
+<span class='line'>247</span> 	     * @example
+<span class='line'>248</span> 	     */</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="WHIT">	    </span><span class="NAME">reload</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">url</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">selfEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">bodyEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op._objWrapperBody</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>253</span> 
+<span class='line'>254</span> </span><span class="WHIT">		    </span><span class="NAME">url</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">url</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">op.pageUrl</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$Utils.isEmpty</span><span class="PUNC">(</span><span class="NAME">url</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="WHIT">			    </span><span class="COMM">// 不是动态数据加载</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="WHIT">			    </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">		    </span><span class="NAME">op.pageUrl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>260</span> 
+<span class='line'>261</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">op.isIFrame</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">			    </span><span class="NAME">op._objWrapperBody.children</span><span class="PUNC">(</span><span class="STRN">"iframe"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"src"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">			    </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>265</span> 
+<span class='line'>266</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">selfEl.data</span><span class="PUNC">(</span><span class="STRN">"loading"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>267</span> </span><span class="WHIT">			    </span><span class="COMM">// 如果在加载过程中，则直接跳出</span><span class="WHIT">
+<span class='line'>268</span> </span><span class="WHIT">			    </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>269</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="WHIT">			    </span><span class="NAME">selfEl.data</span><span class="PUNC">(</span><span class="STRN">"loading"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>272</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">url.indexOf</span><span class="PUNC">(</span><span class="STRN">"/"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>273</span> </span><span class="WHIT">			    </span><span class="NAME">url</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$Utils.getContextPath</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">'/'</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">		    </span><span class="COMM">// TODO 此入显示MASK</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">		    </span><span class="NAME">$.ajax</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">		        </span><span class="NAME">cache</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>278</span> </span><span class="WHIT">		        </span><span class="NAME">type</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"get"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="WHIT">		        </span><span class="NAME">url</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>280</span> </span><span class="WHIT">		        </span><span class="NAME">success</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">jqXHR</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>281</span> </span><span class="WHIT">			        </span><span class="NAME">bodyEl.html</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="WHIT">			        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$.isFunction</span><span class="PUNC">(</span><span class="NAME">op.onLoadSuccess</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>283</span> </span><span class="WHIT">				        </span><span class="NAME">op.onLoadSuccess</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">jqXHR</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>284</span> </span><span class="WHIT">			        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="WHIT">		        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>286</span> </span><span class="WHIT">		        </span><span class="NAME">error</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">jqXHR</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>287</span> </span><span class="WHIT">			        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$.isFunction</span><span class="PUNC">(</span><span class="NAME">op.onError</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>288</span> </span><span class="WHIT">				        </span><span class="NAME">op.onError</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textStatus</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">jqXHR</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>289</span> </span><span class="WHIT">			        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="WHIT">		        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="WHIT">		        </span><span class="NAME">complete</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>292</span> </span><span class="WHIT">			        </span><span class="NAME">selfEl.data</span><span class="PUNC">(</span><span class="STRN">"loading"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>293</span> </span><span class="WHIT">			        </span><span class="COMM">// TODO 隐藏MASK</span><span class="WHIT">
+<span class='line'>294</span> </span><span class="WHIT">		        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>295</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>296</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>298</span> 	     * 打开面板。
+<span class='line'>299</span> 	     * @name FPanel#expand
+<span class='line'>300</span> 	     * @function
+<span class='line'>301</span> 	     * @example
+<span class='line'>302</span> 	     */</span><span class="WHIT">
+<span class='line'>303</span> </span><span class="WHIT">	    </span><span class="NAME">expand</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>304</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>305</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>306</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">op._isCollapsed</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>307</span> </span><span class="WHIT">			    </span><span class="NAME">op._objWrapper.slideDown</span><span class="PUNC">(</span><span class="STRN">"fast"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>308</span> </span><span class="WHIT">				    </span><span class="NAME">self.element.addClass</span><span class="PUNC">(</span><span class="STRN">"f-collapsible"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="STRN">"f-collapsed"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>309</span> </span><span class="WHIT">				    </span><span class="NAME">op._isCollapsed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="WHIT">				    </span><span class="COMM">// 调用回调或者触发事件</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="WHIT">				    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">canGo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>312</span> </span><span class="WHIT">				    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$.isFunction</span><span class="PUNC">(</span><span class="NAME">op.onExpand</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="WHIT">					    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.onExpand.call</span><span class="PUNC">(</span><span class="NAME">self</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// 回调方法返回false，则阻止触发事件</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="WHIT">					    </span><span class="NAME">canGo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="WHIT">				    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>316</span> </span><span class="WHIT">				    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">canGo</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>317</span> </span><span class="WHIT">					    </span><span class="NAME">self.element.triggerHandler</span><span class="PUNC">(</span><span class="STRN">'onExpand'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>318</span> </span><span class="WHIT">				    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>323</span> 	     * 折叠面板。
+<span class='line'>324</span> 	     * @name FPanel#collapse
+<span class='line'>325</span> 	     * @function
+<span class='line'>326</span> 	     * @example
+<span class='line'>327</span> 	     */</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">	    </span><span class="NAME">collapse</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">self.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>331</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">op._isCollapsed</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="WHIT">			    </span><span class="NAME">op._objWrapper.slideUp</span><span class="PUNC">(</span><span class="STRN">"fast"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>333</span> </span><span class="WHIT">				    </span><span class="NAME">self.element.removeClass</span><span class="PUNC">(</span><span class="STRN">"f-collapsible"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"f-collapsed"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="WHIT">				    </span><span class="NAME">op._isCollapsed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="WHIT">				    </span><span class="COMM">// 调用回调或者触发事件</span><span class="WHIT">
+<span class='line'>336</span> </span><span class="WHIT">				    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">canGo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>337</span> </span><span class="WHIT">				    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$.isFunction</span><span class="PUNC">(</span><span class="NAME">op.onCollapse</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="WHIT">					    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op.onCollapse.call</span><span class="PUNC">(</span><span class="NAME">self</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">					    </span><span class="NAME">canGo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="WHIT">				    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>341</span> </span><span class="WHIT">				    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">canGo</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="WHIT">					    </span><span class="NAME">self.element.triggerHandler</span><span class="PUNC">(</span><span class="STRN">'onCollapse'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="WHIT">				    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>348</span> 	     * 设置标题。
+<span class='line'>349</span> 	     * @name FPanel#setTitle
+<span class='line'>350</span> 	     * @function
+<span class='line'>351</span> 	     * @param title 标题
+<span class='line'>352</span> 	     * @example
+<span class='line'>353</span> 	     */</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">	    </span><span class="NAME">setTitle</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">title</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>355</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">title</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>356</span> </span><span class="WHIT">			    </span><span class="NAME">this.options.title</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">title</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">			    </span><span class="NAME">this.options._objHeaderTitle.text</span><span class="PUNC">(</span><span class="NAME">title</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>361</span> 	     * 设置标题图标样式。
+<span class='line'>362</span> 	     * @name FPanel#setIconCls
+<span class='line'>363</span> 	     * @function
+<span class='line'>364</span> 	     * @param iconCls 图标样式
+<span class='line'>365</span> 	     * @example
+<span class='line'>366</span> 	     */</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="WHIT">	    </span><span class="NAME">setIconCls</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">iconCls</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>369</span> </span><span class="WHIT">		    </span><span class="COMM">// 移除原有样式</span><span class="WHIT">
+<span class='line'>370</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">op.iconCls</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">op.iconCls.length</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>371</span> </span><span class="WHIT">			    </span><span class="NAME">op._objHeaderIcon.removeClass</span><span class="PUNC">(</span><span class="NAME">op.iconCls</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">		    </span><span class="COMM">// 设置新样式</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">		    </span><span class="NAME">op._objHeaderIcon.addClass</span><span class="PUNC">(</span><span class="NAME">iconCls</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="WHIT">		    </span><span class="NAME">op.iconCls</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">iconCls</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>376</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">	    </span><span class="COMM">/**
+<span class='line'>378</span> 	     * 设置组件的高宽，Panel组件会自动调整内部toolbar的大小和位置
+<span class='line'>379</span> 	     * @name FPanel#setSize
+<span class='line'>380</span> 	     * @function
+<span class='line'>381</span> 	     * @param w 组件的宽度，必须是数字或者数字类的字符串，不支持百分比
+<span class='line'>382</span> 	     * @param h 组件的高度，必须是数字或者数字类的字符串，不支持百分比
+<span class='line'>383</span> 	     * @example
+<span class='line'>384</span> 	     */</span><span class="WHIT">
+<span class='line'>385</span> </span><span class="WHIT">	    </span><span class="NAME">setSize</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">w</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">h</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>386</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">UTILS</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">window</span><span class="PUNC">[</span><span class="STRN">"$Utils"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>387</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">op</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.options</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">selfEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">bodyEl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">op._objWrapperBody</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">bodyContent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">bodyEl.children</span><span class="PUNC">(</span><span class="STRN">".f-panel-body-content"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">contentSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">bodyContent.size</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>392</span> 
+<span class='line'>393</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">w</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>394</span> </span><span class="WHIT">			    </span><span class="COMM">// border、padding占用的大小</span><span class="WHIT">
+<span class='line'>395</span> </span><span class="WHIT">			    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">percentage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">UTILS.getPercentage</span><span class="PUNC">(</span><span class="NAME">w</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>396</span> </span><span class="WHIT">			    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">percentage</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>397</span> </span><span class="WHIT">				    </span><span class="NAME">selfEl.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">percentage</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>398</span> </span><span class="WHIT">				    </span><span class="NAME">bodyEl.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"auto"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>399</span> </span><span class="WHIT">				    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">contentSize</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>400</span> </span><span class="WHIT">					    </span><span class="NAME">bodyContent.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"auto"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>401</span> </span><span class="WHIT">				    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>402</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>403</span> </span><span class="WHIT">				    </span><span class="COMM">// 对于'40'和'40px'等同样处理为40</span><span class="WHIT">
+<span class='line'>404</span> </span><span class="WHIT">				    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">gaps</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>405</span> </span><span class="WHIT">				    </span><span class="NAME">w</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">w</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>406</span> </span><span class="WHIT">				    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">w</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">gaps</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>407</span> </span><span class="WHIT">				    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">isNaN</span><span class="PUNC">(</span><span class="NAME">realSize</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>408</span> </span><span class="WHIT">					    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="WHIT">						    </span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>410</span> </span><span class="WHIT">					    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="WHIT">					    </span><span class="NAME">selfEl.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">w</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="WHIT">					    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">contentSize</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>413</span> </span><span class="WHIT">						    </span><span class="NAME">bodyContent.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>414</span> </span><span class="WHIT">					    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>415</span> </span><span class="WHIT">						    </span><span class="NAME">bodyEl.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>416</span> </span><span class="WHIT">					    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>417</span> </span><span class="WHIT">				    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>418</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>419</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>420</span> </span><span class="WHIT">		    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">h</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>421</span> </span><span class="WHIT">			    </span><span class="COMM">// border、padding占用的大小</span><span class="WHIT">
+<span class='line'>422</span> </span><span class="WHIT">			    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">percentage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">UTILS.getPercentage</span><span class="PUNC">(</span><span class="NAME">h</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>423</span> </span><span class="WHIT">			    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">percentage</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="WHIT">				    </span><span class="NAME">selfEl.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">percentage</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">				    </span><span class="NAME">bodyEl.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"auto"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="WHIT">				    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">contentSize</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">					    </span><span class="NAME">bodyContent.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"auto"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">				    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>429</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>430</span> </span><span class="WHIT">				    </span><span class="COMM">// 对于'40'和'40px'等同样处理为40</span><span class="WHIT">
+<span class='line'>431</span> </span><span class="WHIT">				    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">gaps</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">27</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>432</span> </span><span class="WHIT">				    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">h</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">gaps</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>433</span> </span><span class="WHIT">				    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">isNaN</span><span class="PUNC">(</span><span class="NAME">realSize</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>434</span> </span><span class="WHIT">					    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>435</span> </span><span class="WHIT">						    </span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>436</span> </span><span class="WHIT">					    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>437</span> </span><span class="WHIT">					    </span><span class="NAME">selfEl.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"auto"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>438</span> </span><span class="WHIT">					    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">contentSize</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>439</span> </span><span class="WHIT">						    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">otherHeight</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>440</span> </span><span class="WHIT">						    </span><span class="NAME">bodyContent.siblings</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">not</span><span class="PUNC">(</span><span class="STRN">'script'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">each</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>441</span> </span><span class="WHIT">							    </span><span class="COMM">// alert($(this).attr('id') + ":" + $(this).outerHeight(true));</span><span class="WHIT">
+<span class='line'>442</span> </span><span class="WHIT">							    </span><span class="NAME">otherHeight</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">outerHeight</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="WHIT">						    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="WHIT">						    </span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">otherHeight</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">otherHeight</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>445</span> </span><span class="WHIT">						    </span><span class="NAME">bodyContent.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>446</span> </span><span class="WHIT">					    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>447</span> </span><span class="WHIT">						    </span><span class="NAME">bodyEl.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">style.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">realSize</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>448</span> </span><span class="WHIT">					    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>449</span> </span><span class="WHIT">				    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>450</span> </span><span class="WHIT">			    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>451</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>452</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>453</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>454</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>455</span> </span></pre></body></html>

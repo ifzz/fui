@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee,http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd">
+
+	
+	<listener>
+		<listener-class>com.hundsun.jres.fui.core.web.FUIInitContextListener</listener-class>
+	</listener>
+
+	<!-- FUI Freemarker调用Servlet -->
+	<servlet>
+		<servlet-name>FFreemarkerServlet</servlet-name>
+		<servlet-class>com.hundsun.jres.fui.core.web.FUITemplateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FFreemarkerServlet</servlet-name>
+		<url-pattern>*.ftl</url-pattern>
+	</servlet-mapping>
+
+	<!-- FUI服务接入Servlet配置 -->
+	<servlet>
+		<servlet-name>FUIServlet</servlet-name>
+		<servlet-class>
+			com.hundsun.jres.fui.core.web.FUIServiceServlet
+		</servlet-class>
+	</servlet>
+
+	<!-- 拦截Ajax服务请求 -->
+	<servlet-mapping>
+		<servlet-name> FUIServlet </servlet-name>
+		<url-pattern>*.fservice</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

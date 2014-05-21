@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>all</artifactId>
+		<groupId>com.hundsun.jres.fui</groupId>
+		<version>1.0.9-SNAPSHOT</version>
+	</parent>
+	<artifactId>fui.doc</artifactId>
+	<packaging>war</packaging>
+	<name>fui.doc Maven Webapp</name>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.hundsun.jres.fui</groupId>
+									<artifactId>fui.web</artifactId>
+									<version>${project.version}</version>
+									<classifier>js</classifier>
+									<type>war</type>
+
+									<outputDirectory>${project.build.directory}/</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>jsdoc</id>
+						<phase>prepare-package</phase>
+						<configuration>
+							<tasks>
+								<exec executable="${basedir}/jsdoc-toolkit/jsdoc.bat">
+								</exec>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2.1</version>
+				<configuration>
+					<descriptors>
+						<descriptor>package_doc.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

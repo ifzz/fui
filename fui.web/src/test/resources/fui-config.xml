@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<fui xmlns="http://jres.hundsun.com/xsd/fui"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jres.hundsun.com/xsd/fui fui.xsd">
+
+    <constant name="fui.custom.templateEngine.ftl.filepath" value="/,/FUI-extend/templates/ftl,/FUI/templates/ftl,class://templates/ftl"/>
+
+    <!-- 文件上传相关配置-->
+    <!--tempPath : 文件上传临时目录 -->
+    <constant name="fui.custom.fileupload.tempPath" value="E:\\temp\\buffer\\"/>
+    <!--sizeMax : 上传的所有文件总大小 4M-->
+    <constant name="fui.custom.fileupload.sizeMax" value="4194304"/>
+    <!--fileSizeMax : 单个文件的最大值 5k-->
+    <constant name="fui.custom.fileupload.fileSizeMax" value="524288"/>
+    <!--sizeThreshold : 内存大小 1M -->
+    <constant name="fui.custom.fileupload.sizeThreshold" value="1048576"/>
+
+
+</fui>

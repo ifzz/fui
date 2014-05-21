@@ -1,0 +1,86 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="TOKN">﻿</span><span class="COMM">/* *
+<span class='line'>  2</span>  * 版本：1.0.0.1
+<span class='line'>  3</span>  * 系统名称: FUI
+<span class='line'>  4</span>  * 模块名称: JRES
+<span class='line'>  5</span>  * 文件名称: FUI.Upload.js
+<span class='line'>  6</span>  * 作者：qudc
+<span class='line'>  7</span>  * 邮箱：qudc@hundsun.com
+<span class='line'>  8</span>  * 软件版权: 恒生电子股份有限公司
+<span class='line'>  9</span>  * 功能描述：FComboGrid组件对应的代码。
+<span class='line'> 10</span>  * 修改记录:
+<span class='line'> 11</span>  * 修改日期      修改人员             修改说明
+<span class='line'> 12</span>  * 2013-01-14   qudc                修复bug：4519  修改width属性和size属性的jsdoc描述，说明其使用范围 。
+<span class='line'> 13</span>  */</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="COMM">/**
+<span class='line'> 15</span>  * @_name FUpload
+<span class='line'> 16</span>  * @_class &lt;b>单文件上传组件&lt;/b>&lt;br/>
+<span class='line'> 17</span>  * 提供上传组件的样式，并和后台对接。
+<span class='line'> 18</span>  */</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">  	</span><span class="COMM">/**@_lends FUpload# */</span><span class="WHIT">
+<span class='line'> 21</span> 
+<span class='line'> 22</span> </span><span class="COMM">/**
+<span class='line'> 23</span>  * 标识(仅标签使用)
+<span class='line'> 24</span>  * @name FUpload#&lt;b>id&lt;/b>
+<span class='line'> 25</span>  * @type String
+<span class='line'> 26</span>  * @default null
+<span class='line'> 27</span>  * @example
+<span class='line'> 28</span>  * 无
+<span class='line'> 29</span>  */</span><span class="WHIT">
+<span class='line'> 30</span> 
+<span class='line'> 31</span> </span><span class="COMM">/**
+<span class='line'> 32</span>  * 在IE,chrome浏览器下，通过该属性设置组件的宽度，单位"px"。
+<span class='line'> 33</span>  * @name FUpload#&lt;b>width&lt;/b>
+<span class='line'> 34</span>  * @type String
+<span class='line'> 35</span>  * @default null
+<span class='line'> 36</span>  * @example
+<span class='line'> 37</span>  * 无
+<span class='line'> 38</span>  */</span><span class="WHIT">
+<span class='line'> 39</span> 
+<span class='line'> 40</span> </span><span class="COMM">/**
+<span class='line'> 41</span>  * 对应html中的表单元素的name属性。默认值为：""。
+<span class='line'> 42</span>  * @name FUpload#&lt;b>name&lt;/b>
+<span class='line'> 43</span>  * @type String
+<span class='line'> 44</span>  * @default null
+<span class='line'> 45</span>  * @example
+<span class='line'> 46</span>  * 无
+<span class='line'> 47</span>  */</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="COMM">/**
+<span class='line'> 49</span>  * DOM焦点序号即tab键时候得到焦点的序号
+<span class='line'> 50</span>  * @name FUpload#&lt;b>tabIndex&lt;/b>
+<span class='line'> 51</span>  * @type String
+<span class='line'> 52</span>  * @default null
+<span class='line'> 53</span>  * @example
+<span class='line'> 54</span>  * 无
+<span class='line'> 55</span>  */</span><span class="WHIT">
+<span class='line'> 56</span> 
+<span class='line'> 57</span> </span><span class="COMM">/**
+<span class='line'> 58</span>  * 组件的css样式设置
+<span class='line'> 59</span>  * @name FUpload#&lt;b>classes&lt;/b>
+<span class='line'> 60</span>  * @type String
+<span class='line'> 61</span>  * @default null
+<span class='line'> 62</span>  * @example
+<span class='line'> 63</span>  * 无
+<span class='line'> 64</span>  */</span><span class="WHIT">
+<span class='line'> 65</span> 
+<span class='line'> 66</span> </span><span class="COMM">/**
+<span class='line'> 67</span>  * 在FireFox浏览器下通过设置size属性来设置组件的宽度。
+<span class='line'> 68</span>  * @name FUpload#&lt;b>size&lt;/b>
+<span class='line'> 69</span>  * @type String
+<span class='line'> 70</span>  * @default 20
+<span class='line'> 71</span>  * @example
+<span class='line'> 72</span>  * 无
+<span class='line'> 73</span>  */</span><span class="WHIT">
+<span class='line'> 74</span> 
+<span class='line'> 75</span> 
+<span class='line'> 76</span> 
+<span class='line'> 77</span> 
+<span class='line'> 78</span> 
+<span class='line'> 79</span> </span></pre></body></html>

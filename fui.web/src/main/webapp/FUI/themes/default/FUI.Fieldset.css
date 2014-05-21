@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Fieldset.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： Fieldset 的css
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ */
+
+.f-fieldset {
+	/* 盒子模型 */
+	padding: 10px;
+	margin-bottom: 0;
+	border: 1px solid #B5B8C8;
+
+	/* 布局 */
+	overflow: hidden;
+	display: block;
+	position: relative;
+}
+
+.f-fieldset legend .f-tool-toggle {
+    float: left !important;
+    margin-left: 0;
+    margin-right: 3px;
+}
+
+/* 暂时不启用，在IE6下存在兼容问题
+fieldset.f-collapsed {
+    padding-bottom:0 !important;
+    border-width: 1px 1px 0 1px !important;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+*/
+
+.f-fieldset legend {
+	margin-bottom: 0px !important;
+	margin-bottom: 10px; /* IE6兼容性 */
+
+	padding-top: 1px;
+	color: #15428B;
+    font: bold 11px tahoma,arial,helvetica,sans-serif;
+}
+
+.f-fieldset-bwrap {
+	overflow: auto;
+}

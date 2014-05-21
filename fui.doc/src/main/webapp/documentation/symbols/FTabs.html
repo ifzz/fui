@@ -1,0 +1,936 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Tabs</h3>
+<p>导航式容器，以切换的方式在多个页面间切换浏览。通过简单的配置展示多页签信息，同时组件提供丰富的事件支持，比如选中页签，关闭页签，添加页签等等；支持各个页签以ajax方式加载内容（默认iframe，懒加载）；
+</p>
+<img src="../resource/images/tabs.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>可以用于主页面的多页签导航，也可以用于页面中划分页面模块布局；
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>支持静态页面和动态页面两种方式，其中动态页面采用iframe的话，iframe自身存在内存泄漏，请慎重使用；但是使用页面片段的方式则要处理好id重提的问题</li>
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>使用示例</h4>
+<p>第一个页签静态页面，第二个页面片段，其他iframe方式：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:tabs id="tabs" width="400px" height="250px">
+  <f:tab id="主页面">
+  	这是一个静态内容
+  </f:tab>
+  <f:tab title="页面片段" url="testFormSegment.jsp" iframe="false"></f:tab>
+  <f:tab title="iframe页面1" url="testIFrame1.jsp"></f:tab>
+  <f:tab title="iframe页面2" url="testIFrame2.jsp" closable="true"></f:tab>
+</f:tabs>
+</textarea>
+
+<p>动态添加、删除一个标签页，主动刷新一个tab页</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+		$("#bnt1").click(function() {
+			$("#tabs1").FTabs("add", 
+				{
+					title : "新标签页",
+					url : "testIFrame1.jsp",
+					closable : true
+				}
+			);
+		});
+		$("#bnt2").click(function() {
+			$("#tabs1").FTabs("closeTab", 1); // 删除第二个页签
+		});
+		$("#bnt3").click(function() {
+			$("#tabs1").FTabs("reload", 2); // 刷新第三个页签
+		});
+	});
+</script>
+
+<button id="bnt1">添加一个页签</button>
+<button id="bnt2">删除第二个页签</button>
+<button id="bnt3">刷新第三个页签</button>
+<f:tabs id="tabs1" width="400px" height="250px">
+  <f:tab id="主页面">
+  	这是一个静态内容
+  </f:tab>
+  // 其他页面
+</f:tabs>
+
+</textarea>
+
+
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td><ins>active</ins></td>
+	        					<td>Number,String</td>
+	        					<td>
+	        						<p>初始化时被激活页签的索引（从0开始计数）或者tabId。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$('#make-tab').FTabs({active : 1});//初始化时激活第二个页签$('#make-tab').FTabs({active : 'tab-1'});//初始化时激活Id为'tab-1'的页签</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>0</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>fit</ins></td>
+	        					<td>Boolean,String</td>
+	        					<td>
+	        						<p>自适应开关，true表示在第一次展现的时候，自动根据父亲计算自己的大小，false不做计算，默认为false</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"false"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>id</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>标识(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>随机生成</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>tabsHeaderCls</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>页签标题的样式类，主要用于规定页签的高度，目前提供了四种大小："f-tabs-small-tab"、"f-tabs-normal-tab"、"f-tabs-big-tab"和"f-tabs-large-tab"，分别对应小、中、较大、大；除此之外，用户可以根据自己的要求定制。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"f-tabs-normal-tab"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>tabWidth</ins></td>
+	        					<td>Number,String</td>
+	        					<td>
+	        						<p>页签头部的宽度，单位像素，只允许为数值或者数值类的字符串。默认为"auto"，即根据内容自适应宽度，内容越多越宽。<br/>此设置为页签头部的全局设置，当然也可以单独设置每个页签的宽度；但是需要特别注意的是<span style="color:red;">如果全局设置页签宽度为"auto"，那么请不要单独设置页签的宽度，否则会造成页签标题显示异常；同样的，如果全局设置了页签宽度为有效的数值，不如"80px"，那么不要单独设置页签的宽度为"auto"</span>。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"auto"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>height</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>此组件的整体高度（包括border和padding，单位像素），默认为auto。<br/>仅支持数字形式的字符串，比如"40" 表示40个像素；其他非法形式的字符串则被忽略。<br/>请不要设置组件的padding、margin、border等值，否则会造成布局不准确的问题。height属性不支持百分比。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"auto"</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>position</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>页签头部的位置，可为top、left、bottom，<span style="color:red;">暂不支持，目前只支持在顶部</span></p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>$('#make-tab').FTabs({position : 'left'});//页签头部在组件的左边</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>'top'</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td>width</td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>此组件的整体宽度（包括border和padding，单位象素）。<br/>支持数字形式的字符串，比如"40" 表示40个像素，字符串如"px50"、"abcpx"等其他非法形式的字符串则被忽略；width不支持百分比；请不要设置组件的padding、margin、border等值，否则会造成布局不准确的问题。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>"auto"</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+          		<!-- doc_events_begin -->
+          		<h4>事件</h4>
+          		<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+          						<td>onActive</td>
+          						<td>function(index, tabId)</td>
+          						<td>
+          							<p>当页签被选中后执行的方法。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        选中页签的索引，从0开始计数。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>tabId</b>
+		                                        选中标签的id
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onActive : function(n) {         alert('tab ' + n + ' has been activated!');     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onAdd</td>
+          						<td>function(index, tabId)</td>
+          						<td>
+          							<p>当新页签被添加之后执行的方法。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        页签的真是位置，从0开始
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>tabId</b>
+		                                        页签的Id
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onAdd : function(index, tabId) {         alert('you have added a tab at position:' + index );     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onBeforeActive</td>
+          						<td>function(index, tabId)</td>
+          						<td>
+          							<p>当页签被选中之前执行的方法，方法实现在返回false的情况下，会阻止标签页切换。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        选中页签的索引，从0开始计数。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>tabId</b>
+		                                        选中标签的id
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onBeforeActive : function(n) {         alert('tab ' + n + ' will be activated!');     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onBeforeAdd</td>
+          						<td>function(op, pos, active)</td>
+          						<td>
+          							<p>当新页签被添加之前执行的方法。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>op</b>
+		                                        add方法输入参数：添加页签的配置项
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>pos</b>
+		                                        add方法输入参数：页签添加的位置，可以通过op.pos修改
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>active</b>
+		                                        add方法输入参数：页签是否激活，可以通过op.active修改
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onBeforeAdd : function(config) {         alert('you will add a tab at position:' + config.index );     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onBeforeClose</td>
+          						<td>function(n, tabId)</td>
+          						<td>
+          							<p>当页签被关闭之前执行的方法，回调返回false，会阻止页签被关闭。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>n</b>
+		                                        被关闭页签的索引，从0开始计数
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>tabId</b>
+		                                        页签的id
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onBeforeClose : function(n, tabId) {         alert('tab ' + n + ' will be closed!');     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onBeforeCloseAllOthers</td>
+          						<td>function(n, tabId)</td>
+          						<td>
+          							<p>当关闭除指定页签外的所有页签前触发</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>n</b>
+		                                        被保留的页面索引
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>tabId</b>
+		                                        被保留的页签id
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onBeforeCloseAllOthers : function() {         alert('all other tabs will be closed !');     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onClose</td>
+          						<td>function(n, tabId)</td>
+          						<td>
+          							<p>当页签被关闭之后执行的方法。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>n</b>
+		                                        被关闭页签的索引，从0开始计数
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>tabId</b>
+		                                        页签的id；需要注意的是，此时tabId对应的DOM节点已经被删除了
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onClose : function(n, tabId) {         alert('tab ' + n + ' has been closed!');     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onCloseAllOthers</td>
+          						<td>function()</td>
+          						<td>
+          							<p>当关闭除指定页签外的所有页签后触发</p>
+          							
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onCloseAllOthers : function() {         alert('other tabs are were closed !');     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onLoadComplete</td>
+          						<td>function(index, tabId)</td>
+          						<td>
+          							<p>当页签使用ajax方式加载内容，加载完成后执行的方法。<span style="color:red;">目前不支持iframe模式下</span></p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        加载完成的页签索引
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>tabId</b>
+		                                        刚加载完成的页签的tabId
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onLoadComplete : function(index, tabId) {         alert(tabId + 'has just been loaded!' );     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onTabbarRClick</td>
+          						<td>function(e)</td>
+          						<td>
+          							<p>页签栏右键事件</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>e</b>
+		                                        jquery事件对象
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onTabbarRClick : function(e) {         alert('tabbar right-clicked!');     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onTabDblClick</td>
+          						<td>function(index, tabId)</td>
+          						<td>
+          							<p>当页签被双击时触发</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        选中页签的索引，从0开始计数。
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>tabId</b>
+		                                        选中标签的id
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre> $('#make-tab').FTabs({     onTabDblClick : function(n) {         alert('tab ' + n + ' double-clicked!');     } });</pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          			</tbody>
+          		</table>
+          	  	<!-- doc_events_end -->
+       		
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>activate</td>
+								<td>(tab)</td>
+								<td>
+									<p>选中特定的页签，触发activate事件。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>tab</b>
+		                                        如果传入的参数是数字，则表示激活页签的索引（从0开始计数），比如0，则表示激活第0个标签页；如果传入的是字符串，并且首字符是数字字符，那么截取开头的所有数字字符作为标签页索引（从0开始计数），比如"1tab"、"1"、"1Ta3"，都表示激活第1个标签页；否则，传入的字符串作为标签页的ID，比如"tab-1"，则表示激活ID为"tab-1"的标签页；如果传入的是null，如果指定的标签页不存在，则不会有任何效果
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//激活第一个页签$('#make-tab').FTabs('activate', 0);</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>add</td>
+								<td>(Object)</td>
+								<td>
+									<p>在index处增加一个tab页签，参数为json格式的配置项。配置项参数：<ol><li>op：添加的标签的相关参数：<pre>① closable - 标签是否可以通过点击close按钮关闭标签页，默认为true；② title - 标签页的title，如果没有设置，则以标签的ID作为title值③ width - 标签页的宽度，默认为"75px"④ content - 标签页的静态内容，支持HTML片段⑤ url - 指定一个url，在标签被激活的时候加载url的内容，此时忽略"content"属性，如果是有"/"或者协议头 "//:"的则直接加载，否则会自动增加当前工程名前缀。⑥ iframe - 是否采用iframe加载url，true表示采用iframe模式，否则加载内容作为html片段；如果设置了url，默认采用iframe方式加载内容；⑦ iframeName - iframe的名字，只有在iframe=true的情况下有效。  </pre></li><li>pos： 标签页添加的位置，取值范围为[0, size-1]，size为标签页的个数，低于0取0，大于size-1取size-1，如果传入的不是有效的数字(字串)，则默认添加在标签页的最后面</li><li>active：是否激活新增的标签页，false表示不激活，默认为true</li></ol></p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>Object</b>
+		                                        {closable,title,width,content,url,iframe,iframeName}
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>$("#tabs").FTabs("add", { // 在标签栏的末尾添加一个以iframe方式加载的tab页  title: "New Tab",  url: "http://www.hundsun.com",  width: 120}, "last", false);</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>closeOthers</td>
+								<td>(n)</td>
+								<td>
+									<p>关闭除特定的页签外的所有页签，所有被关闭页签的close事件都会被触发 <br/><span style="color: red;">注意：如果只有一个页签了，则不允许被关闭，就算有关闭按钮也不行！</span></p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>n</b>
+		                                        要保留页签的索引，从0开始计数，如果为指定该参数，则保留当前被选中的页签。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>// 保留第一个标签$('#make-tab').FTabs('closeOtherTabs', 0);</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>Closetab</td>
+								<td>(n)</td>
+								<td>
+									<p>关闭特定的页签，如果n指向当前页签，则会选中下一页签；如果当前页签是最末尾的页签，则会选中第一个页签。可以看到每关闭一个页签就会触发一次close事件。<br/><span style="color: red;">注意：如果只有一个页签了，则不允许被关闭，就算有关闭按钮也不行！</span></p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>n</b>
+		                                        要关闭的页签的位置（从0开始计数）。 如果未指定该参数，则默认关闭当前页签。
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//关闭第一个页签$('#make-tab').FTabs('closeTab', 0);</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getActivated</td>
+								<td>()</td>
+								<td>
+									<p>返回当前选中的页签的tabId。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//获取当前选中页签的tabIdvar activatedTabId = $('#make-tab').FTabs('getActivated');</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getAlter</td>
+								<td>(id)</td>
+								<td>
+									<p>页签索引和tabId的转换器。传入其中的一个值，获取另一个值。</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>id</b>
+		                                        标识符
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//获取第一个页签的tabIdvar tabId = $('#make-tab').FTabs('getAlter', 0);</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getTabsCount</td>
+								<td>()</td>
+								<td>
+									<p>获得所有页签的数目。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//获取页签的总数var total = $('#make-tab').FTabs('getTabCount');</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>reload</td>
+								<td>(index, url, iframe)</td>
+								<td>
+									<p>根据第n个页签当前的数据源，重新加载该页签。<br/><span style="color:red;">对于iframe模式的页签调用reload，目前支持的还不完善，请慎用。</span></p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        页签的索引
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>url</b>
+		                                        要重新加载的页面url，如果不传入，则采用原先的配置
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>iframe</b>
+		                                        是否采用iframe模式加载，如果不传入，则采用原先的配置
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>//重新加载第一个页签的内容$('#make-tab').FTabs('reload', 0);</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setSize</td>
+								<td>(w, h)</td>
+								<td>
+									<p>设置组件的高宽，组件会自动调整标签页内部toolbar的位置</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>w</b>
+		                                        组件的宽度，必须是数字或者数字类的字符串，不允许是百分比
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>h</b>
+		                                        组件的高度，必须是数字或者数字类的字符串
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setTitle</td>
+								<td>(n)</td>
+								<td>
+									<p>设置页签的title</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>n</b>
+		                                        可以是Number类型的索引，也可以是String类型的id
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

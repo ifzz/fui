@@ -1,0 +1,54 @@
+
+<h3>ComboGrid</h3>
+<p>FComboGrid功能类似与combo，下拉内容以grid的形式进行展现。</p>
+ <img src="../resource/images/comboGrid.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>FAjax</li>
+	<li>FGrid</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>当展现大量数据时，如果使用传统的FCombo组件，则在低端配置的机器或ie6浏览器下会遇到性能问题；使用FComboGrid组件，可以将数据分页展现，解决展现一次性展现大量数据的性能问题。
+	但是此组件本身的功能也受限，如果有更多的需求，可以使用其他的体验方式，比如弹出win。
+</p>
+
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>目前的实现是多实例的，每个comboGrid就会有一个grid与之对应，因此大量使用comboGrid会造成内存占用较大，并且使dom树变得复杂，从而页面性能；</li>
+		<li>此组件可视的区域优先，不太适用于列数/列数多的grid，如果使用了反而降低用户体验和性能；</li>
+		<li>comboGrid的功能仅限于combo组件的一个简单扩展，仅作数据数据展现和选择，其他业务相关的非缺陷性需求，FUI将不会受理。</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li><span style="color:red;">不建议使用此组件</span>，此组件的功能可以使用弹出win的方式替代；</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>简单使用：</p>
+<textarea name="code-combobox" class="html" style="display: none;">
+<script type="text/javascript">
+	var gridColModel1 = [
+		{title: "姓名", dataIndex: "name", width:70},
+		// ... 其他列信息
+	];
+</script>
+<f:comboGrid id="comboGrid1" valueField="id" displayField="name" dataUrl="getComboGridPageData1.fservice" colModel="gridColModel1"/>
+</textarea>
+
+<p>跨页复选，配置multiSelect为true即可：</p>
+<textarea name="code-combobox" class="html" style="display: none;">
+<script type="text/javascript">
+	var gridColModel1 = [
+		{title: "姓名", dataIndex: "name", width:80},
+		// ... 其他列信息
+	];
+</script>
+<f:comboGrid id="comboGrid1" valueField="id" displayField="name" dataUrl="getComboGridPageData1.fservice" 
+	colModel="gridColModel1" multiSelect="true"/>
+</textarea>

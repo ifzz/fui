@@ -1,0 +1,139 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		{+include("static/header.html")+}
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        {+publish.classesIndex+}
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;">{+new Link().toFile("index.html").withText("返回控件主页")+}&nbsp;|&nbsp;{+new Link().toFile("files.html").withText("返回源码主页")+}</div>
+        <!-- ============================== class overview ============================ -->
+        {!
+        	var overvicewPage="overview/"+data.alias+".html";
+        !}
+        {+include(overvicewPage)+}
+        <p>&nbsp;</p>
+        {! var ownProperties = data.properties.filter(function($){return $.memberOf == data.alias && !$.isNamespace}).sort(makeSortby("name")); !}
+        	<if test="defined(ownProperties) && ownProperties.length">
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			<for each="member" in="ownProperties">
+	        				<tr>
+	        					<td>{+member.name+}</td>
+	        					<td>{+member.type+}</td>
+	        					<td>
+	        						<p>{+member.desc+}</p>
+		        					<if test="member.example.length">
+		        						<br>
+		        						示例：
+		        						<for each="example" in="member.example">
+		        							<pre>{+example+}</pre>
+		        						</for>
+		        					</if>
+	        					</td>
+	        					<td>{+member.defaultValue+}</td>
+	        				</tr>
+	        			</for>
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            </if>
+            {! var ownEvents = data.events.filter(function($){return $.memberOf == data.alias  && !$.isNamespace}).sort(makeSortby("name")); !}
+            <if test="defined(ownEvents) && ownEvents.length">
+          		<!-- doc_events_begin -->
+          		<h4>事件</h4>
+          		<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				<for each="member" in="ownEvents">
+          					<tr>
+          						<td>{+member.name+}</td>
+          						<td>function{+makeSignature(member.params)+}</td>
+          						<td>
+          							<p>{+resolveLinks(member.desc)+}</p>
+          							<if test="member.params.length">
+		                         		参数:
+		                                <for each="item" in="member.params">
+		                                    <li>
+		                                        {+item.type+}:<b>{+item.name+}</b>
+		                                        {+item.desc +}
+		                                    </li>
+		                                </for>
+		                            </if>
+	                                <if test="member.example.length">
+	                               		示例：
+	                                    <for each="example" in="member.example">
+	                                        <pre>{+example+}</pre>
+	                                    </for>
+	                           		</if> 
+	                            
+          						</td>
+          					</tr>
+          				</for>
+          			</tbody>
+          		</table>
+          	  	<!-- doc_events_end -->
+       		</if>
+       		{! var ownMethods = data.methods.filter(function($){return $.memberOf == data.alias  && !$.isNamespace}).sort(makeSortby("name")); !}
+       		<if test="defined(ownMethods) && ownMethods.length">
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				<for each="member" in="ownMethods">
+          					<tr>
+								<td>{+member.name+}</td>
+								<td>{+makeSignature(member.params)+}</td>
+								<td>
+									<p>{+member.desc+}</p>
+									<if test="member.params.length">
+										参数:
+		                                <for each="item" in="member.params">
+		                                    <li>
+		                                        {+item.type+}:<b>{+item.name+}</b>
+		                                        {+item.desc+}
+		                                    </li>
+		                                </for>
+									</if>
+									<if test="member.example.length">
+	                               		示例：
+	                                    <for each="example" in="member.example">
+	                                        <pre>{+example+}</pre>
+	                                    </for>
+	                           		</if> 
+								</td>
+							</tr>
+          				</for>
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            </if>
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+{+include("static/foot.html")+}
+
+

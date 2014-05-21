@@ -1,0 +1,589 @@
+
+	<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="jquery,ui,easy,FUI,web framekwork,ajax framekwork,ria,web development">
+		<meta name="description" content="FUI help you build your web page more Fast!!">
+		<title>FUI Demo - JRES FUI</title>
+   		<link rel="stylesheet" href="../resource/css/doc.css" type="text/css" />
+    	<link type="text/css" rel="stylesheet" href="../resource/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+		<script src="../resource/SyntaxHighlighter/Scripts/shCore.js"></script>
+		<script src="../resource/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+		<script type="text/javascript" src="../resource/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }
+		</style>
+	</head>
+	<body>
+		<div id="header">
+						<div id="header-inner">
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td rowspan="2" style="width:20px;">
+						</td>
+						<td style="height:52px;">
+							<div style="color:#fff;font-size:22px;font-weight:bold;">
+								<a href="#" style="color:#fff;font-size:22px;font-weight:bold;text-decoration:none">JRES FUI</a>
+							</div>
+							<div style="color:#fff">
+								<a href="#" style="color:#fff;text-decoration:none">FUI 可以用来构建适用于低配置低版本浏览器下的UI，虽然简单但更加快速!</a>
+							</div>
+						</td>
+						<td style="padding-right:5px;text-align:right;vertical-align:bottom;">
+							<div id="topmenu">
+								<a href="../../index.html">主页</a>
+								<a href="http://rdc.hundsun.com/forum.php?mod=forumdisplay&amp;fid=163" target="_blank">论坛</a>
+								<a href="../../demo/index.jsp">示例</a>
+								<a href="../../documentation/index.html">文档</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- end static/header.html -->
+	<div id="mainwrap" >
+		<div id="content">
+        <!-- ============================== classes index ============================ -->
+        <script type="text/javascript">
+            $(function() {
+            	var bw=$.browser;
+				if(bw.msie&&bw.version<7||(bw.msie&&$.support.boxModel==false)){
+						//ie6
+						$("#plugin_title").hide();
+						$('#plugins').removeClass("plugins");
+						$('#plugins').addClass("plugins2");
+				}else{
+					$('#plugins').stop().animate({'marginLeft':'-115px'},1000);
+	                $('#plugins').hover(
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-2px'},200);
+	                    },
+	                    function () {
+	                        $(this).stop().animate({'marginLeft':'-115px'},200);
+	                    }
+	                );
+				}
+                
+            });
+</script>
+	<div id="plugins" class="plugins">
+	<div id="plugin_title" class="plugin_title">控件清单</div>
+	<ul>
+        
+        
+        
+        <li><a href="../symbols/FAccordion.html">FAccordion</a></li>
+        
+        <li><a href="../symbols/FAjax.html">FAjax</a></li>
+        
+        <li><a href="../symbols/FButton.html">FButton</a></li>
+        
+        <li><a href="../symbols/FButtonGroup.html">FButtonGroup</a></li>
+        
+        <li><a href="../symbols/FCalendar.html">FCalendar</a></li>
+        
+        <li><a href="../symbols/FCheckboxGroup.html">FCheckboxGroup</a></li>
+        
+        <li><a href="../symbols/FCombo.html">FCombo</a></li>
+        
+        <li><a href="../symbols/FComboGrid.html">FComboGrid</a></li>
+        
+        <li><a href="../symbols/FFieldset.html">FFieldset</a></li>
+        
+        <li><a href="../symbols/FForm.html">FForm</a></li>
+        
+        <li><a href="../symbols/FGrid.html">FGrid</a></li>
+        
+        <li><a href="../symbols/FMenu.html">FMenu</a></li>
+        
+        <li><a href="../symbols/FMessage.html">FMessage</a></li>
+        
+        <li><a href="../symbols/FNumberField.html">FNumberField</a></li>
+        
+        <li><a href="../symbols/FPanel.html">FPanel</a></li>
+        
+        <li><a href="../symbols/FTabs.html">FTabs</a></li>
+        
+        <li><a href="../symbols/FTargetSelect.html">FTargetSelect</a></li>
+        
+        <li><a href="../symbols/FTextField.html">FTextField</a></li>
+        
+        <li><a href="../symbols/FToolbar.html">FToolbar</a></li>
+        
+        <li><a href="../symbols/FTree.html">FTree</a></li>
+        
+        <li><a href="../symbols/FValidate.html">FValidate</a></li>
+        
+        <li><a href="../symbols/FWin.html">FWin</a></li>
+        
+        
+        
+	</ul>
+</div>
+        <div class="doc">
+        <div style="padding:10px">
+        <div style="text-align:right;"><a href="../index.html">返回控件主页</a>&nbsp;|&nbsp;<a href="../files.html">返回源码主页</a></div>
+        <!-- ============================== class overview ============================ -->
+        
+        
+<h3>Accordion</h3>
+<p>FAccordion是一个可折叠组件，也可被叫做手风琴组件或者抽屉组件，一次只能打开一个抽屉。</p>
+ <img src="../resource/images/accordion.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>一般用作主页面左边的导航栏的第一级菜单，内嵌tree使用
+</p>
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>不提供动态增加、删除抽屉的API；</li>
+		<li>最多同时只能打开一个抽屉，即打开一个抽屉，另一个抽屉自动被关闭；</li>
+		<li>不提供ajax装载抽屉内容的方式；</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li>虽然FAccordion提供了setSize方法改变大小，但是不建议实现为跟随浏览器窗口变化自适应布局；建议在页面首次展现时计算一次大小，后续FAccordion的高度不要跟随浏览器的高度自适应；</li>
+		<li>默认情况下，FAccordion各个抽屉包括第一次展现不显示抽屉的内容，都会在页面第一次展现时生成，内部的脚本也会执行。</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FAccordion实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:accordion>
+  <f:accordionItem title="菜单一" iconCls="f-icon-search">
+    内容一
+  </f:accordionItem>
+  <f:accordionItem title="菜单二">
+    内容二
+  </f:accordionItem>
+  <f:accordionItem title="菜单三">
+    内容三
+  </f:accordionItem>
+</f:accordion>
+</textarea>
+
+<p>内嵌树，需要特别注意的是，<span style="color:red;">内嵌树的width、height属性必须设置为"auto"</span>，否则会出现不该出现的滚动条：</p>
+<textarea name="code" class="html" style="display: none;">
+<style type="text/css">
+	/* 必须加上此样式以去掉tree的边框 */
+  #menuTree .f-tree-body {
+      border-width: 0px;
+  }
+</style>
+
+<script type="text/javascript">
+    var staticData = [
+        {"id":"10012","text":"树节点1",checked:"true","pid":"0101","children":[
+            {"id":"10012-1","text":"叶子节点1",leaf:"true","pid":"10012"}
+        ]},
+        {"id":"10013","text":"树节点2","pid":"0101"} ,
+        {"id":"10014","text":"树节点3","pid":"0101","children":[
+            {"id":"10014-1","text":"树节点1","pid":"10014","leaf":true}
+        ]},
+        {"id":"10015","text":"树节点4","pid":"0101"},
+        {"id":"10016","text":"叶子节点2","leaf":true,"pid":"0101"}
+    ];
+</script>
+
+<f:accordion id="menuTree" width="150px" height="300px">
+  <f:accordionItem title="菜单一" iconCls="f-icon-search">
+    <f:tree id="tree1" staticData="staticData" dataUrl="" rootVisible="false" height="auto" width="auto"></f:tree>
+  </f:accordionItem>
+  <f:accordionItem title="菜单二">
+  	空
+  </f:accordionItem>
+  <f:accordionItem title="菜单三">
+    空
+  </f:accordionItem>
+</f:accordion>
+</textarea>
+
+<p>响应展开和收缩事件：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+    function onActive(index) {
+    	alert("第"+index+"被激活了");
+    }
+    function onCollapse(index) {
+    	alert("第"+index+"被收起来了");
+    }
+</script>
+
+<f:accordion id="menuTree" onActive="onActive" onCollapse="onCollapse" width="150px" height="300px">
+  <f:accordionItem title="菜单一">
+    内容一
+  </f:accordionItem>
+  <f:accordionItem title="菜单二">
+  	内容二
+  </f:accordionItem>
+  <f:accordionItem title="菜单三">
+    内容三
+  </f:accordionItem>
+</f:accordion>
+</textarea>
+
+        <p>&nbsp;</p>
+        
+        	
+            	<!-- doc_options_begin -->
+	        	<h4>属性</h4>
+	        	<table class="doc-table">
+	        		<tbody>
+	        			<tr>
+	        				<th><strong>名称</strong></th>
+							<th><strong>类型</strong></th>
+							<th><strong>描述</strong></th>
+							<th><strong>默认值</strong></th>
+	        			</tr>
+	        			
+	        				<tr>
+	        					<td><ins>active</ins></td>
+	        					<td>String,Number</td>
+	        					<td>
+	        						<p>抽屉布局首次展现时，默认展开的抽屉的索引，可以为整数,也可以为抽屉的id,获取当前处于激活状态的抽屉id可用getActivated()方法。</br><ul><li>如果抽屉个数为0，则active=-1，即不打开抽屉</li><li>如果抽屉个数大于0，且active小于0(当为-1时并且collapsible!==false，则可以收起所有抽屉)，则active=0，</li><li>如果抽屉个数大于0，且active大于抽屉的个数，则active=抽屉的个数-1</li></ul></p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>0</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>height</ins></td>
+	        					<td>Number,String</td>
+	        					<td>
+	        						<p>抽屉组件的高度，可取值为'auto'（每个抽屉的高度分别由抽屉的内容决定），这也是默认值；可以取值为'fit'，表示适应父容器的大小，此时本组件必须是父容器的唯一儿子；也可以取值数字和数字类字符串，此时固定高度。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>'auto'</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>id</ins></td>
+	        					<td>String</td>
+	        					<td>
+	        						<p>标识(仅标签使用)</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre>无</pre>
+		        						
+		        					
+	        					</td>
+	        					<td>null</td>
+	        				</tr>
+	        			
+	        				<tr>
+	        					<td><ins>width</ins></td>
+	        					<td>Number,String</td>
+	        					<td>
+	        						<p>抽屉布局的高度，可取值为'auto'或者"fit"，都表示自动适应父容器的宽度；可以取值数字和数字类字符串，固定宽度。</p>
+		        					
+		        						<br>
+		        						示例：
+		        						
+		        							<pre></pre>
+		        						
+		        					
+	        					</td>
+	        					<td>'auto'</td>
+	        				</tr>
+	        			
+	        		</tbody>
+	        	</table>
+        	    <!-- doc_options_end -->
+            
+            
+            
+          		<!-- doc_events_begin -->
+          		<h4>事件</h4>
+          		<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+          						<td>onActive</td>
+          						<td>function(index)</td>
+          						<td>
+          							<p>激活一个抽屉时执行的方法</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        被激活的抽屉的索引，从0开始计数。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onBeforeActive</td>
+          						<td>function(index)</td>
+          						<td>
+          							<p>激活一个抽屉之前执行的方法。 如果返回布尔值false,那么对应抽屉将不会激活。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        被选择的抽屉的索引，从0开始计数。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onBeforeCollapse</td>
+          						<td>function(index)</td>
+          						<td>
+          							<p>收起一个抽屉前执行的方法。 如果返回布尔值false,那么对应抽屉将不会被收起。</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        被收起的抽屉的索引，从0开始计数。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          					<tr>
+          						<td>onCollapse</td>
+          						<td>function(index)</td>
+          						<td>
+          							<p>收起一个抽屉时执行的方法</p>
+          							
+		                         		参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        被收起的抽屉的索引，从0开始计数。
+		                                    </li>
+		                                
+		                            
+	                                
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+	                            
+          						</td>
+          					</tr>
+          				
+          			</tbody>
+          		</table>
+          	  	<!-- doc_events_end -->
+       		
+       		
+       		
+            	<!-- doc_methods_begin -->
+            	<h4>方法</h4>
+            	<table class="doc-table">
+          			<tbody>
+          				<tr>
+          					<th><strong>名称</strong></th>
+							<th><strong>参数</strong></th>
+							<th><strong>描述</strong></th>
+          				</tr>
+          				
+          					<tr>
+								<td>activate</td>
+								<td>(index)</td>
+								<td>
+									<p>激活指定的抽屉。index为整数或者抽屉的id。任何其它数据将会用parseInt及isNaN进行处理。 (注意，如果组件为禁用状态，执行此方法无任何效果)<ul><li>如果抽屉个数为0，则不激活任何抽屉</li><li>如果抽屉个数大于0，且index<0，则激活第一个抽屉(索引为0的那个抽屉)</li><li>如果抽屉个数大于0，且index>=抽屉的个数，则激活最后一个抽屉</li></ul></p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        要激活的抽屉的索引(从0开始)或者抽屉的id
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>destroy</td>
+								<td>()</td>
+								<td>
+									<p>销毁组件</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getActivated</td>
+								<td>()</td>
+								<td>
+									<p>获取当前处于激活状态的抽屉的id,如果抽屉总数为0或者当前没有抽屉处于激活状态，那么返回null。<br/>可以通过返回的Id获取抽屉的header和content对象。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre>var headerId= $("#accordion1").FAccordion("getActivated"); // 获取当前被激活的抽屉的IDvar headerEl = $("#"+headerId); // 获取header对象var contentEl = headerEl.next(); // 获取content对象</pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>getLength</td>
+								<td>()</td>
+								<td>
+									<p>获取抽屉的总数。</p>
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setSize</td>
+								<td>(w, h)</td>
+								<td>
+									<p>设置组件的大小</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>w</b>
+		                                        组件的宽度，支持Number/String，比如 500或者"500px"，不能传入其他的无效值
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>h</b>
+		                                        组件的高度，支持Number/String，比如 500或者"500px"，不能传入其他的无效值
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          					<tr>
+								<td>setTitle</td>
+								<td>(index, title)</td>
+								<td>
+									<p>设置指定抽屉的标题，标题内容可以为html文本</p>
+									
+										参数:
+		                                
+		                                    <li>
+		                                        :<b>index</b>
+		                                        要改变标题的抽屉的索引（从0开始计数）或者是抽屉的id
+		                                    </li>
+		                                
+		                                    <li>
+		                                        :<b>title</b>
+		                                        新的标题，内容可以为html
+		                                    </li>
+		                                
+									
+									
+	                               		示例：
+	                                    
+	                                        <pre></pre>
+	                                    
+	                           		 
+								</td>
+							</tr>
+          				
+          			</tbody>
+          		</table>
+            	<!-- doc_methods_end -->
+            
+        	
+        </div>
+        </div>
+</div>
+</div>
+<!-- ============================== footer ================================= -->
+
+		<div id="footer">
+			<div>Copyright ? 2010-2013 www.hundsun.com</div>
+		</div>
+		<script type="text/javascript">
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</body>
+</html>
+
+

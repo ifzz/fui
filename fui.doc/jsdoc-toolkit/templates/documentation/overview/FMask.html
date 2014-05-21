@@ -1,0 +1,65 @@
+
+<h3>Mask</h3>
+<p>FMask提供了一套API做容器（body、任何div等）的遮罩，阻止用户操作；</p>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>遮罩组件，用于生成遮罩层，阻止用户操作；FUI的组件grid、win等自带了此组件，一般情况下不需要使用此组件。
+</p>
+
+<h4>约束</h4>
+<ul>
+	<li>在IE6下，无法遮罩html的&lt;select&gt;标签；</li>
+	<li>被遮罩的区域如果外容器（浏览器）变大了，则会出现无法遮罩的区域；</li>
+
+</ul>
+
+<h4>注意事项</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>使用示例</h4>
+<p>遮罩某一个div：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+	$(function() {
+    var UTILS = window['$Utils'];
+    $I("maskbody20").click(function() {
+        UTILS.doMask('嘻嘻嘻嘻');
+        var unMask = function(){
+            UTILS.doUnMask();
+        };
+        setTimeout(unMask,10000);
+    });
+
+    $I("maskdiv20").click(function() {
+        $I('maskdiv').doMask('哈哈哈');
+    });
+    $I("unmaskdiv20").click(function() {
+        $I('maskdiv').doUnMask()
+    });
+	});
+</script>
+
+<button id="maskbody20">遮罩body（20s）</button>
+<button id="maskdiv20">遮罩div（20s）</button>
+<button id="unmaskdiv20">取消遮罩div（20s）</button>
+
+<div id="maskdiv" class="maskDiv">
+    <div style="width:500px;height:600px;">
+        <select >
+            <option value="111">111</option>
+            <option value="222">222</option>
+            <option value="333">333</option>
+            <option value="444">444</option>
+            <option value="555">555</option>
+        </select>
+    </div>
+
+</div>
+</textarea>

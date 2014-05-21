@@ -1,0 +1,188 @@
+/*
+* 修改日期      修改人员   修改说明
+* 2013-01-09    qudc      修改样式  .f-grid .f-grid-page-input  将  text-align:right;修改成 text-align:center;
+* 2013-02-18    qudc      修复需求：5009  ，添加样式.f-grid .f-grid-body TD  解决内容区域单元格 和列头宽度差1px的问题（列头包含1pxborder宽度）
+* 2013-02-19    qudc      修复需求：5018，1、新增样式：.f-grid .f-grid-head  2、修改样式f-grid-cell-move-right 的宽度
+* 2013-02-23    qudc      修改bug：4702   修改.f-grid .f-grid-title-inner样式，添加 ： word-wrap:normal; 解决列宽被挤变形的问题
+*/
+.f-grid {
+    border:1px solid;
+}
+.f-grid * {
+    font-size: 13px;
+    font-family: arial, tahoma, helvetica, sans-serif;
+}
+/*add by qudc 2013-02-19 解决需求5018 */
+.f-grid .f-grid-head {
+    position:relative;
+}
+
+.f-grid-body TABLE,.f-grid-head TABLE, .f-grid-page TABLE {
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+
+.f-grid .f-grid-body {
+    overflow: auto;
+}
+
+.f-grid .f-empty-div {
+    height: 2px;
+    padding: 6px;
+    display: -moz-inline-box;
+    display: inline-block;
+}
+.f-grid .f-grid-body TD {
+    padding-right: 1px ;
+}
+
+ .f-grid .f-grid-body2 TD{
+    padding: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 1px solid #ededed;
+    border-right: 1px solid #ededed;
+}
+
+.f-grid .f-grid-title-inner {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    word-wrap:normal;
+}
+
+.f-grid .f-grid-cell {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    border: 0;
+    margin: 0;
+    padding: 3px 6px ;
+    line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: top;
+}
+/*add by qudc 2013-02-19 解决需求5018  缩小拖动列的宽度，由原来的10px修改成6px*/
+.f-grid .f-grid-cell-move-right {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align: top;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    height: 24px;
+    width: 6px;
+    cursor: col-resize;
+}
+
+.f-grid .f-grid-tr-checked {
+}
+
+.f-grid .f-grid-row-number {
+    width: 24px;
+    text-align: right;
+}
+
+.f-grid .f-grid-page-bg TABLE {
+    table-layout: auto;
+    width: auto;
+}
+
+.f-grid .f-grid-page TD {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    line-height: 22px;
+    vertical-align: top;
+}
+
+.f-grid .f-grid-page-number {
+    margin-left: 2px;
+    margin-right: 4px;
+}
+
+.f-grid .f-total-count {
+    padding-right: 2px;
+}
+
+.f-grid .f-grid-checkbox-wrap {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    border: 0;
+    margin: 0;
+    padding: 3px 3px 3px 3px;
+    line-height: 18px;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: top;
+    width: 15px;
+    text-align: center;
+}
+
+
+
+.f-grid .f-grid-radio-wrap {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    border: 0;
+    margin: 0;
+    padding: 3px 3px 3px 3px;
+    line-height: 18px;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: top;
+    width: 15px;
+    text-align: center;
+}
+
+
+
+.f-grid .f-grid-row-numbertext {
+    padding: 3px 8px 0 0 !important;
+    text-align: right;
+    font-size: 9pt;
+    line-height: 16px;
+
+}
+
+.f-grid .f-grid-page-btn {
+    cursor: pointer;
+}
+
+.f-grid .f-grid-cell-wrap {
+    white-space: normal;
+}
+
+
+.f-grid .f-grid-page-input {
+    width:25px;
+    font-size:12px;
+    padding:1 px 3px ;
+    border:1px solid ;
+    height: 18px;
+    text-align:center;
+}
+//空的样式，该样式名用于方便查找组件
+.f-grid-row {
+}
+
+.f-grid .f-grid-cell-sortable {
+    cursor:pointer;
+}
+
+
+

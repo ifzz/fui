@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.PopupBox.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述: 可以弹出的容器，可以使下拉框，也可以是window
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121023		hanyin	新增
+ */
+
+/* 弹出层 */
+.f-popupbox {
+	position: absolute;
+	overflow: hidden;
+	zoom: 1;
+	/* 默认不显示 */
+	display: none;
+}

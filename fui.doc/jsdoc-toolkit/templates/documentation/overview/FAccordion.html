@@ -1,0 +1,104 @@
+
+<h3>Accordion</h3>
+<p>FAccordion是一个可折叠组件，也可被叫做手风琴组件或者抽屉组件，一次只能打开一个抽屉。</p>
+ <img src="../resource/images/accordion.png"/>
+
+<h4>依赖组件</h4>
+<ul>
+	<li>无</li>
+</ul>
+
+<h4>适用范围</h4>
+<p>一般用作主页面左边的导航栏的第一级菜单，内嵌tree使用
+</p>
+<h4>约束</h4>
+<p>
+	<ol>
+		<li>不提供动态增加、删除抽屉的API；</li>
+		<li>最多同时只能打开一个抽屉，即打开一个抽屉，另一个抽屉自动被关闭；</li>
+		<li>不提供ajax装载抽屉内容的方式；</li>
+	</ol>
+</p>
+<h4>注意事项</h4>
+<p>
+	<ol>
+		<li>虽然FAccordion提供了setSize方法改变大小，但是不建议实现为跟随浏览器窗口变化自适应布局；建议在页面首次展现时计算一次大小，后续FAccordion的高度不要跟随浏览器的高度自适应；</li>
+		<li>默认情况下，FAccordion各个抽屉包括第一次展现不显示抽屉的内容，都会在页面第一次展现时生成，内部的脚本也会执行。</li>
+	</ol>
+</p>
+
+<h4>使用示例</h4>
+<p>基于Jsp标签创建FAccordion实例：</p>
+<textarea name="code" class="html" style="display: none;">
+<f:accordion>
+  <f:accordionItem title="菜单一" iconCls="f-icon-search">
+    内容一
+  </f:accordionItem>
+  <f:accordionItem title="菜单二">
+    内容二
+  </f:accordionItem>
+  <f:accordionItem title="菜单三">
+    内容三
+  </f:accordionItem>
+</f:accordion>
+</textarea>
+
+<p>内嵌树，需要特别注意的是，<span style="color:red;">内嵌树的width、height属性必须设置为"auto"</span>，否则会出现不该出现的滚动条：</p>
+<textarea name="code" class="html" style="display: none;">
+<style type="text/css">
+	/* 必须加上此样式以去掉tree的边框 */
+  #menuTree .f-tree-body {
+      border-width: 0px;
+  }
+</style>
+
+<script type="text/javascript">
+    var staticData = [
+        {"id":"10012","text":"树节点1",checked:"true","pid":"0101","children":[
+            {"id":"10012-1","text":"叶子节点1",leaf:"true","pid":"10012"}
+        ]},
+        {"id":"10013","text":"树节点2","pid":"0101"} ,
+        {"id":"10014","text":"树节点3","pid":"0101","children":[
+            {"id":"10014-1","text":"树节点1","pid":"10014","leaf":true}
+        ]},
+        {"id":"10015","text":"树节点4","pid":"0101"},
+        {"id":"10016","text":"叶子节点2","leaf":true,"pid":"0101"}
+    ];
+</script>
+
+<f:accordion id="menuTree" width="150px" height="300px">
+  <f:accordionItem title="菜单一" iconCls="f-icon-search">
+    <f:tree id="tree1" staticData="staticData" dataUrl="" rootVisible="false" height="auto" width="auto"></f:tree>
+  </f:accordionItem>
+  <f:accordionItem title="菜单二">
+  	空
+  </f:accordionItem>
+  <f:accordionItem title="菜单三">
+    空
+  </f:accordionItem>
+</f:accordion>
+</textarea>
+
+<p>响应展开和收缩事件：</p>
+<textarea name="code" class="html" style="display: none;">
+<script type="text/javascript">
+    function onActive(index) {
+    	alert("第"+index+"被激活了");
+    }
+    function onCollapse(index) {
+    	alert("第"+index+"被收起来了");
+    }
+</script>
+
+<f:accordion id="menuTree" onActive="onActive" onCollapse="onCollapse" width="150px" height="300px">
+  <f:accordionItem title="菜单一">
+    内容一
+  </f:accordionItem>
+  <f:accordionItem title="菜单二">
+  	内容二
+  </f:accordionItem>
+  <f:accordionItem title="菜单三">
+    内容三
+  </f:accordionItem>
+</f:accordion>
+</textarea>

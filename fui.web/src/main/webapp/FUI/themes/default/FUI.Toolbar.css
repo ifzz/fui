@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Toolbar.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 面板css
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121113		hanyin	 删除toolbar的f-tool-cell的padding设置
+ */
+
+.f-toolbar {
+	/* 背景 */
+	background-color: #D4E1F2;
+	/* 盒子模型 */
+	width: auto;
+}
+
+/* 20121113 hanyin 删除toolbar的f-tool-cell的padding设置 */
+/*
+.f-toolGroup.f-toolbar .f-tool-cell {
+	padding: 3px;
+}
+*/
+
+.f-new-toolbar {
+	font: 12px arial,sans-serif;
+	text-align: left;
+	padding: 0px;
+	padding-top: 1px;
+	padding-left: 2px;
+	margin: 0px;
+	border: 0px;
+	border-top: 1px solid #99BCE8;
+	background: #D7E4F3;
+	width: auto;
+	height: 28px;
+}

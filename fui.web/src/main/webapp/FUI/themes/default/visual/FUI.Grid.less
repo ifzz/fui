@@ -1,0 +1,260 @@
+ /*
+* 修改日期      修改人员   修改说明
+* 2013-02-19    qudc      修复需求5018， grid列支持可拖动，新增样式#grid-move-line
+*/
+.f-grid {
+    border-color:#99BCE8;
+}
+
+.f-grid .f-grid-head, .f-grid .f-grid-body {
+    border: 1px;
+    background-color: white;
+    color: #300016;
+}
+
+.f-grid .f-grid-border {
+    border: 1px solid #a6c3eb;
+}
+
+
+
+.f-grid .f-grid-head {
+    overflow: hidden;
+    background: url("@{base-url}/fgrid/grid-bg.png") 0px -69px repeat-x;
+}
+
+
+
+.f-grid-head TH , .f-grid-body TH {
+    border: 0;
+    margin: 0;
+    padding: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 1px solid #d0d0d0;
+    border-bottom: 0px;
+    height: 24px;
+    overflow: hidden;
+}
+
+
+#f-grid-move-proxy {
+    position: absolute;
+    width: 1px;
+    z-index: 10000;
+    background-color: #808080;
+    cursor: col-resize;
+}
+
+
+
+
+.f-grid .f-grid-tr-even {
+    background-color: #f6f6f6;
+}
+
+.f-grid .f-grid-tr-odd {
+     background-color: #ffffff;
+}
+.f-grid .f-grid-tr-checked {
+    background-color: #d6e8f5;
+}
+
+
+
+
+.f-grid .f-grid-page-bg {
+    height: 22px;
+    padding: 2px;
+    border-top: 1px solid #a6c3eb;
+    background: url("@{base-url}/fgrid/grid-bg.png") 0px 0px repeat-x;
+    zoom: 1;
+}
+
+
+
+
+.f-grid .f-grid-page-split {
+    margin: 5px 2px 0px 2px;
+    width: 4px;
+    height: 13px;
+    display: -moz-inline-box;
+    display: inline-block;
+    background: url("@{base-url}/fgrid/grid-bg.png") 0px -56px no-repeat;
+    vertical-align: top;
+}
+
+
+.f-grid .f-grid-loading-img {
+    margin-top: 3px;
+    padding: 0;
+    border: 0;
+    width: 16px;
+    height: 16px;
+    display: -moz-inline-box;
+    display: inline-block;
+    background: url("@{base-url}/fgrid/loading.gif") no-repeat;
+    vertical-align: top;
+}
+
+
+.f-grid .f-grid-page-button {
+    padding: 0;
+    border: 0;
+    width: 22px;
+    height: 22px;
+    display: -moz-inline-box;
+    display: inline-block;
+    background: url("@{base-url}/fgrid/grid-pagebar.gif") no-repeat;
+}
+
+.f-grid .f-grid-page-first {
+    background-position: -44px 0px;
+}
+
+.f-grid .f-grid-page-first-hover {
+    background-position: -22px 0px;
+}
+
+.f-grid .f-grid-page-first-disabled {
+    background-position: 0px 0px;
+}
+
+.f-grid .f-grid-page-first-active {
+    background-position: -66px 0px;
+}
+
+.f-grid .f-grid-page-prev {
+    background-position: -44px -22px;
+}
+
+.f-grid .f-grid-page-prev-hover {
+    background-position: -22px -22px;
+}
+
+.f-grid .f-grid-page-prev-disabled {
+    background-position: 0px -22px;
+}
+
+.f-grid .f-grid-page-prev-active {
+    background-position: -66px -22px;
+}
+
+.f-grid .f-grid-page-next {
+    background-position: -44px -44px;
+}
+
+.f-grid .f-grid-page-next-hover {
+    background-position: -22px -44px;
+}
+
+.f-grid .f-grid-page-next-disabled {
+    background-position: 0px -44px;
+}
+
+.f-grid .f-grid-page-next-active {
+    background-position: -66px -44px;
+}
+
+.f-grid .f-grid-page-last {
+    background-position: -44px -66px;
+}
+
+.f-grid .f-grid-page-last-hover {
+    background-position: -22px -66px;
+}
+
+.f-grid .f-grid-page-last-disabled {
+    background-position: 0px -66px;
+}
+
+.f-grid .f-grid-page-last-active {
+    background-position: -66px -66px;
+}
+
+.f-grid .f-grid-page-refresh {
+    background-position: -44px -88px;
+}
+
+.f-grid .f-grid-page-refresh-hover {
+    background-position: -22px -88px;
+}
+
+.f-grid .f-grid-page-refresh-disabled {
+    background-position: 0px -88px;
+}
+
+.f-grid .f-grid-page-refresh-active {
+    background-position: -66px -88px;
+}
+
+
+
+.f-grid .f-grid-checkbox {
+    padding: 0;
+    border: 0;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align: top;
+    width: 13px;
+    height: 13px;
+    margin: auto auto;
+    background: url("@{base-url}/fgrid/checkbox.gif") no-repeat 0px 0px;
+}
+
+.f-grid .f-grid-checkbox-checked {
+    background-position: 0px -13px;
+}
+
+
+
+.f-grid .f-grid-radio {
+    padding: 0;
+    border: 0;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align: top;
+    width: 13px;
+    height: 13px;
+    margin: auto auto;
+    background: url("@{base-url}/fgrid/radio.gif") no-repeat 0px 0px;
+}
+
+.f-grid .f-grid-radio-checked {
+    background-position: 0px -13px;
+}
+
+.f-grid .f-grid-row-numberbg {
+    background-image : url("@{base-url}/fgrid/grid3-special-col-bg.gif");
+    width:24px;
+}
+
+.f-grid .f-grid-page-input {
+    border-color: #B5B8C8;
+    background-color: white;
+    background-image: url("@{base-url}/form/text-bg.gif");
+    border-color: #B5B8C8;
+
+}
+
+
+
+.f-grid-cell-span-desc .f-grid-cell-span-text {
+    background: url("@{base-url}/fgrid/sort_desc.gif") no-repeat scroll right 6px transparent;
+    padding-right: 16px;
+}
+
+.f-grid-cell-span-asc .f-grid-cell-span-text {
+    background: url("@{base-url}/fgrid/sort_asc.gif") no-repeat scroll right 6px transparent;
+    padding-right: 16px;
+}
+/*add by qudc 2013-02-19 解决需求5018 */
+#grid-move-line {
+    position: absolute;
+    width: 1px;
+    z-index: 10000;
+    background-color: #808080;
+    cursor: col-resize;
+}

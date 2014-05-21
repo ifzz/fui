@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+/**
+ * 版本：1.0.0.1
+ * 系统名称: FUI
+ * 模块名称: JRES
+ * 文件名称: FUI.Date.css 
+ * 作者：hanyin
+ * 邮箱：hanyin@hundsun.com
+ * 软件版权: 恒生电子股份有限公司
+ * 功能描述： 日期组件的样式
+ * 修改记录:
+ * 修改日期         修改人员         修改说明
+ * 20121114		hanyin	 创建
+ */
+
+.f-form-date-trigger {
+	background-image: url('images/fcalendar/date-trigger.gif');
+}
+
+.f-form-date-icon {
+	background-image: url('images/fcalendar/date-icon.gif');
+}
