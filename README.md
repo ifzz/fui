@@ -54,4 +54,7 @@ FUI目前支持的组件清单
 抽屉（FAccordion）<br/>
 标签页（FTabs）<br/>
 控件集（FFieldset）<br/>
+## FUI在线文档
+[FUI组件在线API DOC](http://rdc.hundsun.com:9032/fui/documentation/index.html)
 
+[FUI组件在线DEMO](http://rdc.hundsun.com:9032/fui/demo/index.jsp)
