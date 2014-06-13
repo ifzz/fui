@@ -24,4 +24,34 @@ fui的jsp tag方式使用支持包。
 ### fui.web
 fui的静态资源文件和模板资源文件，包含js\css\img\ftl等等。
 
+FUI目前支持的组件清单
+---
+![组件](http://rdc.hundsun.com:9032/fui/resource/images/fui.png)
+
+### 表单组件
+表单（FForm）<br/>
+文本输入（FTextField）<br/>
+数字输入（FNumberField）<br/>
+下拉输入（FCombo）<br/>
+目标选择（FTargetSelect）<br/>
+日历（FCalendar）<br/>
+### 按钮与菜单
+按钮（FButton）<br/>
+菜单（FMenu）<br/>
+工具栏（FToolbar）<br/>
+按钮组（FButtonGroup）<br/>
+选择框组（FCheckboxGroup）<br/>
+### 窗口
+弹出窗口（FWin）<br/>
+消息框（FMessage）<br/>
+### 辅助
+验证（FValidate）<br/>
+异步交互（FAjax）<br/>
+### 数据展示
+表格（FGrid）<br/>
+树（FTree）<br/>
+### 容器
+抽屉（FAccordion）<br/>
+标签页（FTabs）<br/>
+控件集（FFieldset）<br/>
 
